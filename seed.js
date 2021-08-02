@@ -1,4 +1,4 @@
-const product = [
+const products = [
   {
     name: 'BBQ Ribs',
     description: 'Tender, fall off the bone ribs, smoked to perfection',
@@ -24,7 +24,8 @@ const product = [
   },
   {
     name: 'Orange Chicken',
-    description: 'Fake Chinese Food',
+    description:
+      'Boneless fried chicken, cut into bite sized pieces and fried with a special sauce',
     price: 10,
     quantity: 13,
     imgUrl:
