@@ -8,14 +8,14 @@ const Order = require('./models/Order');
 const Category = require('./models/Category');
 //associations could go here!
 
-User.belongsToMany(Order);
+User.belongsToMany(Order, { through: 'user_orders' });
 Order.belongsTo(User);
 
 Order.belongsToMany(Product, { through: 'product_orders' });
 Product.belongsToMany(Order, { through: 'product_orders' });
 
 Product.belongsTo(Category);
-Category.belongsToMany(Product);
+Category.belongsToMany(Product, { through: 'product_categories' });
 
 module.exports = {
   db,
