@@ -38,6 +38,11 @@ const User = db.define('user', {
   cart: {
     type: Sequelize.ARRAY(Sequelize.TEXT),
   },
+  username: {
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: false,
+  },
 });
 
 module.exports = User;
@@ -87,8 +92,9 @@ User.findByToken = async function (token) {
  */
 const hashPassword = async (user) => {
   //in case the password has been changed, we want to encrypt it with bcrypt
+  const newUserPassword = user.password.toString();
   if (user.changed('password')) {
-    user.password = await bcrypt.hash(user.password, SALT_ROUNDS);
+    user.password = await bcrypt.hash(newUserPassword, SALT_ROUNDS);
   }
 };
 
