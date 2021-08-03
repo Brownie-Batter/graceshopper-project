@@ -23,7 +23,7 @@ export const getAllProducts = () => {
 export default function productsReducer(state = [], action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
-      return action.products;
+      return action.allProducts;
     default:
       return state;
   }
