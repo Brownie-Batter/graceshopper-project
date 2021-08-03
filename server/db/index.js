@@ -15,7 +15,7 @@ Order.belongsToMany(Product, { through: 'product_orders' });
 Product.belongsToMany(Order, { through: 'product_orders' });
 
 Product.belongsTo(Category);
-Category.belongsToMany(Product);
+Category.belongsToMany(Product, { through: 'product_categories' });
 
 module.exports = {
   db,
