@@ -24,6 +24,7 @@ function AllProducts(props) {
   });
 
   const classes = useStyles();
+
   useEffect(() => {
     props.getProducts();
   }, []);
@@ -32,15 +33,7 @@ function AllProducts(props) {
     <div className="food-container">
       {props.products.length ? (
         props.products.map(
-          ({
-            id,
-            name,
-
-            price,
-            quantity,
-            imgUrl,
-            category: { category_name },
-          }) => {
+          ({ id, name, price, imgUrl, category: { category_name } }) => {
             return (
               <Card className={classes.root} key={id}>
                 <CardActionArea>
@@ -69,7 +62,6 @@ function AllProducts(props) {
                     </Typography>
                   </CardContent>
                 </CardActionArea>
-
                 <CardActions>
                   <Button size="small" color="primary">
                     Add to Cart
@@ -94,73 +86,6 @@ function AllProducts(props) {
     </div>
   );
 }
-// class AllProducts extends React.Component {
-//   constructor(props) {
-//     super(props);
-//   }
-//   componentDidMount() {
-//     this.props.getProducts();
-//   }
-//   render() {
-//     const classes = useStyles();
-//     return (
-//       <div>
-//         {this.props.products.length ? (
-//           this.props.products.map(
-//             ({ id, name, description, price, quantity, imgUrl }) => {
-//               return (
-//                 <Card className={classes.root} key={id}>
-//                   <CardActionArea>
-//                     <CardMedia
-//                       className={classes.media}
-//                       image={imgUrl}
-//                       title={name}
-//                     />
-//                     <CardContent>
-//                       <Typography gutterBottom variant="h5" component="h2">
-//                         {name}
-//                       </Typography>
-//                       <Typography
-//                         variant="body2"
-//                         color="textSecondary"
-//                         component="p">
-//                         {description}
-//                       </Typography>
-//                       <Typography
-//                         variant="body2"
-//                         color="textSecondary"
-//                         component="p">
-//                         Price: ${price}
-//                       </Typography>
-//                       <Typography
-//                         variant="body2"
-//                         color="textSecondary"
-//                         component="p">
-//                         Quantity: {quantity}
-//                       </Typography>
-//                     </CardContent>
-//                   </CardActionArea>
-//                   <CardActions>
-//                     <Button size="small" color="primary">
-//                       Add to Cart
-//                     </Button>
-//                     <Button size="small" color="primary">
-//                       Learn More
-//                     </Button>
-//                   </CardActions>
-//                 </Card>
-//               );
-//             }
-//           )
-//         ) : (
-//           <div>
-//             <h3>Loading...</h3>
-//           </div>
-//         )}
-//       </div>
-//     );
-//   }
-// }
 
 const mapStateToProps = (state) => {
   return { products: state.allProducts };
