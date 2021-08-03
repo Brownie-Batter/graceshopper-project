@@ -15,7 +15,7 @@ const Product = db.define('product', {
       isFloat: true,
     },
   },
-  stock: {
+  quantity: {
     type: Sequelize.INTEGER,
     validate: {
       isInt: true,

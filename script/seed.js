@@ -319,25 +319,26 @@ async function seed() {
     await Promise.all(
       indianFood.map(async (product) => {
         let newProduct = await Product.create(product);
-        return newProduct.addCategory(indian);
+        // console.log(Object.keys(newProduct.__proto__));
+        return newProduct.setCategory(indian);
       })
     );
     await Promise.all(
       barbequeFood.map(async (product) => {
         let newProduct = await Product.create(product);
-        return newProduct.addCategory(barbeque);
+        return newProduct.setCategory(barbeque);
       })
     );
     await Promise.all(
       japaneseFood.map(async (product) => {
         let newProduct = await Product.create(product);
-        return newProduct.addCategory(japanese);
+        return newProduct.setCategory(japanese);
       })
     );
     await Promise.all(
       thaiFood.map(async (product) => {
         let newProduct = await Product.create(product);
-        return newProduct.addCategory(thai);
+        return newProduct.setCategory(thai);
       })
     );
   } catch (error) {
