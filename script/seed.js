@@ -303,6 +303,54 @@ const thaiFood = [
  *      match the models, and populates the database.
  */
 
+for (let i = 0; i < 50; i++) {
+  let randomFoodNum = Math.floor(Math.random() * 100);
+  let randomPrice = (Math.random() * 10).toFixed(2);
+  let food = {
+    name: `indian-food${i}`,
+    description: 'cooked with indian spices',
+    price: randomPrice,
+    quantity: randomFoodNum,
+  };
+  indianFood.push(food);
+}
+
+for (let i = 0; i < 50; i++) {
+  let randomFoodNum = Math.floor(Math.random() * 100);
+  let randomPrice = (Math.random() * 10).toFixed(2);
+  let food = {
+    name: `barbeque-food${i}`,
+    description: 'cooked with barbeque spices',
+    price: randomPrice,
+    quantity: randomFoodNum,
+  };
+  barbequeFood.push(food);
+}
+
+for (let i = 0; i < 50; i++) {
+  let randomFoodNum = Math.floor(Math.random() * 100);
+  let randomPrice = (Math.random() * 10).toFixed(2);
+  let food = {
+    name: `japanese-food${i}`,
+    description: 'cooked with japanese spices',
+    price: randomPrice,
+    quantity: randomFoodNum,
+  };
+  japaneseFood.push(food);
+}
+
+for (let i = 0; i < 50; i++) {
+  let randomFoodNum = Math.floor(Math.random() * 100);
+  let randomPrice = (Math.random() * 10).toFixed(2);
+  let food = {
+    name: `thai-food${i}`,
+    description: 'cooked with thai spices',
+    price: randomPrice,
+    quantity: randomFoodNum,
+  };
+  thaiFood.push(food);
+}
+
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log('db synced!');
