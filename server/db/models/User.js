@@ -38,6 +38,11 @@ const User = db.define('user', {
   cart: {
     type: Sequelize.ARRAY(Sequelize.TEXT),
   },
+  username: {
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: false,
+  },
 });
 
 module.exports = User;
