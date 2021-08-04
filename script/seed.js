@@ -13,7 +13,7 @@ const users = [
     address: '201 Huntington Way, Boise, ID, 60597',
     isAdmin: true,
     email: 'james@gmail.com',
-    username: 'JBond',
+    username: 'jbond',
   },
   {
     first_name: 'Mike',
@@ -21,8 +21,8 @@ const users = [
     password: 123,
     address: '205 Bear Way, Boise, ID, 60597',
     isAdmin: false,
-    email: 'mikeIshi@gmail.com',
-    username: 'MIshikawa',
+    email: 'mikeishi@gmail.com',
+    username: 'mishikawa',
   },
   {
     first_name: 'Jessica',
@@ -30,8 +30,8 @@ const users = [
     password: 123,
     address: '345 Oracle Lane, Atlanta, GA, 60597',
     isAdmin: false,
-    email: 'Jess@gmail.com',
-    username: 'JLynn',
+    email: 'jess@gmail.com',
+    username: 'jlynn',
   },
   {
     first_name: 'Andrew',
@@ -39,8 +39,8 @@ const users = [
     password: 123,
     address: '576 Freedom Drive, Boise, ID, 60597',
     isAdmin: false,
-    email: 'aLuck@gmail.com',
-    username: 'ALuck',
+    email: 'aluck@gmail.com',
+    username: 'aluck',
   },
   {
     first_name: 'Michael',
@@ -48,8 +48,8 @@ const users = [
     password: 123,
     address: '569 Stone Drive, Coopertown, NY, 56732',
     isAdmin: true,
-    email: 'MJ@gmail.com',
-    username: 'MJordan',
+    email: 'mj@gmail.com',
+    username: 'mjordan',
   },
   {
     first_name: 'Josie',
@@ -58,7 +58,7 @@ const users = [
     address: '713 Fuji Lane, Pensacola, FL, 98065',
     isAdmin: false,
     email: 'josie@gmail.com',
-    username: 'JWang',
+    username: 'jwang',
   },
   {
     first_name: 'Alex',
@@ -66,8 +66,8 @@ const users = [
     password: 123,
     address: '900 Fuji Lane, Treasure Island, FL, 98065',
     isAdmin: false,
-    email: 'Alex@gmail.com',
-    username: 'ATrebek',
+    email: 'alex@gmail.com',
+    username: 'atrebek',
   },
   {
     first_name: 'Tina',
@@ -75,8 +75,8 @@ const users = [
     password: 123,
     address: '569 Stone Drive, Coopertown, NY, 56732',
     isAdmin: true,
-    email: 'M@gmail.com',
-    username: 'TYoung',
+    email: 'm@gmail.com',
+    username: 'tyoung',
   },
   {
     first_name: 'Sally',
@@ -84,271 +84,174 @@ const users = [
     password: 123,
     address: '900 Fuji Lane, Treasure Island, FL, 98065',
     isAdmin: false,
-    email: 'Sally@gmail.com',
-    username: 'SJones',
+    email: 'sally@gmail.com',
+    username: 'sjones',
   },
 ];
 
 const indianFood = [
   {
     name: 'Briyani',
-    description: 'Mixed rice dish made with spices, rice and assorted meats',
+    description:
+      'Biryani is a mixed rice dish originating among the Muslims of the Indian subcontinent. It is made with Indian spices, rice, and meat usually that of chicken, goat, lamb, prawn, fish, and sometimes, in addition, eggs or vegetables such as potatoes in certain regional varieties.',
     price: 8,
-    quantity: 32,
-    imgUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Biryani_Home.jpg/440px-Biryani_Home.jpg',
+    quantity: 19,
+    imgUrl: '/images/biryani.jpeg',
   },
 
   {
-    name: 'Samsosa',
-    description: 'Baked pastry filled with spiced potatoes and vegetables',
+    name: 'Samosa',
+    description:
+      'A samosa is a South Asian fried or baked pastry with a savory filling like spiced potatoes, onions, peas, chicken and other meats, or lentils. It may take different forms, including triangular, cone, or half-moon shapes, depending on the region.',
     price: 5,
     quantity: 25,
-    imgUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Samosachutney.jpg/560px-Samosachutney.jpg',
+    imgUrl: '/images/samosa.jpeg',
   },
   {
-    name: 'Butter Chicken',
-    description: 'Curry of chicken in a spiced tomato, butter and cream sauce',
+    name: 'Tikki Masala',
+    description:
+      'Chicken tikka masala is a dish consisting of roasted marinated chicken chunks in spiced curry sauce. The curry is usually creamy and orange-coloured. The dish was popularized by cooks from South Asia living in Great Britain.',
     price: 18,
-    quantity: 6,
-    imgUrl:
-      'https://www.theendlessmeal.com/wp-content/uploads/2020/05/Easy-Butter-Chicken-3.jpg',
+    quantity: 9,
+    imgUrl: '/images/tikki.jpeg',
   },
 ];
 
 const barbequeFood = [
   {
     name: 'BBQ Ribs',
-    description: 'Tender, fall off the bone ribs, smoked to perfection',
+    description:
+      'Tender, fall off the bone ribs, smoked to perfection. MURICA!',
     price: 19,
-    quantity: 26,
-    imgUrl:
-      'https://bigoven-res.cloudinary.com/image/upload/h_320,w_320,c_fill/terrys-bbq-ribs-fdaa5a.jpg',
+    quantity: 24,
+    imgUrl: '/images/ribs.jpeg',
   },
   {
     name: 'Smoked Brisket',
     description: 'Smoked for hours, covered in sea salt and spices',
     price: 14,
     quantity: 12,
-    imgUrl:
-      'https://bigoven-res.cloudinary.com/image/upload/h_320,w_320,c_fill/crockpot-beef-brisket-97c3cd.jpg',
+    imgUrl: '/images/brisket.jpeg',
   },
   {
     name: 'Pulled Pork Sandwich',
     description: 'Sauced pulled pork between a brioche bun',
-    price: 8,
+    price: 17,
     quantity: 20,
-    imgUrl: 'http://hapanom.com/slow-cooker-korean-pulled-pork-sandwich/',
+    imgUrl: '/images/pulled-pork.jpeg',
   },
 ];
 const japaneseFood = [
   {
-    name: 'Sushi',
-    description: 'Variety of fish/vegetables wrapped in seaweed and rice',
-    price: 22,
+    name: 'Otoro',
+    description:
+      'Otoro is the belly cut of the highly prized Bluefin Tuna featuring intense fat marbling resulting in a rich, melt-in-your-mouth buttery flavor and tenderness not found with any other fish.',
+    price: 100,
     quantity: 8,
-    imgUrl:
-      'https://i8b2m3d9.stackpathcdn.com/wp-content/uploads/2019/07/Take-away-sushi-rolls_3781NM.jpg',
+    imgUrl: '/images/otoro.jpeg',
   },
 
   {
     name: 'Unagi',
-    description: 'Grilled Eel',
+    description: 'Grilled Eel.',
     price: 14,
     quantity: 26,
-    imgUrl: 'https://www.japan-guide.com/g17/2344_11.jpg',
+    imgUrl: '/images/unagi.jpeg',
   },
 
   {
-    name: 'Natto',
-    description: 'Fermented Soy beans',
-    price: 3,
+    name: 'Ramen',
+    description: 'Ramen. Just, ramen.',
+    price: 20,
     quantity: 56,
-    imgUrl: 'http://justhungry.com/files/images/natto-stickysticky.jpg',
+    imgUrl: '/images/ramen.jpeg',
+  },
+  {
+    name: 'A5 Wagyu',
+    description:
+      'Wagyu beef—you know, the transcendently tender, fatty, umami-rich steak—has become as synonymous with luxury as caviar or black truffles. But no matter how many Michelin-starred menus this delicacy graces, all of the facts about Wagyu steak still tend to elude even the most seasoned diners.',
+    price: 200,
+    quantity: 13,
+    imgUrl: '/images/a5.jpeg',
   },
 ];
 const thaiFood = [
   {
     name: 'Orange Chicken',
     description:
-      'Boneless fried chicken, cut into bite sized pieces and fried with a special sauce',
+      'Boneless fried chicken, cut into bite sized pieces and fried with a special sauce.',
     price: 10,
     quantity: 13,
-    imgUrl:
-      'https://bigoven-res.cloudinary.com/image/upload/h_320,w_320,c_fill/orange-chicken-for-diabetics-3.jpg',
+    imgUrl: '/images/oj.jpeg',
   },
   {
     name: 'Beef Fried Rice',
-    description: 'Savory flank steak, fried rice with vegetables',
+    description: 'Savory flank steak, fried rice with vegetables.',
     price: 16,
     quantity: 5,
-    imgUrl:
-      'https://thebakersalmanac.com/wp-content/uploads/2021/04/Beef-fried-rice-close-up.jpg',
+    imgUrl: '/images/beef-rice.jpeg',
   },
   {
-    name: 'Lotus Leaf Wraps',
-    description: 'Sticky Rice with vegetables wrapped in a lotus leaf',
+    name: 'Pad Thai',
+    description:
+      'Pad thai, or phad thai, is a stir-fried rice noodle dish commonly served as a street food and at most restaurants in Thailand as part of the countrys cuisine. It is typically made with rice noodles, chicken, beef or tofu, peanuts, a scrambled egg, and bean sprouts, among other vegetables.',
     price: 6,
     quantity: 11,
-    imgUrl:
-      'http://www.thedailymeal.com/cantonese-sticky-rice-wrapped-lotus-leaves',
+    imgUrl: '/images/pad-thai.jpeg',
   },
 ];
-
-// const products = [
-//   {
-//     name: 'BBQ Ribs',
-//     description: 'Tender, fall off the bone ribs, smoked to perfection',
-//     price: 19,
-//     quantity: 26,
-//     imgUrl:
-//       'https://bigoven-res.cloudinary.com/image/upload/h_320,w_320,c_fill/terrys-bbq-ribs-fdaa5a.jpg',
-//   },
-//   {
-//     name: 'Smoked Brisket',
-//     description: 'Smoked for hours, covered in sea salt and spices',
-//     price: 14,
-//     quantity: 12,
-//     imgUrl:
-//       'https://bigoven-res.cloudinary.com/image/upload/h_320,w_320,c_fill/crockpot-beef-brisket-97c3cd.jpg',
-//   },
-//   {
-//     name: 'Pulled Pork Sandwich',
-//     description: 'Sauced pulled pork between a brioche bun',
-//     price: 8,
-//     quantity: 20,
-//     imgUrl: 'http://hapanom.com/slow-cooker-korean-pulled-pork-sandwich/',
-//   },
-//   {
-//     name: 'Orange Chicken',
-//     description:
-//       'Boneless fried chicken, cut into bite sized pieces and fried with a special sauce',
-//     price: 10,
-//     quantity: 13,
-//     imgUrl:
-//       'https://bigoven-res.cloudinary.com/image/upload/h_320,w_320,c_fill/orange-chicken-for-diabetics-3.jpg',
-//   },
-//   {
-//     name: 'Beef Fried Rice',
-//     description: 'Savory flank steak, fried rice with vegetables',
-//     price: 16,
-//     quantity: 5,
-//     imgUrl:
-//       'https://thebakersalmanac.com/wp-content/uploads/2021/04/Beef-fried-rice-close-up.jpg',
-//   },
-//   {
-//     name: 'Lotus Leaf Wraps',
-//     description: 'Sticky Rice with vegetables wrapped in a lotus leaf',
-//     price: 6,
-//     quantity: 11,
-//     imgUrl:
-//       'http://www.thedailymeal.com/cantonese-sticky-rice-wrapped-lotus-leaves',
-//   },
-
-//   {
-//     name: 'Sushi',
-//     description: 'Variety of fish/vegetables wrapped in seaweed and rice',
-//     price: 22,
-//     quantity: 8,
-//     imgUrl:
-//       'https://i8b2m3d9.stackpathcdn.com/wp-content/uploads/2019/07/Take-away-sushi-rolls_3781NM.jpg',
-//   },
-
-//   {
-//     name: 'Unagi',
-//     description: 'Grilled Eel',
-//     price: 14,
-//     quantity: 26,
-//     imgUrl: 'https://www.japan-guide.com/g17/2344_11.jpg',
-//   },
-
-//   {
-//     name: 'Natto',
-//     description: 'Fermented Soy beans',
-//     price: 3,
-//     quantity: 56,
-//     imgUrl: 'http://justhungry.com/files/images/natto-stickysticky.jpg',
-//   },
-
-//   {
-//     name: 'Briyani',
-//     description: 'Mixed rice dish made with spices, rice and assorted meats',
-//     price: 8,
-//     quantity: 32,
-//     imgUrl:
-//       'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Biryani_Home.jpg/440px-Biryani_Home.jpg',
-//   },
-
-//   {
-//     name: 'Samsosa',
-//     description: 'Baked pastry filled with spiced potatoes and vegetables',
-//     price: 5,
-//     quantity: 25,
-//     imgUrl:
-//       'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Samosachutney.jpg/560px-Samosachutney.jpg',
-//   },
-//   {
-//     name: 'Butter Chicken',
-//     description: 'Curry of chicken in a spiced tomato, butter and cream sauce',
-//     price: 18,
-//     quantity: 6,
-//     imgUrl:
-//       'https://www.theendlessmeal.com/wp-content/uploads/2020/05/Easy-Butter-Chicken-3.jpg',
-//   },
-// ];
 
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
  */
 
-for (let i = 0; i < 50; i++) {
-  let randomFoodNum = Math.floor(Math.random() * 100);
-  let randomPrice = (Math.random() * 10).toFixed(2);
-  let food = {
-    name: `indian-food${i}`,
-    description: 'cooked with indian spices',
-    price: randomPrice,
-    quantity: randomFoodNum,
-  };
-  indianFood.push(food);
-}
+let i = 200;
 
-for (let i = 0; i < 50; i++) {
-  let randomFoodNum = Math.floor(Math.random() * 100);
-  let randomPrice = (Math.random() * 10).toFixed(2);
-  let food = {
-    name: `barbeque-food${i}`,
-    description: 'cooked with barbeque spices',
-    price: randomPrice,
-    quantity: randomFoodNum,
-  };
-  barbequeFood.push(food);
-}
+while (i >= 0) {
+  let randomFoodNum = Math.floor(Math.random() * 300);
+  let randomPrice = Math.random() * 30 + 10;
+  randomPrice = randomPrice.toFixed(2);
 
-for (let i = 0; i < 50; i++) {
-  let randomFoodNum = Math.floor(Math.random() * 100);
-  let randomPrice = (Math.random() * 10).toFixed(2);
-  let food = {
-    name: `japanese-food${i}`,
-    description: 'cooked with japanese spices',
-    price: randomPrice,
-    quantity: randomFoodNum,
-  };
-  japaneseFood.push(food);
-}
+  if (i > 150) {
+    let food = {
+      name: `Indian Food ${randomFoodNum}`,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum turpis eu ultricies vestibulum. Nullam nec mi ex. In hac habitasse platea dictumst. Aliquam augue lorem, euismod nec nisl a, consequat pulvinar urna. Proin eu urna mattis, rutrum nisi et, feugiat justo. Nullam lobortis, leo non aliquet tempus, justo libero blandit ipsum, in lacinia massa ligula in dolor. Nullam vitae auctor sem, at fringilla est. Mauris sed ipsum justo. In a turpis felis. Integer aliquam ante quis gravida ultrices. Aliquam erat volutpat.',
+      price: randomPrice,
+      quantity: Math.floor(Math.random() * 25),
+    };
+    indianFood.push(food);
+  } else if (i > 100) {
+    let food = {
+      name: `BBQ - ${randomFoodNum}`,
+      description:
+        'Donec vel molestie massa, quis convallis metus. Nam nec erat non diam semper lobortis. Proin gravida vulputate scelerisque. Duis sit amet lacus quis libero mattis euismod viverra non turpis. Praesent volutpat et mauris vel mattis. Quisque turpis arcu, pulvinar eu metus ut, venenatis dapibus risus. Nam sapien mi, euismod eget rhoncus eu, accumsan sed ex. Fusce et sem ac lacus faucibus congue eu eu justo. Pellentesque cursus, nisl nec gravida condimentum, lorem sem cursus leo, ut cursus magna risus in ante. In sagittis imperdiet malesuada. Maecenas orci est, euismod nec dignissim et, pulvinar nec nunc. Nullam feugiat, orci et bibendum consectetur, nisl nisl pharetra ligula, et faucibus massa justo eget nisl. Integer malesuada libero vel magna blandit pharetra vitae at lacus. Morbi diam nibh, tincidunt gravida diam id, mollis tincidunt libero. Pellentesque eu lobortis enim. Vivamus aliquam orci quis lorem efficitur, et blandit sem ultricies.',
+      price: randomPrice,
+      quantity: Math.floor(Math.random() * 25),
+    };
+    barbequeFood.push(food);
+  } else if (i > 50) {
+    let food = {
+      name: `Japanese Food - ${randomFoodNum}`,
+      description:
+        'Donec vulputate eros eu diam pretium tincidunt. Nunc tempor iaculis mollis. Curabitur sollicitudin pellentesque est, id tincidunt mauris mollis lacinia. Vivamus eget orci cursus, lobortis nulla eu, posuere dui. Aliquam erat volutpat. Ut ac maximus neque. Sed malesuada mauris lectus. Morbi nec bibendum lorem. Phasellus at arcu nec est feugiat efficitur a rutrum massa. Curabitur quis scelerisque ligula, a congue nisi. Pellentesque feugiat leo sit amet auctor venenatis. Sed lobortis gravida tellus quis dictum. Etiam viverra, sem ut tincidunt posuere, massa eros mollis dolor, ut tristique massa purus ac est. Suspendisse porta aliquam orci, quis aliquet quam sodales id.',
+      price: randomPrice,
+      quantity: Math.floor(Math.random() * 100),
+    };
+    japaneseFood.push(food);
+  } else {
+    let food = {
+      name: `Thai Food - ${randomFoodNum}`,
+      description:
+        'Aenean sagittis scelerisque viverra. Morbi maximus libero eget iaculis ultricies. Aenean finibus justo lectus. Donec condimentum, ligula eget fermentum venenatis, quam libero iaculis mauris, quis dictum metus tortor et risus. Donec viverra massa sed mauris tempus, eget facilisis massa dignissim. Sed dapibus nisl eu nisl molestie, et fringilla metus iaculis. Suspendisse potenti. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam at consectetur felis, et vehicula lacus. Donec accumsan laoreet sapien eu auctor. Etiam ligula dolor, ullamcorper eget quam vel, pulvinar consectetur risus.',
+      price: randomPrice,
+      quantity: Math.floor(Math.random() * 25),
+    };
+    thaiFood.push(food);
+  }
 
-for (let i = 0; i < 50; i++) {
-  let randomFoodNum = Math.floor(Math.random() * 100);
-  let randomPrice = (Math.random() * 10).toFixed(2);
-  let food = {
-    name: `thai-food${i}`,
-    description: 'cooked with thai spices',
-    price: randomPrice,
-    quantity: randomFoodNum,
-  };
-  thaiFood.push(food);
+  i--;
 }
 
 async function seed() {
@@ -368,7 +271,6 @@ async function seed() {
     await Promise.all(
       indianFood.map(async (product) => {
         let newProduct = await Product.create(product);
-        // console.log(Object.keys(newProduct.__proto__));
         return newProduct.setCategory(indian);
       })
     );
