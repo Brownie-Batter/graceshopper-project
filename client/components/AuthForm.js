@@ -32,18 +32,19 @@ const AuthForm = (props) => {
     },
   }));
   const handleChange = (e) => {
+    //change state based on input box values
     let userForm = { ...user };
     userForm[e.target.name] = e.target.value;
     setUser(userForm);
   };
   const handleCheck = (e) => {
+    //check if admin box is checked or unchecked
     let userForm = { ...user };
     if (e.target.checked) {
       userForm[e.target.name] = true;
     } else {
       userForm[e.target.name] = false;
     }
-
     setUser(userForm);
   };
   const classes = useStyles();

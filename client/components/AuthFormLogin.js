@@ -47,17 +47,6 @@ const AuthFormLogin = (props) => {
   const classes = useStyles();
   return (
     <div>
-      {/* <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      /> */}
       <form
         onSubmit={(evt) => handleSubmit(evt, user)}
         name={name}
