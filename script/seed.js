@@ -210,8 +210,7 @@ let i = 200;
 
 while (i >= 0) {
   let randomFoodNum = Math.floor(Math.random() * 300);
-  let randomPrice = Math.random() * 30 + 10;
-  randomPrice = randomPrice.toFixed(2);
+  let randomPrice = Math.floor(Math.random() * 30) + 10;
 
   if (i > 150) {
     let food = {

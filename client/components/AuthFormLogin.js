@@ -4,13 +4,15 @@ import { authenticate } from '../store';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 /**
  * COMPONENT
  */
 const AuthFormLogin = (props) => {
   const [user, setUser] = useState({ username: '', password: '' });
-  const { name, displayName, handleSubmit, error } = props;
+  const { name, displayName, authenticate, error } = props;
   const useStyles = makeStyles((theme) => ({
     root: {
       '& > *': {
@@ -25,9 +27,37 @@ const AuthFormLogin = (props) => {
     userForm[e.target.name] = e.target.value;
     setUser(userForm);
   };
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    try {
+      authenticate(user, 'login');
+      toast.success(`Welcome, ${user.username}`, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const classes = useStyles();
   return (
     <div>
+      {/* <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      /> */}
       <form
         onSubmit={(evt) => handleSubmit(evt, user)}
         name={name}
@@ -58,7 +88,12 @@ const AuthFormLogin = (props) => {
             justifyContent: 'flex-end',
           }}
         >
-          <Button type="submit" variant="contained" color="primary">
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={!user.username || !user.password}
+          >
             {displayName}
           </Button>
         </div>
@@ -85,11 +120,12 @@ const mapLogin = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleSubmit(evt, user) {
-      evt.preventDefault();
-      const formName = evt.target.name;
-      dispatch(authenticate(user, formName));
-    },
+    authenticate: (user, formName) => dispatch(authenticate(user, formName)),
+
+    // handleSubmit(evt, user) {
+    //   evt.preventDefault();
+    //   const formName = evt.target.name;
+    //   dispatch(authenticate(user, formName));
   };
 };
 

@@ -57,6 +57,7 @@ const AuthForm = (props) => {
       >
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <TextField
+            required
             id="standard-basic"
             label="Username"
             name="username"
@@ -64,6 +65,7 @@ const AuthForm = (props) => {
             onChange={handleChange}
           />
           <TextField
+            required
             id="standard-basic"
             label="Password"
             name="password"
@@ -73,6 +75,7 @@ const AuthForm = (props) => {
           />
         </div>
         <TextField
+          required
           id="standard-basic"
           label="Email address"
           name="email"
@@ -81,6 +84,7 @@ const AuthForm = (props) => {
         />
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <TextField
+            required
             id="standard-basic"
             label="First name"
             name="first_name"
@@ -88,6 +92,7 @@ const AuthForm = (props) => {
             onChange={handleChange}
           />
           <TextField
+            required
             id="standard-basic"
             label="Last name"
             name="last_name"
@@ -96,6 +101,7 @@ const AuthForm = (props) => {
           />
         </div>
         <TextField
+          required
           id="standard-basic"
           label="Address"
           name="address"

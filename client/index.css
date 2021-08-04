@@ -1,0 +1,39 @@
+body {
+  font-family: sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+label {
+  display: block;
+}
+
+nav a {
+  display: inline-block;
+  margin: 1em;
+}
+
+form div {
+  margin: 1em;
+  display: inline-block;
+}
+
+.food-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.single-food {
+  justify-content: center;
+  text-align: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.sign-up-form {
+  display: flex;
+  flex-direction: column;
+}
