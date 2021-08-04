@@ -7,15 +7,8 @@ import TextField from '@material-ui/core/TextField';
 /**
  * COMPONENT
  */
-const AuthForm = (props) => {
-  const [user, setUser] = useState({
-    username: '',
-    password: '',
-    first_name: '',
-    last_name: '',
-    address: '',
-    email: '',
-  });
+const AuthFormLogin = (props) => {
+  const [user, setUser] = useState({ username: '', password: '' });
   const { name, displayName, handleSubmit, error } = props;
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -39,47 +32,32 @@ const AuthForm = (props) => {
         className={classes.root}
         autoComplete="off"
       >
+        {/* <div>
+          <label htmlFor="username">
+            <small>Username</small>
+          </label>
+          <input name="username" type="text" />
+        </div>
+        <div>
+          <label htmlFor="password">
+            <small>Password</small>
+          </label>
+          <input name="password" type="password" />
+        </div> */}
+
         <TextField
           id="standard-basic"
           label="Username"
           name="username"
-          defaultValue={user.username}
+          value={user.username}
           onChange={handleChange}
         />
         <TextField
           id="standard-basic"
           label="Password"
           name="password"
+          value={user.password}
           type="password"
-          defaultValue={user.password}
-          onChange={handleChange}
-        />
-        <TextField
-          id="standard-basic"
-          label="Email address"
-          name="email"
-          defaultValue={user.email}
-          onChange={handleChange}
-        />
-        <TextField
-          id="standard-basic"
-          label="First name"
-          name="first_name"
-          defaultValue={user.first_name}
-          onChange={handleChange}
-        />
-        <TextField
-          id="standard-basic"
-          label="Last name"
-          name="last_name"
-          defaultValue={user.last_name}
-          onChange={handleChange}
-        />
-        <TextField
-          id="standard-basic"
-          label="Address"
-          name="address"
-          defaultValue={user.address}
           onChange={handleChange}
         />
 
@@ -99,23 +77,22 @@ const AuthForm = (props) => {
  *   function, and share the same Component. This is a good example of how we
  *   can stay DRY with interfaces that are very similar to each other!
  */
-
-const mapSignup = (state) => {
+const mapLogin = (state) => {
   return {
-    name: 'signup',
-    displayName: 'Sign Up',
+    name: 'login',
+    displayName: 'Login',
     error: state.auth.error,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    handleSubmit(evt, newUser) {
+    handleSubmit(evt, user) {
       evt.preventDefault();
-      const formName = 'signup';
-      dispatch(authenticate(newUser, formName));
+      const formName = evt.target.name;
+      dispatch(authenticate(user, formName));
     },
   };
 };
 
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm);
+export const Login = connect(mapLogin, mapDispatch)(AuthFormLogin);
