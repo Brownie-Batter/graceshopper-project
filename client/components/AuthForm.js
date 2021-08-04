@@ -18,7 +18,6 @@ const AuthForm = (props) => {
     last_name: '',
     address: '',
     email: '',
-    isAdmin: false,
   });
   const { name, displayName, handleSubmit, error } = props;
   const useStyles = makeStyles((theme) => ({
@@ -37,16 +36,16 @@ const AuthForm = (props) => {
     userForm[e.target.name] = e.target.value;
     setUser(userForm);
   };
-  const handleCheck = (e) => {
-    //check if admin box is checked or unchecked
-    let userForm = { ...user };
-    if (e.target.checked) {
-      userForm[e.target.name] = true;
-    } else {
-      userForm[e.target.name] = false;
-    }
-    setUser(userForm);
-  };
+  // const handleCheck = (e) => {
+  //   //check if admin box is checked or unchecked
+  //   let userForm = { ...user };
+  //   if (e.target.checked) {
+  //     userForm[e.target.name] = true;
+  //   } else {
+  //     userForm[e.target.name] = false;
+  //   }
+  //   setUser(userForm);
+  // };
   const classes = useStyles();
   return (
     <div className="sign-up-form">
@@ -116,7 +115,7 @@ const AuthForm = (props) => {
             justifyContent: 'space-evenly',
           }}
         >
-          <FormControlLabel
+          {/* <FormControlLabel
             control={
               <Checkbox
                 defaultValue={user.isAdmin}
@@ -125,7 +124,7 @@ const AuthForm = (props) => {
               />
             }
             label="Admin"
-          />
+          /> */}
           <div>
             <Button variant="contained" color="primary" type="submit">
               {displayName}
