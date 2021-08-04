@@ -11,6 +11,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+
 function AllProducts(props) {
   const useStyles = makeStyles({
     root: {
