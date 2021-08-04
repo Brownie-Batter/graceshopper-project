@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { authenticate } from '../store';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
 
 /**
  * COMPONENT
@@ -15,6 +16,7 @@ const AuthForm = (props) => {
     last_name: '',
     address: '',
     email: '',
+    isAdmin: false,
   });
   const { name, displayName, handleSubmit, error } = props;
   const useStyles = makeStyles((theme) => ({
@@ -28,6 +30,16 @@ const AuthForm = (props) => {
   const handleChange = (e) => {
     let userForm = { ...user };
     userForm[e.target.name] = e.target.value;
+    setUser(userForm);
+  };
+  const handleCheck = (e) => {
+    let userForm = { ...user };
+    if (e.target.checked) {
+      userForm[e.target.name] = true;
+    } else {
+      userForm[e.target.name] = false;
+    }
+
     setUser(userForm);
   };
   const classes = useStyles();
@@ -82,7 +94,12 @@ const AuthForm = (props) => {
           defaultValue={user.address}
           onChange={handleChange}
         />
-
+        <Checkbox
+          defaultValue={user.isAdmin}
+          label="Admin"
+          name="isAdmin"
+          onChange={handleCheck}
+        />
         <div>
           <button type="submit">{displayName}</button>
         </div>
