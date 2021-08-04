@@ -4,6 +4,8 @@ import { authenticate } from '../store';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Button from '@material-ui/core/Button';
 
 /**
  * COMPONENT
@@ -23,7 +25,9 @@ const AuthForm = (props) => {
     root: {
       '& > *': {
         margin: theme.spacing(1),
-        width: '25ch',
+        width: '50ch',
+        display: 'flex',
+        flexDirection: 'column',
       },
     },
   }));
@@ -44,28 +48,30 @@ const AuthForm = (props) => {
   };
   const classes = useStyles();
   return (
-    <div>
+    <div className="sign-up-form">
       <form
         onSubmit={(evt) => handleSubmit(evt, user)}
         name={name}
         className={classes.root}
         autoComplete="off"
       >
-        <TextField
-          id="standard-basic"
-          label="Username"
-          name="username"
-          defaultValue={user.username}
-          onChange={handleChange}
-        />
-        <TextField
-          id="standard-basic"
-          label="Password"
-          name="password"
-          type="password"
-          defaultValue={user.password}
-          onChange={handleChange}
-        />
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <TextField
+            id="standard-basic"
+            label="Username"
+            name="username"
+            defaultValue={user.username}
+            onChange={handleChange}
+          />
+          <TextField
+            id="standard-basic"
+            label="Password"
+            name="password"
+            type="password"
+            defaultValue={user.password}
+            onChange={handleChange}
+          />
+        </div>
         <TextField
           id="standard-basic"
           label="Email address"
@@ -73,20 +79,22 @@ const AuthForm = (props) => {
           defaultValue={user.email}
           onChange={handleChange}
         />
-        <TextField
-          id="standard-basic"
-          label="First name"
-          name="first_name"
-          defaultValue={user.first_name}
-          onChange={handleChange}
-        />
-        <TextField
-          id="standard-basic"
-          label="Last name"
-          name="last_name"
-          defaultValue={user.last_name}
-          onChange={handleChange}
-        />
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <TextField
+            id="standard-basic"
+            label="First name"
+            name="first_name"
+            defaultValue={user.first_name}
+            onChange={handleChange}
+          />
+          <TextField
+            id="standard-basic"
+            label="Last name"
+            name="last_name"
+            defaultValue={user.last_name}
+            onChange={handleChange}
+          />
+        </div>
         <TextField
           id="standard-basic"
           label="Address"
@@ -94,14 +102,28 @@ const AuthForm = (props) => {
           defaultValue={user.address}
           onChange={handleChange}
         />
-        <Checkbox
-          defaultValue={user.isAdmin}
-          label="Admin"
-          name="isAdmin"
-          onChange={handleCheck}
-        />
-        <div>
-          <button type="submit">{displayName}</button>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-evenly',
+          }}
+        >
+          <FormControlLabel
+            control={
+              <Checkbox
+                defaultValue={user.isAdmin}
+                name="isAdmin"
+                onChange={handleCheck}
+              />
+            }
+            label="Admin"
+          />
+          <div>
+            <Button variant="contained" color="primary" type="submit">
+              {displayName}
+            </Button>
+          </div>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>

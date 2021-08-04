@@ -32,3 +32,8 @@ form div {
   height: 100vh;
   width: 100vw;
 }
+
+.sign-up-form {
+  display: flex;
+  flex-direction: column;
+}

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { authenticate } from '../store';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 /**
  * COMPONENT
@@ -14,7 +15,8 @@ const AuthFormLogin = (props) => {
     root: {
       '& > *': {
         margin: theme.spacing(1),
-        width: '25ch',
+        width: '50ch',
+        display: 'flex',
       },
     },
   }));
@@ -32,37 +34,33 @@ const AuthFormLogin = (props) => {
         className={classes.root}
         autoComplete="off"
       >
-        {/* <div>
-          <label htmlFor="username">
-            <small>Username</small>
-          </label>
-          <input name="username" type="text" />
+        <div style={{ display: 'flex' }}>
+          <TextField
+            id="standard-basic"
+            label="Username"
+            name="username"
+            value={user.username}
+            onChange={handleChange}
+          />
+          <TextField
+            id="standard-basic"
+            label="Password"
+            name="password"
+            value={user.password}
+            type="password"
+            onChange={handleChange}
+          />
         </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div> */}
-
-        <TextField
-          id="standard-basic"
-          label="Username"
-          name="username"
-          value={user.username}
-          onChange={handleChange}
-        />
-        <TextField
-          id="standard-basic"
-          label="Password"
-          name="password"
-          value={user.password}
-          type="password"
-          onChange={handleChange}
-        />
-
-        <div>
-          <button type="submit">{displayName}</button>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <Button type="submit" variant="contained" color="primary">
+            {displayName}
+          </Button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
