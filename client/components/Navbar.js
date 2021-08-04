@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
-
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
     <h1>Brownie Batter Core Food Store</h1>
@@ -15,6 +15,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+          <Link to={`/cart`}><ShoppingCartIcon></ShoppingCartIcon></Link>
         </div>
       ) : (
         <div>
