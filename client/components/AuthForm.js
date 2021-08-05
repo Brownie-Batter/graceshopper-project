@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { authenticate } from '../store';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 
 /**
@@ -19,7 +17,8 @@ const AuthForm = (props) => {
     address: '',
     email: '',
   });
-  const { name, displayName, handleSubmit, error } = props;
+  const { handleSubmit } = props;
+
   const useStyles = makeStyles((theme) => ({
     root: {
       '& > *': {
@@ -30,35 +29,25 @@ const AuthForm = (props) => {
       },
     },
   }));
+
   const handleChange = (e) => {
-    //change state based on input box values
     let userForm = { ...user };
     userForm[e.target.name] = e.target.value;
     setUser(userForm);
   };
-  // const handleCheck = (e) => {
-  //   //check if admin box is checked or unchecked
-  //   let userForm = { ...user };
-  //   if (e.target.checked) {
-  //     userForm[e.target.name] = true;
-  //   } else {
-  //     userForm[e.target.name] = false;
-  //   }
-  //   setUser(userForm);
-  // };
+
   const classes = useStyles();
+
   return (
     <div className="sign-up-form">
       <form
         onSubmit={(evt) => handleSubmit(evt, user)}
-        name={name}
+        name="signup"
         className={classes.root}
-        autoComplete="off"
-      >
+        autoComplete="off">
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <TextField
             required
-            id="standard-basic"
             label="Username"
             name="username"
             defaultValue={user.username}
@@ -66,7 +55,6 @@ const AuthForm = (props) => {
           />
           <TextField
             required
-            id="standard-basic"
             label="Password"
             name="password"
             type="password"
@@ -76,7 +64,6 @@ const AuthForm = (props) => {
         </div>
         <TextField
           required
-          id="standard-basic"
           label="Email address"
           name="email"
           defaultValue={user.email}
@@ -85,7 +72,6 @@ const AuthForm = (props) => {
         <div style={{ display: 'flex', flexDirection: 'row' }}>
           <TextField
             required
-            id="standard-basic"
             label="First name"
             name="first_name"
             defaultValue={user.first_name}
@@ -93,7 +79,6 @@ const AuthForm = (props) => {
           />
           <TextField
             required
-            id="standard-basic"
             label="Last name"
             name="last_name"
             defaultValue={user.last_name}
@@ -102,7 +87,6 @@ const AuthForm = (props) => {
         </div>
         <TextField
           required
-          id="standard-basic"
           label="Address"
           name="address"
           defaultValue={user.address}
@@ -113,54 +97,25 @@ const AuthForm = (props) => {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-evenly',
-          }}
-        >
-          {/* <FormControlLabel
-            control={
-              <Checkbox
-                defaultValue={user.isAdmin}
-                name="isAdmin"
-                onChange={handleCheck}
-              />
-            }
-            label="Admin"
-          /> */}
+          }}>
           <div>
             <Button variant="contained" color="primary" type="submit">
-              {displayName}
+              Sign Up
             </Button>
           </div>
         </div>
-        {error && error.response && <div> {error.response.data} </div>}
       </form>
     </div>
   );
-};
-
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
-
-const mapSignup = (state) => {
-  return {
-    name: 'signup',
-    displayName: 'Sign Up',
-    error: state.auth.error,
-  };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     handleSubmit(evt, newUser) {
       evt.preventDefault();
-      const formName = 'signup';
-      dispatch(authenticate(newUser, formName));
+      dispatch(authenticate(newUser, 'signup'));
     },
   };
 };
 
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm);
+export const Signup = connect(null, mapDispatch)(AuthForm);
