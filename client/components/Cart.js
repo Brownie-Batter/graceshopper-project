@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
+import { fetchCart } from "../store/cart";
 // import brisket from '../../public/images/brisket.jpeg';
 
   //dummy data usercart
@@ -20,7 +21,7 @@ import Form from 'react-bootstrap/Form';
 //need to pull product into the card after is added, pull item quantity
 
 //pull userid
-export default class Cart extends React.Component {
+export class Cart extends React.Component {
   
     constructor(props) {
         super(props);
@@ -30,9 +31,15 @@ export default class Cart extends React.Component {
             price: 0,
         }
     }
+    componentDidMount() {
+        const id = parseInt(this.props.match.params.userId, 10);
+        this.props.fetchCart(id);
+      }
     render () {
-        // console.log('&&&&',dummyCart)
+        console.log('&&&&',this.props)
+        const {userCart} =this.props
         return(
+          
         <div>
         <Card style={{ width: "18rem" }}>
           <Card.Img variant="top" />
@@ -66,3 +73,14 @@ export default class Cart extends React.Component {
         </div>
         )}
 }
+
+const mapState = (state) => ({
+    cart: state.cart,
+  
+  });
+  const mapDispatch = (dispatch) => ({
+    fetchCart: (id) => dispatch(fetchCart(id)),
+ 
+  });
+
+  export default connect(mapState,mapDispatch)(Cart);
