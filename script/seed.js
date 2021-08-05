@@ -14,7 +14,6 @@ const users = [
     isAdmin: true,
     email: 'james@gmail.com',
     username: 'jbond',
-    cart: [1, 2, 3],
   },
   {
     first_name: 'Mike',
@@ -24,40 +23,6 @@ const users = [
     isAdmin: false,
     email: 'mikeishi@gmail.com',
     username: 'mishikawa',
-    cart: [
-      {
-        name: 'Otoro',
-        description:
-          'Otoro is the belly cut of the highly prized Bluefin Tuna featuring intense fat marbling resulting in a rich, melt-in-your-mouth buttery flavor and tenderness not found with any other fish.',
-        price: 100,
-        quantity: 8,
-        imgUrl: '/images/otoro.jpeg',
-      },
-
-      {
-        name: 'Unagi',
-        description: 'Grilled Eel.',
-        price: 14,
-        quantity: 26,
-        imgUrl: '/images/unagi.jpeg',
-      },
-
-      {
-        name: 'Ramen',
-        description: 'Ramen. Just, ramen.',
-        price: 20,
-        quantity: 56,
-        imgUrl: '/images/ramen.jpeg',
-      },
-      {
-        name: 'A5 Wagyu',
-        description:
-          'Wagyu beef—you know, the transcendently tender, fatty, umami-rich steak—has become as synonymous with luxury as caviar or black truffles. But no matter how many Michelin-starred menus this delicacy graces, all of the facts about Wagyu steak still tend to elude even the most seasoned diners.',
-        price: 200,
-        quantity: 13,
-        imgUrl: '/images/a5.jpeg',
-      },
-    ],
   },
   {
     first_name: 'Jessica',
@@ -76,30 +41,6 @@ const users = [
     isAdmin: false,
     email: 'aluck@gmail.com',
     username: 'aluck',
-    cart: [
-      {
-        name: 'BBQ Ribs',
-        description:
-          'Tender, fall off the bone ribs, smoked to perfection. MURICA!',
-        price: 19,
-        quantity: 24,
-        imgUrl: '/images/ribs.jpeg',
-      },
-      {
-        name: 'Smoked Brisket',
-        description: 'Smoked for hours, covered in sea salt and spices',
-        price: 14,
-        quantity: 12,
-        imgUrl: '/images/brisket.jpeg',
-      },
-      {
-        name: 'Pulled Pork Sandwich',
-        description: 'Sauced pulled pork between a brioche bun',
-        price: 17,
-        quantity: 20,
-        imgUrl: '/images/pulled-pork.jpeg',
-      },
-    ],
   },
   {
     first_name: 'Michael',
@@ -109,33 +50,6 @@ const users = [
     isAdmin: true,
     email: 'mj@gmail.com',
     username: 'mjordan',
-    cart: [
-      {
-        name: 'Briyani',
-        description:
-          'Biryani is a mixed rice dish originating among the Muslims of the Indian subcontinent. It is made with Indian spices, rice, and meat usually that of chicken, goat, lamb, prawn, fish, and sometimes, in addition, eggs or vegetables such as potatoes in certain regional varieties.',
-        price: 8,
-        quantity: 19,
-        imgUrl: '/images/biryani.jpeg',
-      },
-
-      {
-        name: 'Samosa',
-        description:
-          'A samosa is a South Asian fried or baked pastry with a savory filling like spiced potatoes, onions, peas, chicken and other meats, or lentils. It may take different forms, including triangular, cone, or half-moon shapes, depending on the region.',
-        price: 5,
-        quantity: 25,
-        imgUrl: '/images/samosa.jpeg',
-      },
-      {
-        name: 'Tikki Masala',
-        description:
-          'Chicken tikka masala is a dish consisting of roasted marinated chicken chunks in spiced curry sauce. The curry is usually creamy and orange-coloured. The dish was popularized by cooks from South Asia living in Great Britain.',
-        price: 18,
-        quantity: 9,
-        imgUrl: '/images/tikki.jpeg',
-      },
-    ],
   },
   {
     first_name: 'Josie',
@@ -154,30 +68,6 @@ const users = [
     isAdmin: false,
     email: 'alex@gmail.com',
     username: 'atrebek',
-    cart: [
-      {
-        name: 'BBQ Ribs',
-        description:
-          'Tender, fall off the bone ribs, smoked to perfection. MURICA!',
-        price: 19,
-        quantity: 24,
-        imgUrl: '/images/ribs.jpeg',
-      },
-      {
-        name: 'Smoked Brisket',
-        description: 'Smoked for hours, covered in sea salt and spices',
-        price: 14,
-        quantity: 12,
-        imgUrl: '/images/brisket.jpeg',
-      },
-      {
-        name: 'Pulled Pork Sandwich',
-        description: 'Sauced pulled pork between a brioche bun',
-        price: 17,
-        quantity: 20,
-        imgUrl: '/images/pulled-pork.jpeg',
-      },
-    ],
   },
   {
     first_name: 'Tina',
@@ -401,6 +291,19 @@ async function seed() {
         return newProduct.setCategory(thai);
       })
     );
+    //seed users
+    // await Promise.all(
+    //   users.map(async (user) => {
+    //     const newUser = await User.create(user);
+    //     if (user.username === 'jbond') {
+    //       console.log(Object.keys(newUser.__proto__));
+    //       await newUser.addProducts([1, 2, 3]);
+    //     } else if (user.username === 'mjordan') {
+    //       await newUser.addProducts([4, 5, 6, 7, 8, 9]);
+    //     }
+    //     return newUser;
+    //   })
+    // );
   } catch (error) {
     console.log(error);
   }

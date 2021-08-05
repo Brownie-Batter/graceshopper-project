@@ -35,10 +35,6 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
-  cart: {
-    type: Sequelize.ARRAY(Sequelize.TEXT),
-    defaultValue: [],
-  },
   username: {
     type: Sequelize.STRING,
     unique: true,
@@ -99,6 +95,14 @@ const hashPassword = async (user) => {
     user.password = await bcrypt.hash(newUserPassword, SALT_ROUNDS);
   }
 };
+
+// User.afterCreate(async (user, options) => {
+//   const cart = await Cart.create();
+//   console.log(Object.keys(user.__proto__));
+//   //console.log('cart', cart);
+//   await user.setCart(cart);
+//   await cart.setUser(user);
+// });
 
 User.beforeCreate(hashPassword);
 User.beforeUpdate(hashPassword);

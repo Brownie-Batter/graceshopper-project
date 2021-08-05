@@ -39,18 +39,22 @@ export class Cart extends React.Component {
     return (
       <div>
         {cart.map((product) => {
-          <Card style={{ width: '18rem' }}>
-            <Card.Body>
-              <Card.Title>{product.name}</Card.Title>
-            </Card.Body>
-          </Card>;
+          return (
+            <Card style={{ width: '18rem' }}>
+              <Card.Body>
+                <Card.Title>{product.name}</Card.Title>
+                <Card.Text>{product.price}</Card.Text>
+                <Button>Remove from cart</Button>
+              </Card.Body>
+            </Card>
+          );
         })}
-        <Card style={{ width: '18rem' }}>
+        {/* <Card style={{ width: '18rem' }}>
           <Card.Img variant="top" />
           <Card.Body>
-            <Card.Title>{dummyCart.product}</Card.Title>
+             <Card.Title>{dummyCart.product}</Card.Title>
             <Card.Text> {dummyCart.quantity}</Card.Text>
-            {/* <Form.Group>
+             <Form.Group>
               <Form.Label>{dummyCart.quantity}</Form.Label>
               <input
                 value={dummyCart.quantity}
@@ -59,15 +63,15 @@ export class Cart extends React.Component {
                 min="1"
                 max="100"
               />
-            </Form.Group> */}
-            <Card.Text> {dummyCart.price}</Card.Text>
+            </Form.Group>
+             <Card.Text> {dummyCart.price}</Card.Text>
             <Button>Proceed to Checkout</Button>
             <Card.Text>
               <Button>Delete Cart</Button>
             </Card.Text>
             <Card.Text></Card.Text>
           </Card.Body>
-        </Card>
+        </Card> */}
       </div>
     );
   }

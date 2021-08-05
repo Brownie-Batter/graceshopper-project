@@ -14,11 +14,21 @@ export const fetchCart = (id) => async (dispatch) => {
   try {
     const { data } = await axios.get(`/api/users/${id}/cart`);
     console.log('thunk', data);
-    dispatch(set_cart(data.cart));
+    dispatch(set_cart(data));
   } catch (error) {
     console.error(error);
   }
 };
+
+//add to cart
+// export const addToCart = (id,productId) => async (dispatch) => {
+//     try{
+//         const updated = await axios.put(`/api/users/${id}/cart/${productId}`)
+
+//     }catch(error){
+//         console.error(error)
+//     }
+// }
 //store
 
 export default function cartReducer(state = [], payload) {
