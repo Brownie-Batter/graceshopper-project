@@ -14,6 +14,7 @@ const users = [
     isAdmin: true,
     email: 'james@gmail.com',
     username: 'jbond',
+    isAdmin: true,
   },
   {
     first_name: 'Mike',

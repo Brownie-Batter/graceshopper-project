@@ -33,7 +33,8 @@
     "pg": "^8.5.1",
     "react-bootstrap": "^2.0.0-beta.4",
     "react-toastify": "^7.0.4",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "validator": "^13.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
