@@ -1,5 +1,7 @@
 import axios from 'axios';
 import history from '../history';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const TOKEN = 'token';
 
@@ -34,8 +36,25 @@ export const authenticate = (user, method) => async (dispatch) => {
     const res = await axios.post(`/auth/${method}`, user);
     window.localStorage.setItem(TOKEN, res.data.token);
     dispatch(me());
+    toast.success(`Welcome, ${user.username}`, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   } catch (authError) {
-    return dispatch(setAuth({ error: authError }));
+    toast.error(`${authError.response.data}`, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
 };
 
