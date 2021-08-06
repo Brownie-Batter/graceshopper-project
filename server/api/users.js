@@ -59,12 +59,9 @@ router.get('/:id/cart', async (req, res, next) => {
 router.post('/:id/cart/:productId', async (req, res, next) => {
   try {
     const { quantity, price } = req.body;
-
     const userOrder = await Order.findOne({
       where: { userId: req.params.id, order_status: 'active' },
     });
-
-    await userOrder.addProduct(req.params.productId);
 
     let cart = await OrderDetails.findOne({
       where: {
@@ -73,13 +70,74 @@ router.post('/:id/cart/:productId', async (req, res, next) => {
       },
     });
 
-    await cart.update({
-      quantity,
-      price,
-    });
+    if (!cart) {
+      await userOrder.addProduct(req.params.productId);
 
-    res.json(cart);
+      let newCart = await OrderDetails.findOne({
+        where: {
+          orderId: userOrder.id,
+          productId: req.params.productId,
+        },
+      });
+      newCart.update({
+        quantity,
+        price,
+      });
+      res.json(newCart);
+    } else {
+      await cart.update({
+        quantity,
+        price,
+      });
+      res.json(cart);
+    }
   } catch (err) {
     next(err);
+  }
+});
+
+//delete product from cart or decrease quantity route
+router.delete('/:id/cart/:productId', async (req, res, next) => {
+  try {
+    const userOrder = await Order.findOne({
+      where: { userId: req.params.id, order_status: 'active' },
+    });
+
+    let cart = await OrderDetails.findOne({
+      where: {
+        orderId: userOrder.id,
+        productId: req.params.productId,
+      },
+    });
+    const newQuantity = cart.quantity - 1;
+    if (cart.quantity > 1) {
+      await cart.update({
+        quantity: newQuantity,
+      });
+    } else {
+      await userOrder.removeProduct(req.params.productId);
+    }
+    res.json(userOrder);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//change order status from active to purchased and create a new order
+router.put('/:id/cart/order', async (req, res, next) => {
+  try {
+    const userOrder = await Order.findOne({
+      where: { userId: req.params.id, order_status: 'active' },
+    });
+
+    await userOrder.update({
+      order_status: 'completed',
+    });
+    const user = await User.findByPk(req.params.id);
+    await user.createOrder();
+
+    res.json(userOrder);
+  } catch (error) {
+    next(error);
   }
 });
