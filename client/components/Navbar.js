@@ -5,6 +5,7 @@ import { logout } from '../store';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const Navbar = ({ handleClick, isLoggedIn, userId }) => {
+  console.log(userId);
   return (
     <div>
       <h1>Brownie Batter Core Food Store</h1>
