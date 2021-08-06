@@ -12,9 +12,12 @@ export const set_cart = (cart) => ({
 //thunker set cart
 export const fetchCart = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.get(`/api/users/${id}/cart`);
-    console.log('thunk', data);
-    dispatch(set_cart(data));
+    const {
+      data: { orders },
+    } = await axios.get(`/api/users/${id}/cart`);
+    let cleanCart = orders[0].products.map((product) => product);
+
+    dispatch(set_cart(cleanCart));
   } catch (error) {
     console.error(error);
   }
