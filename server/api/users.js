@@ -34,13 +34,16 @@ router.get('/:id/cart', async (req, res, next) => {
     //check if auth id is equal to order id
 
     const user = await User.findByPk(req.params.id, {
-      include: [
-        {
-          model: Order,
-          where: { order_status: 'active' },
+      attributes: ['id', 'username'],
+      include: {
+        model: Order,
+        where: { order_status: 'active' },
+        attributes: ['id', 'order_status'],
+        include: {
+          model: Product,
+          attributes: ['id', 'name'],
         },
-        { model: OrderDetails },
-      ],
+      },
     });
 
     console.log('user', user);
@@ -53,11 +56,29 @@ router.get('/:id/cart', async (req, res, next) => {
 });
 
 //add item to cart
-router.put('/:id/cart/:productId', async (req, res, next) => {
+router.post('/:id/cart/:productId', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id);
-    await user.addProduct(req.params.productId);
-    res.json(user);
+    const { quantity, price } = req.body;
+
+    const userOrder = await Order.findOne({
+      where: { userId: req.params.id, order_status: 'active' },
+    });
+
+    await userOrder.addProduct(req.params.productId);
+
+    let cart = await OrderDetails.findOne({
+      where: {
+        orderId: userOrder.id,
+        productId: req.params.productId,
+      },
+    });
+
+    await cart.update({
+      quantity,
+      price,
+    });
+
+    res.json(cart);
   } catch (err) {
     next(err);
   }
