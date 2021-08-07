@@ -4,10 +4,11 @@ const {
 } = require('../db');
 const OrderDetails = require('../db/models/OrderDetails');
 const Product = require('../db/models/Product');
+const { requireToken, requireAdmin } = require('./gatekeepingMiddleware');
 
 module.exports = router;
 
-router.get('/', async (req, res, next) => {
+router.get('/', requireToken, requireAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though
@@ -22,7 +23,7 @@ router.get('/', async (req, res, next) => {
 });
 
 // pull request for user cart //:id/cart
-router.get('/:id/cart', async (req, res, next) => {
+router.get('/:id/cart', requireToken, async (req, res, next) => {
   try {
     //login, cart, hit route
     //check if user has active order
@@ -56,7 +57,7 @@ router.get('/:id/cart', async (req, res, next) => {
 });
 
 //add item to cart
-router.post('/:id/cart/:productId', async (req, res, next) => {
+router.post('/:id/cart/:productId', requireToken, async (req, res, next) => {
   try {
     const { quantity, price } = req.body;
     const userOrder = await Order.findOne({
@@ -97,7 +98,7 @@ router.post('/:id/cart/:productId', async (req, res, next) => {
 });
 
 //delete product from cart or decrease quantity route
-router.delete('/:id/cart/:productId', async (req, res, next) => {
+router.delete('/:id/cart/:productId', requireToken, async (req, res, next) => {
   try {
     const userOrder = await Order.findOne({
       where: { userId: req.params.id, order_status: 'active' },
@@ -124,7 +125,7 @@ router.delete('/:id/cart/:productId', async (req, res, next) => {
 });
 
 //change order status from active to purchased and create a new order
-router.put('/:id/cart/order', async (req, res, next) => {
+router.put('/:id/cart/order', requireToken, async (req, res, next) => {
   try {
     const userOrder = await Order.findOne({
       where: { userId: req.params.id, order_status: 'active' },
