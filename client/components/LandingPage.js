@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Paper from '@material-ui/core/Paper';
@@ -8,7 +8,15 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
-
+//Imports for AllProducts
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { getAllProducts } from '../store/allProducts';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -59,9 +67,17 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
     width: '100%',
   },
+  productRoot: {
+    maxWidth: 345,
+    width: 300,
+    marginBottom: 20,
+  },
+  media: {
+    height: 140,
+  },
 }));
 
-function LandingPage() {
+function LandingPage(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -78,49 +94,138 @@ function LandingPage() {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
-
-  
+  useEffect(() => {
+    props.getProducts();
+  });
 
   return (
-    <div className={classes.root}>
-      <Paper square elevation={0} className={classes.header}>
-        <Typography>{carousel[activeStep].label}</Typography>
-      </Paper>
-      <AutoPlaySwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={activeStep}
-        onChangeIndex={handleStepChange}
-        enableMouseEvents
-      >
-        {carousel.map((step, index) => (
-          <div key={step.label}>
-            {Math.abs(activeStep - index) <= 2 ? (
-              <img className={classes.img} src={step.imgPath} alt={step.label} />
-            ) : null}
+    <div>
+      <div className={classes.root}>
+        <Paper square elevation={0} className={classes.header}>
+          <Typography>{carousel[activeStep].label}</Typography>
+        </Paper>
+        <AutoPlaySwipeableViews
+          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          index={activeStep}
+          onChangeIndex={handleStepChange}
+          enableMouseEvents
+        >
+          {carousel.map((step, index) => (
+            <div key={step.label}>
+              {Math.abs(activeStep - index) <= 2 ? (
+                <img
+                  className={classes.img}
+                  src={step.imgPath}
+                  alt={step.label}
+                />
+              ) : null}
+            </div>
+          ))}
+        </AutoPlaySwipeableViews>
+        <MobileStepper
+          steps={maxSteps}
+          position="static"
+          variant="text"
+          activeStep={activeStep}
+          nextButton={
+            <Button
+              size="small"
+              onClick={handleNext}
+              disabled={activeStep === maxSteps - 1}
+            >
+              Next
+              {theme.direction === 'rtl' ? (
+                <KeyboardArrowLeft />
+              ) : (
+                <KeyboardArrowRight />
+              )}
+            </Button>
+          }
+          backButton={
+            <Button
+              size="small"
+              onClick={handleBack}
+              disabled={activeStep === 0}
+            >
+              {theme.direction === 'rtl' ? (
+                <KeyboardArrowRight />
+              ) : (
+                <KeyboardArrowLeft />
+              )}
+              Back
+            </Button>
+          }
+        />
+      </div>
+      <div className="food-container">
+        {props.products.length ? (
+          props.products.map(
+            ({ id, name, price, imgUrl, category: { category_name } }) => {
+              return (
+                <Card className={classes.productRoot} key={id}>
+                  <CardActionArea>
+                    <CardMedia
+                      className={classes.media}
+                      image={imgUrl}
+                      title={name}
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h1">
+                        {name}
+                      </Typography>
+                      <Typography
+                        gutterBottom
+                        variant="body2"
+                        component="p"
+                        color="error"
+                      >
+                        {category_name.slice(0, 1).toUpperCase() +
+                          category_name.slice(1)}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        Price: ${price}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" color="primary">
+                      Add to Cart
+                    </Button>
+                    <Button size="small" color="primary">
+                      <Link
+                        to={`/products/${id}`}
+                        style={{ textDecoration: 'none' }}
+                      >
+                        Learn More
+                      </Link>
+                    </Button>
+                  </CardActions>
+                </Card>
+              );
+            }
+          )
+        ) : (
+          <div>
+            <h3>Loading...</h3>
           </div>
-        ))}
-      </AutoPlaySwipeableViews>
-      <MobileStepper
-        steps={maxSteps}
-        position="static"
-        variant="text"
-        activeStep={activeStep}
-        nextButton={
-          <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-            Next
-            {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-          </Button>
-        }
-        backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-            {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-            Back
-          </Button>
-        }
-      />
-     
+        )}
+      </div>
     </div>
   );
 }
 
-export default LandingPage;
+const mapStateToProps = (state) => {
+  return { products: state.allProducts };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    getProducts: () => dispatch(getAllProducts()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatch)(LandingPage);
