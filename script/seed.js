@@ -2,8 +2,9 @@
 
 const {
   db,
-  models: { User, Product, Category },
+  models: { User, Product, Category, Order },
 } = require('../server/db');
+const OrderDetails = require('../server/db/models/OrderDetails');
 
 const users = [
   {
@@ -253,16 +254,22 @@ while (i >= 0) {
 
   i--;
 }
+const randomItems = () => {
+  let productArray = [];
+  let quantity = Math.floor(Math.random() * 5);
+  while (productArray.length < quantity) {
+    let prodId = Math.floor(Math.random() * 100 + 1);
+    if (productArray.indexOf(prodId) <= 0) {
+      productArray.push(prodId);
+    }
+  }
+  return productArray;
+};
 
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log('db synced!');
   try {
-    await Promise.all(
-      users.map((user) => {
-        return User.create(user);
-      })
-    );
     const indian = await Category.create({ category_name: 'indian' });
     const barbeque = await Category.create({ category_name: 'barbeque' });
     const japanese = await Category.create({ category_name: 'japanese' });
@@ -292,22 +299,40 @@ async function seed() {
         return newProduct.setCategory(thai);
       })
     );
-    //seed users
-    // await Promise.all(
-    //   users.map(async (user) => {
-    //     const newUser = await User.create(user);
-    //     if (user.username === 'jbond') {
-    //       console.log(Object.keys(newUser.__proto__));
-    //       await newUser.addProducts([1, 2, 3]);
-    //     } else if (user.username === 'mjordan') {
-    //       await newUser.addProducts([4, 5, 6, 7, 8, 9]);
-    //     }
-    //     return newUser;
-    //   })
-    // );
+    //seed users with items in cart
+    let newUsers = await Promise.all(
+      users.map(async (user) => {
+        return await User.create(user);
+      })
+    );
+
+    //add random products and quantities to carts
+    await Promise.all(
+      newUsers.map(async (user) => {
+        let newOrder = await user.createOrder();
+        const productArray = randomItems();
+        return Promise.all(
+          productArray.map(async (id) => {
+            await newOrder.addProduct(id);
+            let newCart = await OrderDetails.findOne({
+              where: {
+                orderId: newOrder.id,
+                productId: id,
+              },
+            });
+            let product = await Product.findByPk(id);
+            await newCart.update({
+              price: product.price,
+              quantity: Math.floor(Math.random() * 5 + 1),
+            });
+          })
+        );
+      })
+    );
   } catch (error) {
     console.log(error);
   }
+
   // Creating Users
 
   console.log(`seeded ${users.length} users`);

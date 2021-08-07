@@ -7,6 +7,7 @@ const OrderDetails = db.define('orderDetails', {
     validate: {
       isInt: true,
     },
+    defaultValue: 1,
   },
   price: {
     type: Sequelize.INTEGER,
