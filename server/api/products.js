@@ -2,6 +2,7 @@ const router = require('express').Router();
 const {
   models: { Product, Category },
 } = require('../db');
+const { requireToken, requireAdmin } = require('./gatekeepingMiddleware');
 
 router.get('/:id', async (req, res, next) => {
   try {
@@ -28,7 +29,7 @@ router.get('/', async (req, res, next) => {
 });
 
 //add a new product - pass in the product object including category string
-router.post('/add', async (req, res, next) => {
+router.post('/add', requireToken, requireAdmin, async (req, res, next) => {
   try {
     const { name, description, price, quantity, imgUrl, category } = req.body;
 
@@ -53,7 +54,7 @@ router.post('/add', async (req, res, next) => {
 });
 
 //product delete route
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', requireToken, requireAdmin, async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
     await product.destroy();
@@ -64,7 +65,7 @@ router.delete('/:id', async (req, res, next) => {
 });
 
 //product update route
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', requireToken, requireAdmin, async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
     await product.update(req.body);
