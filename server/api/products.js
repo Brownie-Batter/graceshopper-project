@@ -2,7 +2,12 @@ const router = require('express').Router();
 const {
   models: { Product, Category },
 } = require('../db');
-const { requireToken, requireAdmin } = require('./gatekeepingMiddleware');
+const {
+  requireToken,
+  requireAdmin,
+  getPagingData,
+} = require('./gatekeepingMiddleware');
+const { Op } = require('sequelize');
 
 router.get('/:id', async (req, res, next) => {
   try {
@@ -19,15 +24,29 @@ router.get('/:id', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    // const { page, filter } = JSON.parse(req.query.filters);
-    let page = 2;
-    const products = await Product.findAll({
+    const { page, filter } = req.query;
+    let condition =
+      filter && filter !== 'all'
+        ? { category_name: { [Op.like]: filter } }
+        : null;
+    // you can control the size of data you want returned. for now the default is 10
+    let size;
+    const limit = size ? +size : 10;
+    const offset = page ? page * limit : 0;
+
+    const products = await Product.findAndCountAll({
       order: [['name', 'ASC']],
-      // offset: page === 1 ? 0 : 10,
-      // limit: 10,
-      include: Category,
+      offset,
+      limit,
+      include: {
+        model: Category,
+        where: condition,
+      },
     });
-    res.json(products);
+    const categories = await Category.findAll();
+    const response = getPagingData(products, categories);
+
+    res.json(response);
   } catch (err) {
     next(err);
   }
