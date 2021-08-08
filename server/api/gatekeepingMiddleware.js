@@ -3,7 +3,7 @@ const User = require('../db/models/User');
 //require a user to be logged into continue
 const requireToken = async (req, res, next) => {
   try {
-    const token = req.headers.authorization;
+    const token = req.body.headers.authorization;
     const user = await User.findByToken(token);
     req.user = user;
     next();

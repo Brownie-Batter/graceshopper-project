@@ -19,7 +19,12 @@ router.get('/:id', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
+    // const { page, filter } = JSON.parse(req.query.filters);
+    let page = 2;
     const products = await Product.findAll({
+      order: [['name', 'ASC']],
+      // offset: page === 1 ? 0 : 10,
+      // limit: 10,
       include: Category,
     });
     res.json(products);

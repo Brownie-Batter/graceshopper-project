@@ -10,9 +10,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 //Imports for AllProducts
-
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
-
 const carousel = [
   {
     label: 'Prepped by Professional  s',
@@ -40,7 +38,6 @@ const carousel = [
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzY1BjGchboP-yt1J8i7RAMUzSAyJeWNzW9g&usqp=CAU',
   },
 ];
-
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 400,
@@ -69,29 +66,24 @@ const useStyles = makeStyles((theme) => ({
     height: 140,
   },
 }));
-
 function LandingPage(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = carousel.length;
-
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
-
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
-
   return (
     <div>
       <div className={classes.root}>
-        <Link to="/raysKitchen">
+        <Link to="/products">
           <Paper square elevation={0} className={classes.header}>
             <Typography>{carousel[activeStep].label}</Typography>
           </Paper>
@@ -152,5 +144,4 @@ function LandingPage(props) {
     </div>
   );
 }
-
 export default LandingPage;
