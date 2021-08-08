@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const TOKEN = 'token';
 //action type
@@ -57,6 +59,15 @@ export const addProductToCart = (id, productId, price) => async (dispatch) => {
     let cleanProduct = data.products[data.products.length - 1];
 
     dispatch(addToCart(cleanProduct));
+    toast.success(`${cleanProduct.name} added to cart`, {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   } catch (error) {
     console.error(error);
   }
