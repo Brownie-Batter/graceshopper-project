@@ -22,8 +22,8 @@ router.get('/', requireToken, requireAdmin, async (req, res, next) => {
   }
 });
 
-// pull request for user cart //:id/cart
-router.get('/:id/cart', requireToken, async (req, res, next) => {
+// pull request for user cart //:id/cart 
+router.get('/:id/cart',  async (req, res, next) => {
   try {
     //login, cart, hit route
     //check if user has active order

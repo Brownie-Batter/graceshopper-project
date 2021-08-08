@@ -14,8 +14,7 @@ function Cart(props) {
   useEffect(() => {
     props.fetchCart(id);
   }, []);
-  console.log('imacart',cart)
-  return (
+   return (
    
     <div className="food-container">
       {cart.length ? (
