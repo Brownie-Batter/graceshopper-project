@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchCart } from '../store/cart';
 import CartItem from './CartItem';
+import { me } from '../store';
 import { deleteProductFromCart } from '../store/cart';
 
 function Cart(props) {
   const {
     match: {
-      params: { id },
+      params: { id, isLoggedIn },
     },
     cart,
     userId,
@@ -16,6 +17,9 @@ function Cart(props) {
 
   useEffect(() => {
     props.fetchCart(id);
+    // if (!isLoggedIn && cart.length > 0) {
+    //   window.localStorage.setItem('cart', []);
+    // }
   }, []);
   return (
     <div className="food-container">
@@ -42,12 +46,17 @@ function Cart(props) {
 
 const mapState = (state) => ({
   cart: state.cart,
+  isLoggedIn: !!state.auth.id,
   userId: state.auth.id,
 });
+
 const mapDispatch = (dispatch) => ({
   fetchCart: (id) => dispatch(fetchCart(id)),
   deleteProduct: (userId, productId) =>
     dispatch(deleteProductFromCart(userId, productId)),
+  loadInitialData() {
+    dispatch(me());
+  },
 });
 
 export default connect(mapState, mapDispatch)(Cart);

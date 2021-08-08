@@ -28,7 +28,17 @@ export const updateCart = (product) => ({
 //thunker set cart
 export const fetchCart = (id) => async (dispatch) => {
   try {
-    const token = window.localStorage.getItem(TOKEN);
+    if (!id) {
+      // localstorage cart
+      let cart = window.localStorage.getItem('cart');
+      if (!cart) {
+        window.localStorage.setItem('cart', '');
+        cart = window.localStorage.getItem('cart');
+        console.log(cart);
+      }
+      dispatch(set_cart(cart));
+    } else {
+      const token = window.localStorage.getItem(TOKEN);
     const {
       data: { orders },
     } = await axios.get(`/api/users/${id}/cart`, {
@@ -38,7 +48,8 @@ export const fetchCart = (id) => async (dispatch) => {
     });
     let cleanCart = orders[0].products.map((product) => product);
 
-    dispatch(set_cart(cleanCart));
+      dispatch(set_cart(cleanCart));
+    }
   } catch (error) {
     console.error(error);
   }
