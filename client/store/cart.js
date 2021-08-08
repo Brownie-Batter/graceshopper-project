@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Next } from 'react-bootstrap/esm/PageItem';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -41,14 +42,14 @@ export const fetchCart = (id) => async (dispatch) => {
       dispatch(set_cart(cart));
     } else {
       const token = window.localStorage.getItem(TOKEN);
-    const {
-      data: { orders },
-    } = await axios.get(`/api/users/${id}/cart`, {
-      headers: {
-        authorization: token,
-      },
-    });
-    let cleanCart = orders[0].products.map((product) => product);
+      const {
+        data: { orders },
+      } = await axios.get(`/api/users/${id}/cart`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      let cleanCart = orders[0].products.map((product) => product);
 
       dispatch(set_cart(cleanCart));
     }
@@ -79,6 +80,22 @@ export const addProductToCart = (id, productId, price) => async (dispatch) => {
       draggable: true,
       progress: undefined,
     });
+  } catch (error) {
+    console.error(error);
+  }
+};
+//edit product quantity in cart
+
+export const editQuantity = (id, productId, quantity) => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem(TOKEN);
+    const { data } = await axios.post(`/api/users/${id}/cart/${productId}`, {
+      headers: {
+        authorization: token,
+      },
+      quantity: quantity,
+    });
+    dispatch(updateCart(data));
   } catch (error) {
     console.error(error);
   }
@@ -115,7 +132,8 @@ export default function cartReducer(state = [], payload) {
       return state.filter(
         (cart) => cart.orderDetails.productId != payload.product
       );
-    // case UPDATE_CART:
+    case UPDATE_CART:
+      return state;
     // return state.map((cart) =>
     // (cart.id === payload.cart.id ? payload.cart : cart));
     default:

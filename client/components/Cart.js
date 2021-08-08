@@ -4,6 +4,7 @@ import { fetchCart } from '../store/cart';
 import CartItem from './CartItem';
 import { me } from '../store';
 import { deleteProductFromCart } from '../store/cart';
+import { editQuantity } from '../store/cart';
 
 function Cart(props) {
   const {
@@ -13,6 +14,7 @@ function Cart(props) {
     cart,
     userId,
     deleteProduct,
+    editQuantity,
   } = props;
 
   useEffect(() => {
@@ -33,6 +35,7 @@ function Cart(props) {
             price={price}
             userId={userId}
             deleteProduct={deleteProduct}
+            editQuantity={editQuantity}
           />
         ))
       ) : (
@@ -57,6 +60,8 @@ const mapDispatch = (dispatch) => ({
   loadInitialData() {
     dispatch(me());
   },
+  editQuantity: (userId, prodId, quantity) =>
+    dispatch(editQuantity(userId, prodId, quantity)),
 });
 
 export default connect(mapState, mapDispatch)(Cart);

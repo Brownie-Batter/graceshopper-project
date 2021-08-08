@@ -10,10 +10,14 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 275,
+    minWidth: 200,
   },
   title: {
     fontSize: 14,
@@ -31,15 +35,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CartItem(props) {
-  const { name, quantity, price, productId, userId, deleteProduct } = props;
-  const [userQuantity, setUserQuantity] = useState(1);
+  const {
+    name,
+    quantity,
+    price,
+    productId,
+    userId,
+    deleteProduct,
+    editQuantity,
+  } = props;
+  const [userQuantity, setUserQuantity] = useState(quantity);
 
   const classes = useStyles();
 
   const handleChange = (e) => {
     setUserQuantity(e.target.value);
+    editQuantity(userId, productId, e.target.value);
+    console.log('handle change');
   };
-
+  const handleAddClick = () => {
+    setUserQuantity(userQuantity + 1);
+    editQuantity(userId, productId, userQuantity + 1);
+  };
+  const handleRemoveClick = () => {
+    setUserQuantity(userQuantity - 1);
+    editQuantity(userId, productId, userQuantity - 1);
+  };
   const createChildren = (num) => {
     let result = [];
 
@@ -67,7 +88,33 @@ export default function CartItem(props) {
           Price: ${price}
         </Typography>
         <FormControl className={classes.formControl}>
-          <InputLabel id="demo-simple-select-label">Quantity</InputLabel>
+          <TextField
+            label="Quantity"
+            variant="outlined"
+            value={userQuantity}
+            onChange={handleChange}
+            style={{ width: '50px' }}
+          />
+          <div style={{ display: 'flex' }}>
+            <Fab
+              color="primary"
+              aria-label="add"
+              size="small"
+              onClick={handleAddClick}
+            >
+              <AddIcon />
+            </Fab>
+            <Fab
+              color="secondary"
+              aria-label="remove"
+              size="small"
+              onClick={handleRemoveClick}
+            >
+              <RemoveIcon />
+            </Fab>
+          </div>
+
+          {/* <InputLabel id="demo-simple-select-label">Quantity</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -81,7 +128,7 @@ export default function CartItem(props) {
                 </MenuItem>
               );
             })}
-          </Select>
+          </Select> */}
         </FormControl>
       </CardContent>
       <CardActions>
