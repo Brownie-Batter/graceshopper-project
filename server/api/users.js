@@ -84,41 +84,33 @@ router.post('/:id/cart/:productId', requireToken, async (req, res, next) => {
         quantity,
         price,
       });
-      res.json(newCart);
     } else {
       await cart.update({
         quantity,
         price,
       });
-      res.json(cart);
     }
+
+    const updatedOrder = await Order.findByPk(userOrder.id, {
+      include: {
+        model: Product,
+      },
+    });
+    res.json(updatedOrder);
   } catch (err) {
     next(err);
   }
 });
 
 //delete product from cart or decrease quantity route
-router.delete('/:id/cart/:productId', requireToken, async (req, res, next) => {
+router.put('/:id/cart/:productId', requireToken, async (req, res, next) => {
   try {
     const userOrder = await Order.findOne({
       where: { userId: req.params.id, order_status: 'active' },
     });
 
-    // let cart = await OrderDetails.findOne({
-    //   where: {
-    //     orderId: userOrder.id,
-    //     productId: req.params.productId,
-    //   },
-    // });
     await userOrder.removeProduct(req.params.productId);
-    // const newQuantity = cart.quantity - 1;
-    // if (cart.quantity > 1) {
-    //   await cart.update({
-    //     quantity: newQuantity,
-    //   });
-    // } else {
-    //   await userOrder.removeProduct(req.params.productId);
-    // }
+
     res.json(req.params.productId);
   } catch (error) {
     next(error);
