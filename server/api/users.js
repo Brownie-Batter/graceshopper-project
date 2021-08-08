@@ -22,8 +22,8 @@ router.get('/', requireToken, requireAdmin, async (req, res, next) => {
   }
 });
 
-// pull request for user cart //:id/cart 
-router.get('/:id/cart',  async (req, res, next) => {
+// pull request for user cart //:id/cart
+router.get('/:id/cart', async (req, res, next) => {
   try {
     //login, cart, hit route
     //check if user has active order
@@ -80,7 +80,7 @@ router.post('/:id/cart/:productId', requireToken, async (req, res, next) => {
           productId: req.params.productId,
         },
       });
-      newCart.update({
+      await newCart.update({
         quantity,
         price,
       });
@@ -104,21 +104,22 @@ router.delete('/:id/cart/:productId', requireToken, async (req, res, next) => {
       where: { userId: req.params.id, order_status: 'active' },
     });
 
-    let cart = await OrderDetails.findOne({
-      where: {
-        orderId: userOrder.id,
-        productId: req.params.productId,
-      },
-    });
-    const newQuantity = cart.quantity - 1;
-    if (cart.quantity > 1) {
-      await cart.update({
-        quantity: newQuantity,
-      });
-    } else {
-      await userOrder.removeProduct(req.params.productId);
-    }
-    res.json(userOrder);
+    // let cart = await OrderDetails.findOne({
+    //   where: {
+    //     orderId: userOrder.id,
+    //     productId: req.params.productId,
+    //   },
+    // });
+    await userOrder.removeProduct(req.params.productId);
+    // const newQuantity = cart.quantity - 1;
+    // if (cart.quantity > 1) {
+    //   await cart.update({
+    //     quantity: newQuantity,
+    //   });
+    // } else {
+    //   await userOrder.removeProduct(req.params.productId);
+    // }
+    res.json(req.params.productId);
   } catch (error) {
     next(error);
   }

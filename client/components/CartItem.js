@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CartItem(props) {
-  const { name, quantity, price } = props;
+  const { name, quantity, price, productId, userId, deleteProduct } = props;
   const [userQuantity, setUserQuantity] = useState(1);
 
   const classes = useStyles();
@@ -46,7 +47,6 @@ export default function CartItem(props) {
       result.push(num);
       num--;
     }
-
     return result;
   };
 
@@ -56,7 +56,8 @@ export default function CartItem(props) {
         <Typography
           className={classes.title}
           color="textSecondary"
-          gutterBottom>
+          gutterBottom
+        >
           {name}
         </Typography>
         <Typography variant="h5" component="h2">
@@ -71,7 +72,8 @@ export default function CartItem(props) {
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={userQuantity}
-            onChange={handleChange}>
+            onChange={handleChange}
+          >
             {createChildren(quantity).map((val) => {
               return (
                 <MenuItem key={val} value={val}>
@@ -83,7 +85,9 @@ export default function CartItem(props) {
         </FormControl>
       </CardContent>
       <CardActions>
-        <Button size="small">Delete from Cart</Button>
+        <Button size="small" onClick={() => deleteProduct(userId, productId)}>
+          Delete from Cart
+        </Button>
       </CardActions>
     </Card>
   );
