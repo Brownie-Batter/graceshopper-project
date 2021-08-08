@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Product from './Product';
 import { getAllProducts } from '../store/allProducts';
+import { addProductToCart } from '../store/cart';
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 function AllProducts(props) {
   const classes = useStyles();
+  const { userId, addToCart } = props;
 
   useEffect(() => {
     props.getProducts();
@@ -34,7 +36,14 @@ function AllProducts(props) {
       <div className="food-container">
         {props.products.length ? (
           props.products.map(
-            ({ id, name, price, imgUrl, category: { category_name } }) => (
+            ({
+              id,
+              name,
+              price,
+              imgUrl,
+              description,
+              category: { category_name },
+            }) => (
               <Product
                 key={id}
                 id={id}
@@ -42,6 +51,9 @@ function AllProducts(props) {
                 price={price}
                 imgUrl={imgUrl}
                 category_name={category_name}
+                userId={userId}
+                addToCart={addToCart}
+                description={description}
               />
             )
           )
@@ -56,12 +68,14 @@ function AllProducts(props) {
 }
 
 const mapStateToProps = (state) => {
-  return { products: state.allProducts };
+  return { products: state.allProducts, userId: state.auth.id };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     getProducts: () => dispatch(getAllProducts()),
+    addToCart: (userId, productId, price) =>
+      dispatch(addProductToCart(userId, productId, price)),
   };
 };
 

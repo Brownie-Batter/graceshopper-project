@@ -45,15 +45,18 @@ export const fetchCart = (id) => async (dispatch) => {
 };
 
 // thunker add to cart
-export const addProductToCart = (id, productId) => async (dispatch) => {
+export const addProductToCart = (id, productId, price) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem(TOKEN);
     const { data } = await axios.post(`/api/users/${id}/cart/${productId}`, {
       headers: {
         authorization: token,
       },
+      price: price,
     });
-    dispatch(addToCart(data));
+    let cleanProduct = data.products[data.products.length - 1];
+
+    dispatch(addToCart(cleanProduct));
   } catch (error) {
     console.error(error);
   }
@@ -63,7 +66,7 @@ export const addProductToCart = (id, productId) => async (dispatch) => {
 export const deleteProductFromCart = (id, productId) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem(TOKEN);
-    const { data } = await axios.delete(`/api/users/${id}/cart/${productId}`, {
+    const { data } = await axios.put(`/api/users/${id}/cart/${productId}`, {
       headers: {
         authorization: token,
       },
@@ -83,7 +86,8 @@ export default function cartReducer(state = [], payload) {
     case SET_CART:
       return payload.cart;
     case ADD_TO_CART:
-      return [...state, payload.product];
+      return state;
+    //return [...state, payload.product];
     case DELETE_PRODUCT_CART:
       console.log('payload', payload);
       return state.filter(
