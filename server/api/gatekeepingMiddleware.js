@@ -24,4 +24,11 @@ const requireAdmin = async (req, res, next) => {
     next(error);
   }
 };
-module.exports = { requireToken, requireAdmin };
+
+const getPagingData = (data, categories) => {
+  const { count: totalItems, rows: products } = data;
+  const totalPages = Math.ceil(totalItems / 10);
+
+  return { totalItems, products, totalPages, categories };
+};
+module.exports = { requireToken, requireAdmin, getPagingData };
