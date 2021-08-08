@@ -14,8 +14,9 @@ function Cart(props) {
   useEffect(() => {
     props.fetchCart(id);
   }, []);
-
+  console.log('imacart',cart)
   return (
+   
     <div className="food-container">
       {cart.length ? (
         cart.map(({ name, id, orderDetails: { quantity, price } }) => (
