@@ -41,16 +41,30 @@ export default function CartItem(props) {
     editQuantity,
     isLoggedIn,
     handleVisitorDelete,
+    inventory,
+
   } = props;
   const [userQuantity, setUserQuantity] = useState(quantity);
 
   const classes = useStyles();
 
   const handleChange = (e) => {
-    setUserQuantity(e.target.value);
+
+   
     if (isLoggedIn) {
-      editQuantity(userId, productId, e.target.value);
+         if (e.target.value > inventory) {
+      setUserQuantity(inventory);
+      editQuantity(userId, productId, inventory);
+    } else if (e.target.value < 1) {
+      setUserQuantity(1);
+      editQuantity(userId, productId, 1);
     } else {
+      setUserQuantity(e.target.value);
+      editQuantity(userId, productId, e.target.value);
+
+    }
+    } else {
+       setUserQuantity(e.target.value);
       let product = {
         name,
         productId,
@@ -58,15 +72,19 @@ export default function CartItem(props) {
         price,
       };
       localStorage.setItem(productId, JSON.stringify(product));
-    }
+
   };
 
   const handleAddClick = () => {
-    setUserQuantity(userQuantity + 1);
 
     if (isLoggedIn) {
+         if (userQuantity < inventory) {
+      setUserQuantity(userQuantity + 1);
       editQuantity(userId, productId, userQuantity + 1);
+
+    }
     } else {
+      setUserQuantity(userQuantity + 1);
       let product = {
         name,
         productId,
@@ -74,15 +92,18 @@ export default function CartItem(props) {
         price,
       };
       localStorage.setItem(productId, JSON.stringify(product));
-    }
+
+
   };
 
-  const handleRemoveClick = () => {
-    setUserQuantity(userQuantity - 1);
-
+  const handleRemoveClick = () => { 
     if (isLoggedIn) {
+        if (userQuantity > 1) {
+      setUserQuantity(userQuantity - 1);
       editQuantity(userId, productId, userQuantity - 1);
+    }
     } else {
+       setUserQuantity(userQuantity - 1);
       let product = {
         name,
         productId,
@@ -90,8 +111,17 @@ export default function CartItem(props) {
         price,
       };
       localStorage.setItem(productId, JSON.stringify(product));
-    }
+ 
   };
+  // const createChildren = (num) => {
+  //   let result = [];
+
+  //   while (num > 0) {
+  //     result.push(num);
+  //     num--;
+  //   }
+  //   return result;
+  // };
 
   console.log(userQuantity);
 

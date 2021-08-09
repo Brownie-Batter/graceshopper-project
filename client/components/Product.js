@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +46,7 @@ export default function Product(props) {
     addToCart,
     description,
     isLoggedIn,
+    cart,
   } = props;
 
   function getModalStyle() {
@@ -96,6 +98,36 @@ export default function Product(props) {
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
 
+  const handleAdd = (userId, id, price, cart) => {
+    const inCart = cart.filter((item) => {
+      return item.id === id;
+    });
+    console.log(inCart);
+    if (inCart.length > 0) {
+      toast.error(`${name} is already in your cart!`, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      toast.success(`${name} added to cart`, {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      addToCart(userId, id, price);
+      console.log('added to cart');
+    }
+  };
+
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <img src={imgUrl} style={{ maxWidth: '750px', maxHeight: '400px' }} />
@@ -103,10 +135,11 @@ export default function Product(props) {
       <h3>{category_name}</h3>
       <p>{description}</p>
       <p>Price: ${price}</p>
+
       {isLoggedIn ? (
         <Button
           onClick={() => {
-            addToCart(userId, id, price);
+            addToCart(userId, id, price,cart);
             handleClose();
           }}
           startIcon={<AddShoppingCartIcon />}
@@ -124,6 +157,7 @@ export default function Product(props) {
           Add to Cart
         </Button>
       )}
+
     </div>
   );
   return (
@@ -145,7 +179,7 @@ export default function Product(props) {
       <CardActions>
         {isLoggedIn ? (
           <Button
-            onClick={() => addToCart(userId, id, price)}
+            onClick={() => addToCart(userId, id, price,cart)}
             size="small"
             color="primary">
             Add to Cart

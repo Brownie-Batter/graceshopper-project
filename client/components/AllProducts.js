@@ -38,6 +38,7 @@ function AllProducts(props) {
     products,
     categories,
     isLoggedIn,
+    cart,
   } = props;
 
   useEffect(() => {
@@ -50,6 +51,7 @@ function AllProducts(props) {
 
   const handleCategoryChange = (e) => {
     setFilter(e.target.value);
+    setPage(1);
   };
 
   const getRequestParams = (page, filter) => {
@@ -82,7 +84,8 @@ function AllProducts(props) {
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={filter}
-            onChange={handleCategoryChange}>
+            onChange={handleCategoryChange}
+          >
             <MenuItem value="all">All</MenuItem>
             {categories &&
               categories.map(({ id, category_name }) => (
@@ -99,6 +102,7 @@ function AllProducts(props) {
           variant="outlined"
           color="primary"
           onChange={handlePageChange}
+          page={page}
         />
       </div>
       <div className="food-container">
@@ -122,7 +126,9 @@ function AllProducts(props) {
                 userId={userId}
                 addToCart={addToCart}
                 description={description}
+                visitor
                 isLoggedIn={isLoggedIn}
+                cart={cart}
               />
             )
           )
@@ -143,6 +149,7 @@ const mapStateToProps = (state) => {
     totalPages: state.allProducts.totalPages,
     userId: state.auth.id,
     isLoggedIn: !!state.auth.id,
+    cart: state.cart,
   };
 };
 
