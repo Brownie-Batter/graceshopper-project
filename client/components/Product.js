@@ -90,7 +90,7 @@ export default function Product(props) {
   );
   return (
     <Card className={classes.root} key={id}>
-      <CardActionArea>
+      <CardActionArea onClick={handleOpen}>
         <CardMedia className={classes.media} image={imgUrl} title={name} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h1">
