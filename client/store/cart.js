@@ -9,6 +9,7 @@ const SET_CART = 'SET_CART';
 const ADD_TO_CART = 'ADD_TO_CART';
 const DELETE_PRODUCT_CART = 'DELETE_CART';
 const UPDATE_CART = 'UPDATE_CART';
+const EMPTY_CART = 'EMPTY_CART';
 
 //creator
 export const set_cart = (cart) => ({
@@ -27,32 +28,25 @@ export const updateCart = (product) => ({
   type: UPDATE_CART,
   product,
 });
+export const emptyCart = () => ({
+  type: EMPTY_CART,
+  cart: [],
+});
 
 //thunker set cart
 export const fetchCart = (id) => async (dispatch) => {
   try {
-    if (!id) {
-      // localstorage cart
-      let cart = window.localStorage.getItem('cart');
-      if (!cart) {
-        window.localStorage.setItem('cart', '');
-        cart = window.localStorage.getItem('cart');
-        console.log(cart);
-      }
-      dispatch(set_cart(cart));
-    } else {
-      const token = window.localStorage.getItem(TOKEN);
-      const {
-        data: { orders },
-      } = await axios.get(`/api/users/${id}/cart`, {
-        headers: {
-          authorization: token,
-        },
-      });
-      let cleanCart = orders[0].products.map((product) => product);
+    const token = window.localStorage.getItem(TOKEN);
+    const {
+      data: { orders },
+    } = await axios.get(`/api/users/${id}/cart`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    let cleanCart = orders[0].products.map((product) => product);
 
-      dispatch(set_cart(cleanCart));
-    }
+    dispatch(set_cart(cleanCart));
   } catch (error) {
     console.error(error);
   }
@@ -129,6 +123,8 @@ export default function cartReducer(state = [], payload) {
       return state;
     // return state.map((cart) =>
     // (cart.id === payload.cart.id ? payload.cart : cart));
+    case EMPTY_CART:
+      return payload.cart;
     default:
       return state;
   }

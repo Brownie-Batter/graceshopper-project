@@ -37,6 +37,7 @@ function AllProducts(props) {
     totalPages,
     products,
     categories,
+    isLoggedIn,
     cart,
   } = props;
 
@@ -125,6 +126,8 @@ function AllProducts(props) {
                 userId={userId}
                 addToCart={addToCart}
                 description={description}
+                visitor
+                isLoggedIn={isLoggedIn}
                 cart={cart}
               />
             )
@@ -145,6 +148,7 @@ const mapStateToProps = (state) => {
     categories: state.allProducts.categories,
     totalPages: state.allProducts.totalPages,
     userId: state.auth.id,
+    isLoggedIn: !!state.auth.id,
     cart: state.cart,
   };
 };

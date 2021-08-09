@@ -1,4 +1,5 @@
 import axios from 'axios';
+import emptyCart from './cart';
 import history from '../history';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -59,8 +60,8 @@ export const authenticate = (user, method) => async (dispatch) => {
 };
 
 export const logout = () => {
-  window.localStorage.removeItem(TOKEN);
-  history.push('/login');
+  window.localStorage.clear();
+  history.push('/');
   return {
     type: SET_AUTH,
     auth: {},

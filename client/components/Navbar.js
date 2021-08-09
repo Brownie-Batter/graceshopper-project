@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
+import { emptyCart } from '../store/cart';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const Navbar = ({ handleClick, isLoggedIn, userId }) => {
@@ -52,6 +53,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     handleClick() {
+      dispatch(emptyCart());
       dispatch(logout());
     },
   };
