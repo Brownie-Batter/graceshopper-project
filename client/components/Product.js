@@ -7,10 +7,32 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Link } from 'react-router-dom';
 import Modal from '@material-ui/core/Modal';
-import { FullscreenExit } from '@material-ui/icons';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { toast } from 'react-toastify';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 345,
+    width: 300,
+    margin: 20,
+  },
+  media: {
+    height: 140,
+  },
+  paper: {
+    position: 'absolute',
+    width: 800,
+    height: 800,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+}));
 
 export default function Product(props) {
   const {
@@ -22,30 +44,9 @@ export default function Product(props) {
     userId,
     addToCart,
     description,
+    isLoggedIn,
   } = props;
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      maxWidth: 345,
-      width: 300,
-      margin: 20,
-    },
-    media: {
-      height: 140,
-    },
-    paper: {
-      position: 'absolute',
-      width: 800,
-      height: 800,
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-      display: 'flex',
-      alignItems: 'center',
-      flexDirection: 'column',
-    },
-  }));
   function getModalStyle() {
     const top = 50;
     const left = 50;
@@ -63,29 +64,66 @@ export default function Product(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleVisitorClick = () => {
+    let item = localStorage.getItem(id);
+    if (!item) {
+      let product = { name, price, quantity: 1, productId: id };
+      localStorage.setItem(id, JSON.stringify(product));
+      toast.success(`${name} added to cart`, {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      toast.error(`${name} is already in your cart!`, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+
   const classes = useStyles();
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <img src={imgUrl} style={{ maxWidth: '750px', maxHeight: '475px' }} />
+      <img src={imgUrl} style={{ maxWidth: '750px', maxHeight: '400px' }} />
       <h2>{name}</h2>
       <h3>{category_name}</h3>
       <p>{description}</p>
       <p>Price: ${price}</p>
-      <Button
-        onClick={() => {
-          addToCart(userId, id, price);
-          handleClose();
-        }}
-        startIcon={<AddShoppingCartIcon />}
-        size="large"
-        color="primary"
-        variant="contained"
-      >
-        Add to Cart
-      </Button>
+      {isLoggedIn ? (
+        <Button
+          onClick={() => {
+            addToCart(userId, id, price);
+            handleClose();
+          }}
+          startIcon={<AddShoppingCartIcon />}
+          size="large"
+          color="primary"
+          variant="contained">
+          Add to Cart
+        </Button>
+      ) : (
+        <Button
+          onClick={() => {
+            handleVisitorClick();
+            handleClose();
+          }}>
+          Add to Cart
+        </Button>
+      )}
     </div>
   );
   return (
@@ -105,13 +143,19 @@ export default function Product(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button
-          onClick={() => addToCart(userId, id, price)}
-          size="small"
-          color="primary"
-        >
-          Add to Cart
-        </Button>
+        {isLoggedIn ? (
+          <Button
+            onClick={() => addToCart(userId, id, price)}
+            size="small"
+            color="primary">
+            Add to Cart
+          </Button>
+        ) : (
+          <Button onClick={handleVisitorClick} size="small" color="primary">
+            Add to Cart
+          </Button>
+        )}
+
         <Button size="small" color="primary" onClick={handleOpen}>
           {/* <Link to={`/products/${id}`} style={{ textDecoration: 'none' }}> */}
           Learn More
@@ -122,8 +166,7 @@ export default function Product(props) {
         open={open}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
+        aria-describedby="simple-modal-description">
         {body}
       </Modal>
     </Card>

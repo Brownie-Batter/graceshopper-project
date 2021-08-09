@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -43,6 +39,8 @@ export default function CartItem(props) {
     userId,
     deleteProduct,
     editQuantity,
+    isLoggedIn,
+    handleVisitorDelete,
   } = props;
   const [userQuantity, setUserQuantity] = useState(quantity);
 
@@ -50,26 +48,52 @@ export default function CartItem(props) {
 
   const handleChange = (e) => {
     setUserQuantity(e.target.value);
-    editQuantity(userId, productId, e.target.value);
-    console.log('handle change');
+    if (isLoggedIn) {
+      editQuantity(userId, productId, e.target.value);
+    } else {
+      let product = {
+        name,
+        productId,
+        quantity: e.target.value,
+        price,
+      };
+      localStorage.setItem(productId, JSON.stringify(product));
+    }
   };
+
   const handleAddClick = () => {
     setUserQuantity(userQuantity + 1);
-    editQuantity(userId, productId, userQuantity + 1);
+
+    if (isLoggedIn) {
+      editQuantity(userId, productId, userQuantity + 1);
+    } else {
+      let product = {
+        name,
+        productId,
+        quantity: userQuantity + 1,
+        price,
+      };
+      localStorage.setItem(productId, JSON.stringify(product));
+    }
   };
+
   const handleRemoveClick = () => {
     setUserQuantity(userQuantity - 1);
-    editQuantity(userId, productId, userQuantity - 1);
-  };
-  const createChildren = (num) => {
-    let result = [];
 
-    while (num > 0) {
-      result.push(num);
-      num--;
+    if (isLoggedIn) {
+      editQuantity(userId, productId, userQuantity - 1);
+    } else {
+      let product = {
+        name,
+        productId,
+        quantity: userQuantity - 1,
+        price,
+      };
+      localStorage.setItem(productId, JSON.stringify(product));
     }
-    return result;
   };
+
+  console.log(userQuantity);
 
   return (
     <Card className={classes.root}>
@@ -77,8 +101,7 @@ export default function CartItem(props) {
         <Typography
           className={classes.title}
           color="textSecondary"
-          gutterBottom
-        >
+          gutterBottom>
           {name}
         </Typography>
         <Typography variant="h5" component="h2">
@@ -100,41 +123,29 @@ export default function CartItem(props) {
               color="primary"
               aria-label="add"
               size="small"
-              onClick={handleAddClick}
-            >
+              onClick={handleAddClick}>
               <AddIcon />
             </Fab>
             <Fab
               color="secondary"
               aria-label="remove"
               size="small"
-              onClick={handleRemoveClick}
-            >
+              onClick={handleRemoveClick}>
               <RemoveIcon />
             </Fab>
           </div>
-
-          {/* <InputLabel id="demo-simple-select-label">Quantity</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={userQuantity}
-            onChange={handleChange}
-          >
-            {createChildren(quantity).map((val) => {
-              return (
-                <MenuItem key={val} value={val}>
-                  {val}
-                </MenuItem>
-              );
-            })}
-          </Select> */}
         </FormControl>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={() => deleteProduct(userId, productId)}>
-          Delete from Cart
-        </Button>
+        {isLoggedIn ? (
+          <Button size="small" onClick={() => deleteProduct(userId, productId)}>
+            Delete from Cart
+          </Button>
+        ) : (
+          <Button size="small" onClick={() => handleVisitorDelete(productId)}>
+            Delete from Cart
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

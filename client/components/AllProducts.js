@@ -30,8 +30,15 @@ function AllProducts(props) {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState('all');
   const classes = useStyles();
-  const { userId, addToCart, getProducts, totalPages, products, categories } =
-    props;
+  const {
+    userId,
+    addToCart,
+    getProducts,
+    totalPages,
+    products,
+    categories,
+    isLoggedIn,
+  } = props;
 
   useEffect(() => {
     fetchProducts();
@@ -115,6 +122,7 @@ function AllProducts(props) {
                 userId={userId}
                 addToCart={addToCart}
                 description={description}
+                isLoggedIn={isLoggedIn}
               />
             )
           )
@@ -134,6 +142,7 @@ const mapStateToProps = (state) => {
     categories: state.allProducts.categories,
     totalPages: state.allProducts.totalPages,
     userId: state.auth.id,
+    isLoggedIn: !!state.auth.id,
   };
 };
 

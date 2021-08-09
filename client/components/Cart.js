@@ -9,19 +9,17 @@ import { editQuantity } from '../store/cart';
 function Cart(props) {
   const {
     match: {
-      params: { id, isLoggedIn },
+      params: { id },
     },
     cart,
     userId,
     deleteProduct,
     editQuantity,
+    isLoggedIn,
   } = props;
 
   useEffect(() => {
     props.fetchCart(id);
-    // if (!isLoggedIn && cart.length > 0) {
-    //   window.localStorage.setItem('cart', []);
-    // }
   }, []);
   return (
     <div className="food-container">
@@ -36,11 +34,12 @@ function Cart(props) {
             userId={userId}
             deleteProduct={deleteProduct}
             editQuantity={editQuantity}
+            isLoggedIn={isLoggedIn}
           />
         ))
       ) : (
         <div>
-          <h3>Loading...</h3>
+          <h3>Your cart is empty!</h3>
         </div>
       )}
     </div>
