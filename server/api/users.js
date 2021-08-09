@@ -23,16 +23,11 @@ router.get('/', requireToken, requireAdmin, async (req, res, next) => {
 });
 
 // pull request for user cart //:id/cart
-router.get('/:id/cart', async (req, res, next) => {
+router.get('/:id/cart', requireToken, async (req, res, next) => {
   try {
-    //login, cart, hit route
-    //check if user has active order
-    //if they have an active order, send order details
-
-    //if they don't have an active order
-    //create a new active order
-    //send order details to front end
-    //check if auth id is equal to order id
+    if (req.user.id != req.params.id) {
+      return res.status(500).send('You cannot access this cart!');
+    }
 
     const user = await User.findByPk(req.params.id, {
       attributes: ['id', 'username'],
@@ -47,7 +42,7 @@ router.get('/:id/cart', async (req, res, next) => {
       },
     });
 
-    console.log('user', user);
+    // console.log('user', user);
     //const active = await OrderDetails.findByPk(user.order.id);
     // console.log('active order', active);
     res.json(user);
@@ -59,6 +54,10 @@ router.get('/:id/cart', async (req, res, next) => {
 //add item to cart
 router.post('/:id/cart/:productId', requireToken, async (req, res, next) => {
   try {
+    if (req.user.id != req.params.id) {
+      return res.status(500).send('You cannot access this cart!');
+    }
+
     const { quantity, price } = req.body;
     const userOrder = await Order.findOne({
       where: { userId: req.params.id, order_status: 'active' },
@@ -105,6 +104,10 @@ router.post('/:id/cart/:productId', requireToken, async (req, res, next) => {
 //delete product from cart or decrease quantity route
 router.put('/:id/cart/:productId', requireToken, async (req, res, next) => {
   try {
+    if (req.user.id != req.params.id) {
+      return res.status(500).send('You cannot access this cart!');
+    }
+
     const userOrder = await Order.findOne({
       where: { userId: req.params.id, order_status: 'active' },
     });
@@ -120,6 +123,10 @@ router.put('/:id/cart/:productId', requireToken, async (req, res, next) => {
 //change order status from active to purchased and create a new order
 router.put('/:id/cart/order', requireToken, async (req, res, next) => {
   try {
+    if (req.user.id != req.params.id) {
+      return res.status(500).send('You cannot access this cart!');
+    }
+
     const userOrder = await Order.findOne({
       where: { userId: req.params.id, order_status: 'active' },
     });

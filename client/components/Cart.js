@@ -36,7 +36,6 @@ function Cart(props) {
             editQuantity={editQuantity}
             isLoggedIn={isLoggedIn}
             inventory={quantity}
-
           />
         ))
       ) : (
@@ -54,8 +53,8 @@ const mapState = (state) => ({
   userId: state.auth.id,
 });
 
-const mapDispatch = (dispatch) => ({
-  fetchCart: (id) => dispatch(fetchCart(id)),
+const mapDispatch = (dispatch, { history }) => ({
+  fetchCart: (id) => dispatch(fetchCart(id, history)),
   deleteProduct: (userId, productId) =>
     dispatch(deleteProductFromCart(userId, productId)),
   loadInitialData() {

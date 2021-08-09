@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { Next } from 'react-bootstrap/esm/PageItem';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -34,7 +33,7 @@ export const emptyCart = () => ({
 });
 
 //thunker set cart
-export const fetchCart = (id) => async (dispatch) => {
+export const fetchCart = (id, history) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem(TOKEN);
     const {
@@ -47,8 +46,17 @@ export const fetchCart = (id) => async (dispatch) => {
     let cleanCart = orders[0].products.map((product) => product);
 
     dispatch(set_cart(cleanCart));
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    toast.error(err.response.data, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    history.push('/products');
   }
 };
 
@@ -67,8 +75,16 @@ export const addProductToCart = (id, productId, price) => async (dispatch) => {
     });
     console.log(cleanProduct[0]);
     dispatch(addToCart(cleanProduct[0]));
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    toast.error(err.response.data, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
 };
 //edit product quantity in cart
@@ -83,7 +99,7 @@ export const editQuantity = (id, productId, quantity) => async (dispatch) => {
       quantity: quantity,
     });
     dispatch(updateCart(data));
-  } catch (error) {
+  } catch (err) {
     console.error(error);
   }
 };
@@ -98,8 +114,16 @@ export const deleteProductFromCart = (id, productId) => async (dispatch) => {
       },
     });
     dispatch(deleteProductCart(data));
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    toast.error(err.response.data, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
 };
 
