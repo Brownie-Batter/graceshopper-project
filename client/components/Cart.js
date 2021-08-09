@@ -4,7 +4,6 @@ import { fetchCart } from '../store/cart';
 import CartItem from './CartItem';
 import { me } from '../store';
 import { deleteProductFromCart } from '../store/cart';
-import { editQuantity } from '../store/cart';
 
 function Cart(props) {
   const {
@@ -12,9 +11,9 @@ function Cart(props) {
       params: { id, isLoggedIn },
     },
     cart,
+    
     userId,
     deleteProduct,
-    editQuantity,
   } = props;
 
   useEffect(() => {
@@ -23,9 +22,56 @@ function Cart(props) {
     //   window.localStorage.setItem('cart', []);
     // }
   }, []);
+
+  const foodProduct = {
+    name: 'teriyaki',
+    quantity:10,
+    price:10,
+    productId:2,
+  }
+  window.localStorage.clear()
+window.localStorage.setItem(foodProduct.name,JSON.stringify(foodProduct))
+window.localStorage.setItem('12','4')
+window.localStorage.setItem('13','5')
+window.localStorage.setItem('14','1')
+//setItem is adding
+//removeitem delete
+//clear remove cart
+  const cartObject = window.localStorage
+
+let cartArray = []
+
+for(let item in cartObject){
+if(Object.keys(cartObject).indexOf(item)>=0 ){
+  cartArray.push(JSON.parse(cartObject[item]))
+}
+
+}
+ 
+
+// if (!id) {
+//   // localstorage cart
+//   let cart = window.localStorage.getItem('cart');
+//   if (!cart) {
+//     window.localStorage.setItem('cart', '');
+//     cart = window.localStorage.getItem('cart');
+//     console.log(cart);
+//   }
+  
+
+//if (!cart)
+//if(cart.length === 0) {   2nd logic for both
+//   user is logged in but is empty - Loading
+// if(cart === null) {
+//   Visitor want to use localStorage/cartArray
+// }
+// if(cart.length> 0)  first logic
+// user is logged in load cart data
+// }
+console.log("windowcartcheck",cartArray)
   return (
     <div className="food-container">
-      {cart.length ? (
+      {isLoggedIn ? (
         cart.map(({ name, id, orderDetails: { quantity, price } }) => (
           <CartItem
             key={id}
@@ -35,7 +81,6 @@ function Cart(props) {
             price={price}
             userId={userId}
             deleteProduct={deleteProduct}
-            editQuantity={editQuantity}
           />
         ))
       ) : (
@@ -43,7 +88,7 @@ function Cart(props) {
           <h3>Loading...</h3>
         </div>
       )}
-    </div>
+         </div>
   );
 }
 
@@ -60,8 +105,6 @@ const mapDispatch = (dispatch) => ({
   loadInitialData() {
     dispatch(me());
   },
-  editQuantity: (userId, prodId, quantity) =>
-    dispatch(editQuantity(userId, prodId, quantity)),
 });
 
 export default connect(mapState, mapDispatch)(Cart);
