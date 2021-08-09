@@ -43,6 +43,7 @@ function AllProducts(props) {
 
   const handleCategoryChange = (e) => {
     setFilter(e.target.value);
+    setPage(1);
   };
 
   const getRequestParams = (page, filter) => {
@@ -92,6 +93,7 @@ function AllProducts(props) {
           variant="outlined"
           color="primary"
           onChange={handlePageChange}
+          page={page}
         />
       </div>
       <div className="food-container">
