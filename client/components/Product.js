@@ -139,7 +139,7 @@ export default function Product(props) {
       {isLoggedIn ? (
         <Button
           onClick={() => {
-            addToCart(userId, id, price,cart);
+            handleAdd(userId, id, price, cart);
             handleClose();
           }}
           startIcon={<AddShoppingCartIcon />}
@@ -157,7 +157,6 @@ export default function Product(props) {
           Add to Cart
         </Button>
       )}
-
     </div>
   );
   return (
@@ -179,7 +178,7 @@ export default function Product(props) {
       <CardActions>
         {isLoggedIn ? (
           <Button
-            onClick={() => addToCart(userId, id, price,cart)}
+            onClick={() => handleAdd(userId, id, price, cart)}
             size="small"
             color="primary">
             Add to Cart
@@ -189,11 +188,8 @@ export default function Product(props) {
             Add to Cart
           </Button>
         )}
-
         <Button size="small" color="primary" onClick={handleOpen}>
-          {/* <Link to={`/products/${id}`} style={{ textDecoration: 'none' }}> */}
           Learn More
-          {/* </Link> */}
         </Button>
       </CardActions>
       <Modal

@@ -42,29 +42,25 @@ export default function CartItem(props) {
     isLoggedIn,
     handleVisitorDelete,
     inventory,
-
   } = props;
   const [userQuantity, setUserQuantity] = useState(quantity);
 
   const classes = useStyles();
 
   const handleChange = (e) => {
-
-   
     if (isLoggedIn) {
-         if (e.target.value > inventory) {
-      setUserQuantity(inventory);
-      editQuantity(userId, productId, inventory);
-    } else if (e.target.value < 1) {
-      setUserQuantity(1);
-      editQuantity(userId, productId, 1);
+      if (e.target.value > inventory) {
+        setUserQuantity(inventory);
+        editQuantity(userId, productId, inventory);
+      } else if (e.target.value < 1) {
+        setUserQuantity(1);
+        editQuantity(userId, productId, 1);
+      } else {
+        setUserQuantity(e.target.value);
+        editQuantity(userId, productId, e.target.value);
+      }
     } else {
       setUserQuantity(e.target.value);
-      editQuantity(userId, productId, e.target.value);
-
-    }
-    } else {
-       setUserQuantity(e.target.value);
       let product = {
         name,
         productId,
@@ -72,17 +68,15 @@ export default function CartItem(props) {
         price,
       };
       localStorage.setItem(productId, JSON.stringify(product));
-
+    }
   };
 
   const handleAddClick = () => {
-
     if (isLoggedIn) {
-         if (userQuantity < inventory) {
-      setUserQuantity(userQuantity + 1);
-      editQuantity(userId, productId, userQuantity + 1);
-
-    }
+      if (userQuantity < inventory) {
+        setUserQuantity(userQuantity + 1);
+        editQuantity(userId, productId, userQuantity + 1);
+      }
     } else {
       setUserQuantity(userQuantity + 1);
       let product = {
@@ -92,18 +86,17 @@ export default function CartItem(props) {
         price,
       };
       localStorage.setItem(productId, JSON.stringify(product));
-
-
+    }
   };
 
-  const handleRemoveClick = () => { 
+  const handleRemoveClick = () => {
     if (isLoggedIn) {
-        if (userQuantity > 1) {
-      setUserQuantity(userQuantity - 1);
-      editQuantity(userId, productId, userQuantity - 1);
-    }
+      if (userQuantity > 1) {
+        setUserQuantity(userQuantity - 1);
+        editQuantity(userId, productId, userQuantity - 1);
+      }
     } else {
-       setUserQuantity(userQuantity - 1);
+      setUserQuantity(userQuantity - 1);
       let product = {
         name,
         productId,
@@ -111,19 +104,8 @@ export default function CartItem(props) {
         price,
       };
       localStorage.setItem(productId, JSON.stringify(product));
- 
+    }
   };
-  // const createChildren = (num) => {
-  //   let result = [];
-
-  //   while (num > 0) {
-  //     result.push(num);
-  //     num--;
-  //   }
-  //   return result;
-  // };
-
-  console.log(userQuantity);
 
   return (
     <Card className={classes.root}>
