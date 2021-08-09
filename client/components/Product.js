@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom';
 import Modal from '@material-ui/core/Modal';
 import { FullscreenExit } from '@material-ui/icons';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Product(props) {
   const {
@@ -22,6 +24,7 @@ export default function Product(props) {
     userId,
     addToCart,
     description,
+    cart,
   } = props;
 
   const useStyles = makeStyles((theme) => ({
@@ -67,6 +70,36 @@ export default function Product(props) {
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
 
+  const handleAdd = (userId, id, price, cart) => {
+    const inCart = cart.filter((item) => {
+      return item.id === id;
+    });
+    console.log(inCart);
+    if (inCart.length > 0) {
+      toast.error(`${name} is already in your cart!`, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      toast.success(`${name} added to cart`, {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      addToCart(userId, id, price);
+      console.log('added to cart');
+    }
+  };
+
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <img src={imgUrl} style={{ maxWidth: '750px', maxHeight: '475px' }} />
@@ -76,7 +109,7 @@ export default function Product(props) {
       <p>Price: ${price}</p>
       <Button
         onClick={() => {
-          addToCart(userId, id, price);
+          handleAdd(userId, id, price, cart);
           handleClose();
         }}
         startIcon={<AddShoppingCartIcon />}
@@ -106,7 +139,7 @@ export default function Product(props) {
       </CardActionArea>
       <CardActions>
         <Button
-          onClick={() => addToCart(userId, id, price)}
+          onClick={() => handleAdd(userId, id, price, cart)}
           size="small"
           color="primary"
         >

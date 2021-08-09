@@ -42,7 +42,7 @@ router.get('/:id/cart', async (req, res, next) => {
         attributes: ['id', 'order_status'],
         include: {
           model: Product,
-          attributes: ['id', 'name'],
+          attributes: ['id', 'name', 'quantity'],
         },
       },
     });

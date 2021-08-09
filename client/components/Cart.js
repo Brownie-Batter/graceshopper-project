@@ -26,16 +26,17 @@ function Cart(props) {
   return (
     <div className="food-container">
       {cart.length ? (
-        cart.map(({ name, id, orderDetails: { quantity, price } }) => (
+        cart.map(({ name, id, orderDetails, quantity }) => (
           <CartItem
             key={id}
             productId={id}
             name={name}
-            quantity={quantity}
-            price={price}
+            quantity={orderDetails.quantity}
+            price={orderDetails.price}
             userId={userId}
             deleteProduct={deleteProduct}
             editQuantity={editQuantity}
+            inventory={quantity}
           />
         ))
       ) : (
