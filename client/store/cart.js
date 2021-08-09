@@ -68,18 +68,11 @@ export const addProductToCart = (id, productId, price) => async (dispatch) => {
       },
       price: price,
     });
-    let cleanProduct = data.products[data.products.length - 1];
-
-    dispatch(addToCart(cleanProduct));
-    toast.success(`${cleanProduct.name} added to cart`, {
-      position: 'top-right',
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
+    let cleanProduct = data.products.filter((product) => {
+      return product.id === productId;
     });
+    console.log(cleanProduct[0]);
+    dispatch(addToCart(cleanProduct[0]));
   } catch (error) {
     console.error(error);
   }
@@ -125,8 +118,8 @@ export default function cartReducer(state = [], payload) {
     case SET_CART:
       return payload.cart;
     case ADD_TO_CART:
-      return state;
-    //return [...state, payload.product];
+      // return state;
+      return [...state, payload.product];
     case DELETE_PRODUCT_CART:
       console.log('payload', payload);
       return state.filter(
