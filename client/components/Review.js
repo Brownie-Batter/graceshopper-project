@@ -82,7 +82,7 @@ function Review(props) {
             <ListItem className={classes.listItem}>
               <ListItemText primary="Total" />
               <Typography variant="subtitle1" className={classes.total}>
-                {`${(totalPrice() * 1.088).toFixed(2)}`}
+                {`$${(totalPrice() * 1.088).toFixed(2)}`}
               </Typography>
             </ListItem>
           </List>
@@ -132,7 +132,7 @@ function Review(props) {
             <ListItem className={classes.listItem}>
               <ListItemText primary="Total" />
               <Typography variant="subtitle1" className={classes.total}>
-                {`${(totalPrice() * 1.088).toFixed(2)}`}
+                {`$${(totalPrice() * 1.088).toFixed(2)}`}
               </Typography>
             </ListItem>
           </List>
