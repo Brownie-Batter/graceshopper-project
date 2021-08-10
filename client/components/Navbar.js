@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
 import { emptyCart, setVisCart } from '../store/cart';
-
 import Badge from '@material-ui/core/Badge';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -81,13 +80,11 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
                     </Typography>
                   </Link>
                 </div>
-
                 <div id="loggedrightNavBar">
                   <Button color="primary">Welcome {user} </Button>
                   <Button color="primary" href="#" onClick={handleClick}>
                     Logout
                   </Button>
-
                   <Link id="loggedcart" to={`/users/${userId}/cart`}>
                     <IconButton aria-label="cart">
                       <StyledBadge
