@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { fetchCart } from '../store/cart';
+import { fetchCart, completeUserCart } from '../store/cart';
 import CartItem from './CartItem';
 import { me } from '../store';
 import { deleteProductFromCart } from '../store/cart';
@@ -22,6 +22,7 @@ function Cart(props) {
     deleteProduct,
     editQuantity,
     isLoggedIn,
+    completeCart,
   } = props;
 
   const calcSubtotal = (cart) => {
@@ -82,7 +83,7 @@ function Cart(props) {
               <Typography component="p">Subtotal: ${subtotal}</Typography>
             </CardContent>
             <Link to={`/users/${userId}/checkout`}>
-              <Button>Checkout</Button>
+              <Button onClick={() =>{completeCart(userId)}}>Checkout</Button>
             </Link>
           </Card>
         </div>
@@ -108,6 +109,8 @@ const mapDispatch = (dispatch, { history }) => ({
   },
   editQuantity: (userId, prodId, quantity) =>
     dispatch(editQuantity(userId, prodId, quantity)),
+    completeCart: (userId) => 
+    dispatch(completeUserCart(userId))
 });
 
 export default connect(mapState, mapDispatch)(Cart);
