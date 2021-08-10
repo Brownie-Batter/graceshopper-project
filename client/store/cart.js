@@ -119,7 +119,11 @@ export const editQuantity = (id, productId, quantity) => async (dispatch) => {
         },
       }
     );
-    dispatch(updateCart(data));
+    console.log(data.products);
+    const updatedItem = data.products.filter((item) => {
+      return item.id == productId;
+    });
+    dispatch(updateCart(updatedItem[0]));
   } catch (err) {
     console.error(error);
   }
@@ -195,9 +199,10 @@ export default function cartReducer(
         ),
       };
     case UPDATE_CART:
-      return state;
-    // return state.map((cart) =>
-    // (cart.id === payload.cart.id ? payload.cart : cart));
+      let newCart = state.userCart.map((product) => {
+        return product.id !== payload.product.id ? product : payload.product;
+      });
+      return { userCart: newCart };
     case EMPTY_CART:
       return { ...state, userCart: payload.cart };
     case SET_VISITOR:

@@ -43,7 +43,6 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
   useEffect(() => {
     if (!isLoggedIn) {
       grabCartItems();
-      console.log(visitorCart);
     }
   }, []);
 
@@ -56,106 +55,102 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
     },
   }))(Badge);
   return (
-    console.log('imauser', user),
-    (
-      <div id="navbar">
-        <nav>
-          {isLoggedIn ? (
-            <div className={classes.root}>
-              <AppBar id="mainNav" position="static">
-                <Toolbar
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                  }}>
-                  <div id="leftNavBar">
-                    <Link to="/">
-                      <Typography variant="h6" className={classes.title}>
-                        Home
-                      </Typography>
-                    </Link>
-                    <Link to="/products">
-                      <Typography variant="h6" className={classes.title}>
-                        Food
-                      </Typography>
-                    </Link>
-                    <Link to="/aboutus">
-                      <Typography variant="h6" className={classes.title}>
-                        About Us
-                      </Typography>
-                    </Link>
-                  </div>
-
-                  <div id="loggedrightNavBar">
-                    <Button color="primary">Welcome {user} </Button>
-                    <Button color="primary" href="#" onClick={handleClick}>
-                      Logout
-                    </Button>
-
-                    <Link id="loggedcart" to={`/users/${userId}/cart`}>
-                      <IconButton aria-label="cart">
-                        <StyledBadge
-                          badgeContent={cart.userCart.length}
-                          color="secondary">
-                          <ShoppingCartIcon size="large" />
-                        </StyledBadge>
-                      </IconButton>
-                    </Link>
-                  </div>
-                </Toolbar>
-              </AppBar>
-            </div>
-          ) : (
-            <div className={classes.root}>
-              <AppBar id="mainNav" position="static">
-                <Toolbar
-                  style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <div id="leftNavBar">
-                    <Link to="/">
-                      <Typography variant="h6" className={classes.title}>
-                        <Button color="primary">Home</Button>
-                      </Typography>
-                    </Link>
-                    <Link to="/products">
-                      <Typography variant="h6" className={classes.title}>
-                        <Button color="primary">Food</Button>
-                      </Typography>
-                    </Link>
-                    <Link to="/aboutus">
-                      <Typography variant="h6" className={classes.title}>
-                        <Button color="primary">About Us</Button>
-                      </Typography>
-                    </Link>
-                  </div>
-                  <div id="rightNavBar">
-                    <Link to="/login">
-                      <Typography variant="h6" className={classes.title}>
-                        <Button color="primary">Login</Button>
-                      </Typography>
-                    </Link>
-                    <Link to="/signup">
-                      <Typography variant="h6" className={classes.title}>
-                        <Button color="primary">Sign Up</Button>
-                      </Typography>
-                    </Link>
-                    <Link to={`/visitor/cart`}>
-                      <IconButton aria-label="cart">
-                        <StyledBadge
-                          badgeContent={cart.visitorCart}
-                          color="secondary">
-                          <ShoppingCartIcon size="large" />
-                        </StyledBadge>
-                      </IconButton>
-                    </Link>
-                  </div>
-                </Toolbar>
-              </AppBar>
-            </div>
-          )}
-        </nav>
-        <hr />
-      </div>
-    )
+    <div id="navbar">
+      <nav>
+        {isLoggedIn ? (
+          <div className={classes.root}>
+            <AppBar id="mainNav" position="static">
+              <Toolbar
+                style={{ display: 'flex', justifyContent: 'space-between' }}
+              >
+                <div id="leftNavBar">
+                  <Link to="/">
+                    <Typography variant="h6" className={classes.title}>
+                      <Button color="primary">Home</Button>
+                    </Typography>
+                  </Link>
+                  <Link to="/products">
+                    <Typography variant="h6" className={classes.title}>
+                      <Button color="primary">Food</Button>
+                    </Typography>
+                  </Link>
+                  <Link to="/aboutus">
+                    <Typography variant="h6" className={classes.title}>
+                      <Button color="primary">About Us</Button>
+                    </Typography>
+                  </Link>
+                </div>
+                <div id="loggedrightNavBar">
+                  <Button color="primary">Welcome {user} </Button>
+                  <Button color="primary" href="#" onClick={handleClick}>
+                    Logout
+                  </Button>
+                  <Link id="loggedcart" to={`/users/${userId}/cart`}>
+                    <IconButton aria-label="cart">
+                      <StyledBadge
+                        badgeContent={cart.userCart.length}
+                        color="secondary"
+                      >
+                        <ShoppingCartIcon size="large" />
+                      </StyledBadge>
+                    </IconButton>
+                  </Link>
+                </div>
+              </Toolbar>
+            </AppBar>
+          </div>
+        ) : (
+          <div className={classes.root}>
+            <AppBar id="mainNav" position="static">
+              <Toolbar
+                style={{ display: 'flex', justifyContent: 'space-between' }}
+              >
+                <div id="leftNavBar">
+                  <Link to="/">
+                    <Typography variant="h6" className={classes.title}>
+                      <Button color="primary">Home</Button>
+                    </Typography>
+                  </Link>
+                  <Link to="/products">
+                    <Typography variant="h6" className={classes.title}>
+                      <Button color="primary">Food</Button>
+                    </Typography>
+                  </Link>
+                  <Link to="/aboutus">
+                    <Typography variant="h6" className={classes.title}>
+                      <Button color="primary">About Us</Button>
+                    </Typography>
+                  </Link>
+                </div>
+                <div id="rightNavBar">
+                  <Link to="/login">
+                    <Typography variant="h6" className={classes.title}>
+                      <Button color="primary">Login</Button>
+                    </Typography>
+                  </Link>
+                  <Link to="/signup">
+                    <Typography variant="h6" className={classes.title}>
+                      <Button color="primary">Sign Up</Button>
+                    </Typography>
+                  </Link>
+                  <Link to={`/visitor/cart`}>
+                    <IconButton aria-label="cart">
+                      <StyledBadge
+                        badgeContent={cart.visitorCart}
+                        color="secondary"
+                      >
+                        <ShoppingCartIcon size="large" />
+                      </StyledBadge>
+                    </IconButton>
+                  </Link>
+                </div>
+              </Toolbar>
+            </AppBar>
+          </div>
+        )}
+      </nav>
+      <hr />
+    </div>
   );
 };
 
