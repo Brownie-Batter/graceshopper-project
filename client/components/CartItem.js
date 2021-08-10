@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: '15px',
+    marginTop: '15px',
   },
   title: {
     fontSize: 14,

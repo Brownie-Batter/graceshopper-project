@@ -47,6 +47,7 @@ export default function Product(props) {
     description,
     isLoggedIn,
     cart,
+    visCart,
   } = props;
 
   function getModalStyle() {
@@ -78,6 +79,7 @@ export default function Product(props) {
         category: { category_name: category_name },
       };
       localStorage.setItem(id, JSON.stringify(product));
+      visCart(cart.visitorCart + 1);
       toast.success(`${name} added to cart`, {
         position: 'top-center',
         autoClose: 3000,
@@ -105,6 +107,7 @@ export default function Product(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleAdd = (userId, id, price, cart) => {
+    console.log(cart);
     const inCart = cart.filter((item) => {
       return item.id === id;
     });
@@ -145,7 +148,7 @@ export default function Product(props) {
       {isLoggedIn ? (
         <Button
           onClick={() => {
-            handleAdd(userId, id, price, cart);
+            handleAdd(userId, id, price, cart.userCart);
             handleClose();
           }}
           startIcon={<AddShoppingCartIcon />}
@@ -184,7 +187,7 @@ export default function Product(props) {
       <CardActions>
         {isLoggedIn ? (
           <Button
-            onClick={() => handleAdd(userId, id, price, cart)}
+            onClick={() => handleAdd(userId, id, price, cart.userCart)}
             size="small"
             color="primary">
             Add to Cart
