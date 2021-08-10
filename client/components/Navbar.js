@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
 import { emptyCart, setVisCart } from '../store/cart';
-
 import Badge from '@material-ui/core/Badge';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -27,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
   const classes = useStyles();
-    const [visitorCart, setVisitorCart] = useState([]);
+  const [visitorCart, setVisitorCart] = useState([]);
   const grabCartItems = () => {
     let cart = [];
     for (const [key, product] of Object.entries(localStorage)) {
@@ -65,22 +64,24 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
             <div className={classes.root}>
               <AppBar id="mainNav" position="static">
                 <Toolbar
-                  style={{ display: 'flex', justifyContent: 'space-between' }}
-                >
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                  }}>
                   <div id="leftNavBar">
                     <Link to="/">
                       <Typography variant="h6" className={classes.title}>
-                        <Button color="primary">Home</Button>
+                        Home
                       </Typography>
                     </Link>
                     <Link to="/products">
                       <Typography variant="h6" className={classes.title}>
-                        <Button color="primary">Food</Button>
+                        Food
                       </Typography>
                     </Link>
                     <Link to="/aboutus">
                       <Typography variant="h6" className={classes.title}>
-                        <Button color="primary">About Us</Button>
+                        About Us
                       </Typography>
                     </Link>
                   </div>
@@ -92,14 +93,13 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
                     </Button>
 
                     <Link id="loggedcart" to={`/users/${userId}/cart`}>
-                  <IconButton aria-label="cart">
-                    <StyledBadge
-                      badgeContent={cart.userCart.length}
-                      color="secondary"
-                    >
-                      <ShoppingCartIcon size="large" />
-                    </StyledBadge>
-                  </IconButton>
+                      <IconButton aria-label="cart">
+                        <StyledBadge
+                          badgeContent={cart.userCart.length}
+                          color="secondary">
+                          <ShoppingCartIcon size="large" />
+                        </StyledBadge>
+                      </IconButton>
                     </Link>
                   </div>
                 </Toolbar>
@@ -109,8 +109,7 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
             <div className={classes.root}>
               <AppBar id="mainNav" position="static">
                 <Toolbar
-                  style={{ display: 'flex', justifyContent: 'space-between' }}
-                >
+                  style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <div id="leftNavBar">
                     <Link to="/">
                       <Typography variant="h6" className={classes.title}>
@@ -140,14 +139,13 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
                       </Typography>
                     </Link>
                     <Link to={`/visitor/cart`}>
-                            <IconButton aria-label="cart">
-                      <StyledBadge
-                        badgeContent={cart.visitorCart}
-                        color="secondary"
-                      >
-                        <ShoppingCartIcon size="large" />
-                      </StyledBadge>
-                    </IconButton>
+                      <IconButton aria-label="cart">
+                        <StyledBadge
+                          badgeContent={cart.visitorCart}
+                          color="secondary">
+                          <ShoppingCartIcon size="large" />
+                        </StyledBadge>
+                      </IconButton>
                     </Link>
                   </div>
                 </Toolbar>
@@ -158,7 +156,6 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
         <hr />
       </div>
     )
-
   );
 };
 
@@ -171,7 +168,6 @@ const mapState = (state) => {
     userId: state.auth.id,
     user: state.auth.first_name,
     cart: state.cart,
-
   };
 };
 

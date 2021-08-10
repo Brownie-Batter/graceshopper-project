@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
   root: {
     maxWidth: 300,
+    margin: 40,
   },
   media: {
     height: 275,
@@ -144,6 +145,47 @@ export default function Teaminfo() {
               technically a second generation 'culinarian,' who was first
               inspired by his mother in the tiny kitchen of their family
               restaurant.
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+      <Card className={classes.root}>
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image="/images/meredith.png"
+            title="Meredith"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h6" component="h6">
+              Meredith
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              Intern
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              Newest Intern on our very diverse team.
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+      <Card className={classes.root}>
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image="/images/tori.jpeg"
+            title="Tori"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h6" component="h6">
+              Tori
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              Consultant
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              Hide yo code, hide yo site. Jk, she will help you create an
+              awesome MVP!
             </Typography>
           </CardContent>
         </CardActionArea>
