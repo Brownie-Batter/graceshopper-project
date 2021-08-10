@@ -154,8 +154,7 @@ export default function Product(props) {
           startIcon={<AddShoppingCartIcon />}
           size="large"
           color="primary"
-          variant="contained"
-        >
+          variant="contained">
           Add to Cart
         </Button>
       ) : (
@@ -163,8 +162,7 @@ export default function Product(props) {
           onClick={() => {
             handleVisitorClick();
             handleClose();
-          }}
-        >
+          }}>
           Add to Cart
         </Button>
       )}
@@ -191,8 +189,7 @@ export default function Product(props) {
           <Button
             onClick={() => handleAdd(userId, id, price, cart.userCart)}
             size="small"
-            color="primary"
-          >
+            color="primary">
             Add to Cart
           </Button>
         ) : (
@@ -208,8 +205,7 @@ export default function Product(props) {
         open={open}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
+        aria-describedby="simple-modal-description">
         {body}
       </Modal>
     </Card>

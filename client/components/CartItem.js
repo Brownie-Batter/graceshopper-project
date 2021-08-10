@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -130,8 +129,7 @@ export default function CartItem(props) {
           <Typography
             className={classes.title}
             color="textSecondary"
-            gutterBottom
-          >
+            gutterBottom>
             {category.category_name}
           </Typography>
           <Typography variant="h5" component="h2">
@@ -162,8 +160,7 @@ export default function CartItem(props) {
                 color="primary"
                 aria-label="add"
                 size="small"
-                onClick={handleAddClick}
-              >
+                onClick={handleAddClick}>
                 <AddIcon />
               </Button>
               <Button
@@ -171,8 +168,7 @@ export default function CartItem(props) {
                 color="primary"
                 aria-label="remove"
                 size="small"
-                onClick={handleRemoveClick}
-              >
+                onClick={handleRemoveClick}>
                 <RemoveIcon />
               </Button>
             </div>
@@ -186,8 +182,7 @@ export default function CartItem(props) {
           ) : (
             <IconButton
               size="small"
-              onClick={() => handleVisitorDelete(productId)}
-            >
+              onClick={() => handleVisitorDelete(productId)}>
               <DeleteIcon fontSize="large" />
             </IconButton>
           )}

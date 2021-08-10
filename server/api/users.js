@@ -103,25 +103,6 @@ router.post('/:id/cart/:productId', requireToken, async (req, res, next) => {
   }
 });
 
-//delete product from cart or decrease quantity route
-router.put('/:id/cart/:productId', requireToken, async (req, res, next) => {
-  try {
-    if (req.user.id != req.params.id) {
-      return res.status(500).send('You cannot access this cart!');
-    }
-
-    const userOrder = await Order.findOne({
-      where: { userId: req.params.id, order_status: 'active' },
-    });
-
-    await userOrder.removeProduct(req.params.productId);
-
-    res.json(req.params.productId);
-  } catch (error) {
-    next(error);
-  }
-});
-
 //change order status from active to purchased and create a new order
 router.put('/:id/cart/order', requireToken, async (req, res, next) => {
   try {
@@ -140,6 +121,25 @@ router.put('/:id/cart/order', requireToken, async (req, res, next) => {
     await user.createOrder();
 
     res.json(userOrder);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//delete product from cart or decrease quantity route
+router.put('/:id/cart/:productId', requireToken, async (req, res, next) => {
+  try {
+    if (req.user.id != req.params.id) {
+      return res.status(500).send('You cannot access this cart!');
+    }
+
+    const userOrder = await Order.findOne({
+      where: { userId: req.params.id, order_status: 'active' },
+    });
+
+    await userOrder.removeProduct(req.params.productId);
+
+    res.json(req.params.productId);
   } catch (error) {
     next(error);
   }

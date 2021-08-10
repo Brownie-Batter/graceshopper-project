@@ -1,5 +1,4 @@
 import axios from 'axios';
-import emptyCart from './cart';
 import history from '../history';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
