@@ -30,8 +30,7 @@ function Cart(props) {
       const total = cart.reduce((total, item) => {
         return total + item.orderDetails.quantity * item.orderDetails.price;
       }, 0);
-      return total;
-      //setSubTotal(total);
+      setSubTotal(total);
     }
   };
   useEffect(() => {
@@ -77,29 +76,19 @@ function Cart(props) {
         </div>
       )}
       {cart.length ? (
-        <div style={{ maxWidth: 1400, minWidth: 750 }}>
-          <Card
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              marginTop: '15px',
-            }}
-          >
+        <div style={{ maxWidth: 1400, minWidth: 750, marginTop: '15px' }}>
+          <Card style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <CardContent>
-              <Typography component="p">
-                Subtotal: ${calcSubtotal(cart)}
-              </Typography>
+              <Typography component="p">Subtotal: ${subtotal}</Typography>
             </CardContent>
-            <Button onClick={updateClick}>Update Cart</Button>
+            <Link to={`/users/${userId}/checkout`}>
+              <Button>Checkout</Button>
+            </Link>
           </Card>
-          <h3></h3>
         </div>
       ) : (
         ' '
       )}
-      <Link to={`/users/${userId}/checkout`}>
-        <button type="submit">Checkout</button>
-      </Link>
     </div>
   );
 }

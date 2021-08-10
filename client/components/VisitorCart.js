@@ -87,15 +87,14 @@ function VisitorCart(props) {
             <CardContent>
               <Typography component="p">Subtotal: ${subtotal}</Typography>
             </CardContent>
-            <Button onClick={updateClick}>Update Cart</Button>
+            <Link to={'/visitor/checkout'}>
+              <Button>Checkout</Button>
+            </Link>
           </Card>
         </div>
       ) : (
         ' '
       )}
-      <Link to={'/visitor/checkout'}>
-        <button type="submit">Checkout</button>
-      </Link>
     </div>
   );
 }
