@@ -9,11 +9,14 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
+import AboutCompany from './AboutCompany';
+import Ratings from './Ratings'
+
 //Imports for AllProducts
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const carousel = [
   {
-    label: 'Prepped by Professional  s',
+    label: 'Prepped by Professionals',
     imgPath:
       'https://img.freepik.com/free-photo/portrait-asian-woman-mixing-salad-kitchen_23-2148076172.jpg?size=626&ext=jpg',
   },
@@ -40,7 +43,7 @@ const carousel = [
 ];
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 400,
+    maxWidth: 800,
     flexGrow: 1,
   },
   header: {
@@ -51,9 +54,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
   },
   img: {
-    height: 255,
+    height: 500,
     display: 'block',
-    maxWidth: 400,
+    maxWidth: 800,
     overflow: 'hidden',
     width: '100%',
   },
@@ -80,14 +83,23 @@ function LandingPage(props) {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
+
+ 
   return (
     <div>
+      
+      <AboutCompany id='raysbanner' />
+      <Typography gutterBottom variant="h6" component="h6" id ='reviewbanner'>
+          Reviews from our customers
+          </Typography>
+        <Ratings />
+     
+      <section id='stepper'>
       <div className={classes.root}>
-        <Link to="/products">
           <Paper square elevation={0} className={classes.header}>
             <Typography>{carousel[activeStep].label}</Typography>
           </Paper>
-          <AutoPlaySwipeableViews
+          <Link to="/products"><AutoPlaySwipeableViews
             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
             index={activeStep}
             onChangeIndex={handleStepChange}
@@ -104,7 +116,7 @@ function LandingPage(props) {
                 ) : null}
               </div>
             ))}
-          </AutoPlaySwipeableViews>
+          </AutoPlaySwipeableViews> </Link>
           <MobileStepper
             steps={maxSteps}
             position="static"
@@ -139,9 +151,12 @@ function LandingPage(props) {
               </Button>
             }
           />
-        </Link>
-      </div>
-    </div>
+             </div>
+             </section>
+        <footer className="footer">
+        Ray's Inc. Copyright 2021
+  </footer>
+          </div>
   );
 }
 export default LandingPage;

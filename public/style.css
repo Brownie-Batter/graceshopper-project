@@ -1,7 +1,11 @@
 body {
   font-family: sans-serif;
+  background-color: #b1b9a9;
 }
-
+/*navbar*/
+#navbar {
+  background-color: #496823;
+}
 a {
   text-decoration: none;
 }
@@ -36,4 +40,16 @@ form div {
 .sign-up-form {
   display: flex;
   flex-direction: column;
+}
+
+/*landing*/
+#raysbanner {
+  width:200%;
+}
+
+#teaminfo {
+display:flex;
+flex-direction: row;
+background-color: blue;
+width:800px;
 }
