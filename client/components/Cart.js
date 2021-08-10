@@ -9,6 +9,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
 
 function Cart(props) {
   const [subtotal, setSubTotal] = useState(0);
@@ -93,6 +94,9 @@ function Cart(props) {
       ) : (
         ' '
       )}
+      <Link to={`/users/${userId}/checkout`}>
+        <button type="submit">Checkout</button>
+      </Link>
     </div>
   );
 }

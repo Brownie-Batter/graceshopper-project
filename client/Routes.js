@@ -9,6 +9,7 @@ import Cart from './components/Cart';
 import VisitorCart from './components/VisitorCart';
 import LandingPage from './components/LandingPage';
 import Teaminfo from './components/Teaminfo';
+import Checkout from './components/Checkout';
 
 /**
  * COMPONENT
@@ -29,6 +30,7 @@ class Routes extends Component {
             <Route path="/products" exact component={AllProducts} />
             <Route path="/users/:id/cart" component={Cart} />
             <Route path="/aboutus" component={Teaminfo} />
+            <Route path="/users/:id/checkout" component={Checkout} />
             <Redirect to="/" />
           </Switch>
         ) : (
@@ -39,6 +41,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/visitor/cart/" component={VisitorCart} />
+            <Route path="/visitor/checkout" component={Checkout} />
           </Switch>
         )}
       </div>
