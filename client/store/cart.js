@@ -64,12 +64,15 @@ export const fetchCart = (id, history) => async (dispatch) => {
 export const addProductToCart = (id, productId, price) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem(TOKEN);
-    const { data } = await axios.post(`/api/users/${id}/cart/${productId}`, {
-      headers: {
-        authorization: token,
-      },
-      price: price,
-    });
+    const { data } = await axios.post(
+      `/api/users/${id}/cart/${productId}`,
+      { price: price },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
     let cleanProduct = data.products.filter((product) => {
       return product.id === productId;
     });
@@ -92,12 +95,15 @@ export const addProductToCart = (id, productId, price) => async (dispatch) => {
 export const editQuantity = (id, productId, quantity) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem(TOKEN);
-    const { data } = await axios.post(`/api/users/${id}/cart/${productId}`, {
-      headers: {
-        authorization: token,
-      },
-      quantity: quantity,
-    });
+    const { data } = await axios.post(
+      `/api/users/${id}/cart/${productId}`,
+      { quantity: quantity },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
     dispatch(updateCart(data));
   } catch (err) {
     console.error(error);
