@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: aliceblue;
 }
 
 a {
@@ -12,7 +13,7 @@ label {
 
 nav a {
   display: inline-block;
-  margin: 1em;
+  margin: .5em;
 }
 
 form div {
@@ -37,3 +38,151 @@ form div {
   display: flex;
   flex-direction: column;
 }
+
+/*landing*/
+#raysbanner {
+  height:100%;
+  width:50em;
+  background-color: #77b33b;
+}
+#stepper {
+  display: block;
+  justify-content: center;
+  margin-left:400px;
+}
+
+/*navbar visitor*/
+#navbar {
+  background-color:#e5e6e4;
+}
+#mainNav {
+  background-color:#847577;
+  color:aliceblue;
+}
+#leftNavBar
+{
+  text-shadow: 3px 3px rgba(8, 8, 8, 0.8);
+      z-index: 1;
+  margin-right: 10px;
+}
+#leftNavBar a:hover {
+  color:#babdb8;
+  border-radius: 5px;
+  background-color: #cfd2cd4d
+}
+
+#rightNavBar
+{
+  margin-left: 1050px;
+  text-shadow: 3px 3px rgba(8, 8, 8, 0.8);
+      z-index: 1;
+}
+#rightNavBar a:hover {
+  color:#babdb8;
+  border-radius: 5px;
+  background-color: #cfd2cd4d
+}
+/*navbar customer */
+#loggedleftNavBar
+{
+  margin-right: 10px;
+  text-shadow: 3px 3px rgba(8, 8, 8, 0.8);
+      z-index: 1;
+}
+#loggedleftNavBar a:hover {
+  color:#babdb8;
+  border-radius: 5px;
+  background-color: #cfd2cd4d
+}
+#loggedrightNavBar
+{
+  margin-left: 1150px;
+}
+
+#loggedcart a:hover {
+  color:#babdb8;
+  border-radius: 5px;
+  background-color: #cfd2cd4d
+}
+#loggedrightNavBar a:hover {
+  color:#babdb8;
+  border-radius: 5px;
+  background-color: #cfd2cd4d
+}
+/*banner*/
+#carousel {
+  height:50vh;
+  display: flex;
+  justify-content: center;
+  color:rgba(245, 245, 245, 0.822);
+ 
+}
+#carousel #carousel-text {
+  position: absolute;
+  padding-top: 5em;
+  top:20vh;
+  color:rgb(245, 245, 245);
+  text-shadow: 3px 3px rgba(8, 8, 8, 0.8);
+  z-index: 1;
+}
+#carousel .carousel-image {
+  position: absolute;
+  display:block;
+  height:50%;
+  margin:auto;
+  min-width: 60%;
+}
+
+/*about info */
+#teaminfo {
+  /* display:flex;
+  flex-wrap:wrap;
+  flex-direction: row;
+  background-color: (206, 206, 212); */
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+    }
+    /*ratings*/
+    #reviewbanner{
+      padding-top: 10px;
+      margin-left: 600px;
+      display: block;
+      justify-content: center;
+      font-size: 2em;
+      padding-top: 1em;
+      top:20vh;
+      color:#141313;
+      text-shadow: 3px 3px rgba(207, 200, 200, 0.8);
+      z-index: 1;
+    }
+    #ratingsContainer {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      display: flex;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+    }
+    #ratings {
+      border-radius: 70%;
+      
+     
+        }
+    
+        .stars{
+          width: 50%;
+          height: auto;
+        }
+
+    /*footer*/
+    .footer {
+      display: block;
+      justify-content: center;
+      margin-left: 200px;
+      padding-top: 5em;
+      top:20vh;
+      color:#a6a2a2;
+     
+      z-index: 1;
+    }
+

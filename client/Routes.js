@@ -9,6 +9,7 @@ import SingleProduct from './components/SingleProduct';
 import { me } from './store';
 import Cart from './components/Cart';
 import LandingPage from './components/LandingPage';
+import Teaminfo from './components/Teaminfo'
 
 /**
  * COMPONENT
@@ -29,6 +30,7 @@ class Routes extends Component {
             <Route path="/products" exact component={AllProducts} />
             <Route path="/products/:id" component={SingleProduct} />
             <Route path="/users/:id/cart" component={Cart} />
+            <Route path="/aboutus" component={Teaminfo} />
             <Redirect to="/" />
           </Switch>
         ) : (
@@ -36,6 +38,7 @@ class Routes extends Component {
             <Route path="/" exact component={LandingPage} />
             <Route path="/products" exact component={AllProducts} />
             <Route path="/products/:id" component={SingleProduct} />
+            <Route path="/aboutus" component={Teaminfo} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/visitor/cart/" component={Cart} />
