@@ -22,7 +22,7 @@ function VisitorCart(props) {
     for (const [key, product] of Object.entries(localStorage)) {
       let newKey = parseInt(key);
       if (!isNaN(newKey)) {
-        console.log(newKey, JSON.parse(product));
+        // console.log(newKey, JSON.parse(product));
         cart.push(JSON.parse(product));
       }
     }
@@ -72,6 +72,7 @@ function VisitorCart(props) {
               price={price}
               handleVisitorDelete={handleDelete}
               category={category}
+              grabCart={grabCartItems}
             />
           );
         })

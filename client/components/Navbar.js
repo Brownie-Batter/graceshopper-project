@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
   const classes = useStyles();
-    const [visitorCart, setVisitorCart] = useState([]);
+  const [visitorCart, setVisitorCart] = useState([]);
   const grabCartItems = () => {
     let cart = [];
     for (const [key, product] of Object.entries(localStorage)) {
@@ -44,7 +44,6 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
   useEffect(() => {
     if (!isLoggedIn) {
       grabCartItems();
-      console.log(visitorCart);
     }
   }, []);
 
@@ -57,90 +56,88 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
     },
   }))(Badge);
   return (
-    console.log('imauser', user),
-    (
-      <div id="navbar">
-        <nav>
-          {isLoggedIn ? (
-            <div className={classes.root}>
-              <AppBar id="mainNav" position="static">
-                <Toolbar
-                  style={{ display: 'flex', justifyContent: 'space-between' }}
-                >
-                  <div id="leftNavBar">
-                    <Link to="/">
-                      <Typography variant="h6" className={classes.title}>
-                        <Button color="primary">Home</Button>
-                      </Typography>
-                    </Link>
-                    <Link to="/products">
-                      <Typography variant="h6" className={classes.title}>
-                        <Button color="primary">Food</Button>
-                      </Typography>
-                    </Link>
-                    <Link to="/aboutus">
-                      <Typography variant="h6" className={classes.title}>
-                        <Button color="primary">About Us</Button>
-                      </Typography>
-                    </Link>
-                  </div>
+    <div id="navbar">
+      <nav>
+        {isLoggedIn ? (
+          <div className={classes.root}>
+            <AppBar id="mainNav" position="static">
+              <Toolbar
+                style={{ display: 'flex', justifyContent: 'space-between' }}
+              >
+                <div id="leftNavBar">
+                  <Link to="/">
+                    <Typography variant="h6" className={classes.title}>
+                      <Button color="primary">Home</Button>
+                    </Typography>
+                  </Link>
+                  <Link to="/products">
+                    <Typography variant="h6" className={classes.title}>
+                      <Button color="primary">Food</Button>
+                    </Typography>
+                  </Link>
+                  <Link to="/aboutus">
+                    <Typography variant="h6" className={classes.title}>
+                      <Button color="primary">About Us</Button>
+                    </Typography>
+                  </Link>
+                </div>
 
-                  <div id="loggedrightNavBar">
-                    <Button color="primary">Welcome {user} </Button>
-                    <Button color="primary" href="#" onClick={handleClick}>
-                      Logout
-                    </Button>
+                <div id="loggedrightNavBar">
+                  <Button color="primary">Welcome {user} </Button>
+                  <Button color="primary" href="#" onClick={handleClick}>
+                    Logout
+                  </Button>
 
-                    <Link id="loggedcart" to={`/users/${userId}/cart`}>
-                  <IconButton aria-label="cart">
-                    <StyledBadge
-                      badgeContent={cart.userCart.length}
-                      color="secondary"
-                    >
-                      <ShoppingCartIcon size="large" />
-                    </StyledBadge>
-                  </IconButton>
-                    </Link>
-                  </div>
-                </Toolbar>
-              </AppBar>
-            </div>
-          ) : (
-            <div className={classes.root}>
-              <AppBar id="mainNav" position="static">
-                <Toolbar
-                  style={{ display: 'flex', justifyContent: 'space-between' }}
-                >
-                  <div id="leftNavBar">
-                    <Link to="/">
-                      <Typography variant="h6" className={classes.title}>
-                        <Button color="primary">Home</Button>
-                      </Typography>
-                    </Link>
-                    <Link to="/products">
-                      <Typography variant="h6" className={classes.title}>
-                        <Button color="primary">Food</Button>
-                      </Typography>
-                    </Link>
-                    <Link to="/aboutus">
-                      <Typography variant="h6" className={classes.title}>
-                        <Button color="primary">About Us</Button>
-                      </Typography>
-                    </Link>
-                  </div>
-                  <div id="rightNavBar">
-                    <Link to="/login">
-                      <Typography variant="h6" className={classes.title}>
-                        <Button color="primary">Login</Button>
-                      </Typography>
-                    </Link>
-                    <Link to="/signup">
-                      <Typography variant="h6" className={classes.title}>
-                        <Button color="primary">Sign Up</Button>
-                      </Typography>
-                    </Link>
-                    <Link to={`/visitor/cart`}>
-                            <IconButton aria-label="cart">
+                  <Link id="loggedcart" to={`/users/${userId}/cart`}>
+                    <IconButton aria-label="cart">
+                      <StyledBadge
+                        badgeContent={cart.userCart.length}
+                        color="secondary"
+                      >
+                        <ShoppingCartIcon size="large" />
+                      </StyledBadge>
+                    </IconButton>
+                  </Link>
+                </div>
+              </Toolbar>
+            </AppBar>
+          </div>
+        ) : (
+          <div className={classes.root}>
+            <AppBar id="mainNav" position="static">
+              <Toolbar
+                style={{ display: 'flex', justifyContent: 'space-between' }}
+              >
+                <div id="leftNavBar">
+                  <Link to="/">
+                    <Typography variant="h6" className={classes.title}>
+                      <Button color="primary">Home</Button>
+                    </Typography>
+                  </Link>
+                  <Link to="/products">
+                    <Typography variant="h6" className={classes.title}>
+                      <Button color="primary">Food</Button>
+                    </Typography>
+                  </Link>
+                  <Link to="/aboutus">
+                    <Typography variant="h6" className={classes.title}>
+                      <Button color="primary">About Us</Button>
+                    </Typography>
+                  </Link>
+                </div>
+                <div id="rightNavBar">
+                  <Link to="/login">
+                    <Typography variant="h6" className={classes.title}>
+                      <Button color="primary">Login</Button>
+                    </Typography>
+                  </Link>
+                  <Link to="/signup">
+                    <Typography variant="h6" className={classes.title}>
+                      <Button color="primary">Sign Up</Button>
+                    </Typography>
+                  </Link>
+                  <Link to={`/visitor/cart`}>
+                    <IconButton aria-label="cart">
                       <StyledBadge
                         badgeContent={cart.visitorCart}
                         color="secondary"
@@ -148,17 +145,15 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
                         <ShoppingCartIcon size="large" />
                       </StyledBadge>
                     </IconButton>
-                    </Link>
-                  </div>
-                </Toolbar>
-              </AppBar>
-            </div>
-          )}
-        </nav>
-        <hr />
-      </div>
-    )
-
+                  </Link>
+                </div>
+              </Toolbar>
+            </AppBar>
+          </div>
+        )}
+      </nav>
+      <hr />
+    </div>
   );
 };
 
@@ -171,7 +166,6 @@ const mapState = (state) => {
     userId: state.auth.id,
     user: state.auth.first_name,
     cart: state.cart,
-
   };
 };
 
