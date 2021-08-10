@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import validator from 'validator';
+
 /**
  * COMPONENT
  */
@@ -47,7 +48,8 @@ const AuthFormLogin = (props) => {
         onSubmit={(evt) => handleSubmit(evt, user)}
         name="login"
         className={classes.root}
-        autoComplete="off">
+        autoComplete="off"
+      >
         <div style={{ display: 'flex' }}>
           <TextField
             label="Username"
@@ -68,12 +70,14 @@ const AuthFormLogin = (props) => {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'flex-end',
-          }}>
+          }}
+        >
           <Button
             type="submit"
             variant="contained"
             color="primary"
-            disabled={!user.username || !user.password}>
+            disabled={!user.username || !user.password}
+          >
             Login
           </Button>
         </div>

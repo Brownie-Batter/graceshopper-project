@@ -44,7 +44,18 @@ export default function VisitorCart() {
     grabCartItems();
   };
   return (
-    <div className="food-container" style={{ maxWidth: 1400 }}>
+    <div
+      className="food-container"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
+      <div>
+        <h2>Shopping Cart</h2>
+      </div>
       {visitorCart.length ? (
         visitorCart.map(({ name, productId, quantity, price, category }) => {
           return (
@@ -64,15 +75,18 @@ export default function VisitorCart() {
           <h3>Your cart is empty!</h3>
         </div>
       )}
-      <div style={{ maxWidth: 1400, minWidth: 750 }}>
-        <Card style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <CardContent>
-            <Typography component="p">Subtotal: ${subtotal}</Typography>
-          </CardContent>
-          <Button onClick={updateClick}>Update Cart</Button>
-        </Card>
-        <h3></h3>
-      </div>
+      {visitorCart.length ? (
+        <div style={{ maxWidth: 1400, minWidth: 750, marginTop: '15px' }}>
+          <Card style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <CardContent>
+              <Typography component="p">Subtotal: ${subtotal}</Typography>
+            </CardContent>
+            <Button onClick={updateClick}>Update Cart</Button>
+          </Card>
+        </div>
+      ) : (
+        ' '
+      )}
     </div>
   );
 }
