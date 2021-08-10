@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 
 const payments = [
   { name: 'Card type', detail: 'Visa' },
-  { name: 'Card holder', detail: 'Mr John Smith' },
+  { name: 'Card holder', detail: 'Visitor' },
   { name: 'Card number', detail: 'xxxx-xxxx-xxxx-1234' },
   { name: 'Expiry date', detail: '04/2024' },
 ];
@@ -62,6 +62,7 @@ function Review(props) {
     }
     return total;
   };
+  console.log(props.user);
   return (
     <div>
       {cart.length ? (
@@ -173,6 +174,7 @@ const mapState = (state) => ({
   cart: state.cart.userCart,
   isLoggedIn: !!state.auth.id,
   userId: state.auth.id,
+  user: state.auth,
 });
 
 export default connect(mapState)(Review);

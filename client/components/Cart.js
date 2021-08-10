@@ -90,16 +90,15 @@ function Cart(props) {
                 Subtotal: ${calcSubtotal(cart)}
               </Typography>
             </CardContent>
-            <Button onClick={updateClick}>Update Cart</Button>
+            <Link to={`/users/${userId}/checkout`}>
+              <Button>Checkout</Button>
+            </Link>
           </Card>
           <h3></h3>
         </div>
       ) : (
         ' '
       )}
-      <Link to={`/users/${userId}/checkout`}>
-        <button type="submit">Checkout</button>
-      </Link>
     </div>
   );
 }
