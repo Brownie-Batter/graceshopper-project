@@ -79,7 +79,7 @@ export default function Product(props) {
       };
       localStorage.setItem(id, JSON.stringify(product));
       toast.success(`${name} added to cart`, {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -89,7 +89,7 @@ export default function Product(props) {
       });
     } else {
       toast.error(`${name} is already in your cart!`, {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -111,7 +111,7 @@ export default function Product(props) {
     console.log(inCart);
     if (inCart.length > 0) {
       toast.error(`${name} is already in your cart!`, {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -121,7 +121,7 @@ export default function Product(props) {
       });
     } else {
       toast.success(`${name} added to cart`, {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -151,8 +151,7 @@ export default function Product(props) {
           startIcon={<AddShoppingCartIcon />}
           size="large"
           color="primary"
-          variant="contained"
-        >
+          variant="contained">
           Add to Cart
         </Button>
       ) : (
@@ -160,8 +159,7 @@ export default function Product(props) {
           onClick={() => {
             handleVisitorClick();
             handleClose();
-          }}
-        >
+          }}>
           Add to Cart
         </Button>
       )}
@@ -188,8 +186,7 @@ export default function Product(props) {
           <Button
             onClick={() => handleAdd(userId, id, price, cart)}
             size="small"
-            color="primary"
-          >
+            color="primary">
             Add to Cart
           </Button>
         ) : (
@@ -205,8 +202,7 @@ export default function Product(props) {
         open={open}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
+        aria-describedby="simple-modal-description">
         {body}
       </Modal>
     </Card>

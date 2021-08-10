@@ -31,6 +31,10 @@ export const emptyCart = () => ({
   type: EMPTY_CART,
   cart: [],
 });
+export const checkoutCart = () => ({
+  type: EMPTY_CART,
+  cart: [],
+});
 
 //thunker set cart
 export const fetchCart = (id, history) => async (dispatch) => {
@@ -48,7 +52,7 @@ export const fetchCart = (id, history) => async (dispatch) => {
     dispatch(set_cart(cleanCart));
   } catch (err) {
     toast.error(err.response.data, {
-      position: 'top-right',
+      position: 'top-center',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -80,7 +84,7 @@ export const addProductToCart = (id, productId, price) => async (dispatch) => {
     dispatch(addToCart(cleanProduct[0]));
   } catch (err) {
     toast.error(err.response.data, {
-      position: 'top-right',
+      position: 'top-center',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -122,7 +126,29 @@ export const deleteProductFromCart = (id, productId) => async (dispatch) => {
     dispatch(deleteProductCart(data));
   } catch (err) {
     toast.error(err.response.data, {
-      position: 'top-right',
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  }
+};
+
+export const completeUserCart = () => async (dispatch) => {
+  try {
+    const token = window.localStorage.getItem(TOKEN);
+    const { data } = await axios.put(`/api/users/${id}/cart/order`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    dispatch(checkoutCart());
+  } catch (err) {
+    toast.error(err.response.data, {
+      position: 'top-center',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
