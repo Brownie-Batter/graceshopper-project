@@ -4,10 +4,13 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { connect } from 'react-redux';
+import { setVisCart } from '../store/cart';
 
-export default function VisitorCart() {
+function VisitorCart(props) {
   const [visitorCart, setVisitorCart] = useState([]);
   const [subtotal, setSubTotal] = useState(0);
+  const { visCart } = props;
 
   useEffect(() => {
     grabCartItems();
@@ -29,6 +32,7 @@ export default function VisitorCart() {
   const handleDelete = (id) => {
     localStorage.removeItem(id);
     grabCartItems();
+    visCart(visitorCart.length - 1);
   };
 
   const calcSubtotal = (cart) => {
@@ -90,3 +94,10 @@ export default function VisitorCart() {
     </div>
   );
 }
+const mapDispatch = (dispatch) => {
+  return {
+    visCart: (length) => dispatch(setVisCart(length)),
+  };
+};
+
+export default connect(null, mapDispatch)(VisitorCart);

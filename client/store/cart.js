@@ -32,9 +32,9 @@ export const emptyCart = () => ({
   type: EMPTY_CART,
   cart: [],
 });
-const setVisitorCart = (cart) => ({
+const setVisitorCart = (cartLength) => ({
   type: SET_VISITOR,
-  cart,
+  cartLength,
 });
 
 export const setVisCart = (length) => (dispatch) => {
@@ -146,16 +146,19 @@ export const deleteProductFromCart = (id, productId) => async (dispatch) => {
 
 //store
 
-export default function cartReducer(state = [], payload) {
+export default function cartReducer(
+  state = { userCart: [], visitorCart: 0 },
+  payload
+) {
   switch (payload.type) {
     case SET_CART:
-      return payload.cart;
+      return { ...state, userCart: payload.cart };
     case ADD_TO_CART:
       // return state;
-      return [...state, payload.product];
+      return { ...state, userCart: [...state.userCart, payload.product] };
     case DELETE_PRODUCT_CART:
       console.log('payload', payload);
-      return state.filter(
+      return state.cart.userCart.filter(
         (cart) => cart.orderDetails.productId != payload.product
       );
     case UPDATE_CART:
@@ -163,9 +166,9 @@ export default function cartReducer(state = [], payload) {
     // return state.map((cart) =>
     // (cart.id === payload.cart.id ? payload.cart : cart));
     case EMPTY_CART:
-      return payload.cart;
+      return { ...state, userCart: payload.cart };
     case SET_VISITOR:
-      return [...state, { visitorCart: payload.length }];
+      return { ...state, visitorCart: payload.cartLength };
     default:
       return state;
   }

@@ -92,7 +92,10 @@ const Navbar = ({ handleClick, isLoggedIn, userId, cart, visCart }) => {
 
                 <Link id="loggedcart" to={`/users/${userId}/cart`}>
                   <IconButton aria-label="cart">
-                    <StyledBadge badgeContent={cart.length} color="secondary">
+                    <StyledBadge
+                      badgeContent={cart.userCart.length}
+                      color="secondary"
+                    >
                       <ShoppingCartIcon size="large" />
                     </StyledBadge>
                   </IconButton>
@@ -148,7 +151,7 @@ const Navbar = ({ handleClick, isLoggedIn, userId, cart, visCart }) => {
                   <Link to={`/visitor/cart`}>
                     <IconButton aria-label="cart">
                       <StyledBadge
-                        badgeContent={cart.visCart}
+                        badgeContent={cart.visitorCart}
                         color="secondary"
                       >
                         <ShoppingCartIcon size="large" />
