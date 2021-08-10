@@ -30,7 +30,8 @@ function Cart(props) {
       const total = cart.reduce((total, item) => {
         return total + item.orderDetails.quantity * item.orderDetails.price;
       }, 0);
-      setSubTotal(total);
+      return total;
+      //setSubTotal(total);
     }
   };
   useEffect(() => {
@@ -85,7 +86,9 @@ function Cart(props) {
             }}
           >
             <CardContent>
-              <Typography component="p">Subtotal: ${subtotal}</Typography>
+              <Typography component="p">
+                Subtotal: ${calcSubtotal(cart)}
+              </Typography>
             </CardContent>
             <Button onClick={updateClick}>Update Cart</Button>
           </Card>

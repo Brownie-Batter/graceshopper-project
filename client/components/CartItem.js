@@ -50,6 +50,7 @@ export default function CartItem(props) {
     handleVisitorDelete,
     inventory,
     category,
+    grabCart,
   } = props;
   const [userQuantity, setUserQuantity] = useState(quantity);
 
@@ -98,6 +99,7 @@ export default function CartItem(props) {
         };
         localStorage.setItem(productId, JSON.stringify(product));
       }
+      grabCart();
     }
   };
 
@@ -117,7 +119,9 @@ export default function CartItem(props) {
           price,
           category,
         };
+
         localStorage.setItem(productId, JSON.stringify(product));
+        grabCart();
       }
     }
   };
@@ -129,7 +133,8 @@ export default function CartItem(props) {
           <Typography
             className={classes.title}
             color="textSecondary"
-            gutterBottom>
+            gutterBottom
+          >
             {category.category_name}
           </Typography>
           <Typography variant="h5" component="h2">
@@ -160,7 +165,8 @@ export default function CartItem(props) {
                 color="primary"
                 aria-label="add"
                 size="small"
-                onClick={handleAddClick}>
+                onClick={handleAddClick}
+              >
                 <AddIcon />
               </Button>
               <Button
@@ -168,7 +174,8 @@ export default function CartItem(props) {
                 color="primary"
                 aria-label="remove"
                 size="small"
-                onClick={handleRemoveClick}>
+                onClick={handleRemoveClick}
+              >
                 <RemoveIcon />
               </Button>
             </div>
@@ -182,7 +189,8 @@ export default function CartItem(props) {
           ) : (
             <IconButton
               size="small"
-              onClick={() => handleVisitorDelete(productId)}>
+              onClick={() => handleVisitorDelete(productId)}
+            >
               <DeleteIcon fontSize="large" />
             </IconButton>
           )}
