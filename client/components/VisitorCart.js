@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import { setVisCart } from '../store/cart';
+import { Link } from 'react-router-dom';
 
 function VisitorCart(props) {
   const [visitorCart, setVisitorCart] = useState([]);
@@ -91,6 +92,9 @@ function VisitorCart(props) {
       ) : (
         ' '
       )}
+      <Link to={'/visitor/checkout'}>
+        <button type="submit">Checkout</button>
+      </Link>
     </div>
   );
 }
