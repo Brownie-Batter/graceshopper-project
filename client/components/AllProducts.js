@@ -30,8 +30,16 @@ function AllProducts(props) {
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState('all');
   const classes = useStyles();
-  const { userId, addToCart, getProducts, totalPages, products, categories } =
-    props;
+  const {
+    userId,
+    addToCart,
+    getProducts,
+    totalPages,
+    products,
+    categories,
+    isLoggedIn,
+    cart,
+  } = props;
 
   useEffect(() => {
     fetchProducts();
@@ -43,6 +51,7 @@ function AllProducts(props) {
 
   const handleCategoryChange = (e) => {
     setFilter(e.target.value);
+    setPage(1);
   };
 
   const getRequestParams = (page, filter) => {
@@ -75,7 +84,8 @@ function AllProducts(props) {
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={filter}
-            onChange={handleCategoryChange}>
+            onChange={handleCategoryChange}
+          >
             <MenuItem value="all">All</MenuItem>
             {categories &&
               categories.map(({ id, category_name }) => (
@@ -92,6 +102,7 @@ function AllProducts(props) {
           variant="outlined"
           color="primary"
           onChange={handlePageChange}
+          page={page}
         />
       </div>
       <div className="food-container">
@@ -115,6 +126,9 @@ function AllProducts(props) {
                 userId={userId}
                 addToCart={addToCart}
                 description={description}
+                visitor
+                isLoggedIn={isLoggedIn}
+                cart={cart}
               />
             )
           )
@@ -134,6 +148,8 @@ const mapStateToProps = (state) => {
     categories: state.allProducts.categories,
     totalPages: state.allProducts.totalPages,
     userId: state.auth.id,
+    isLoggedIn: !!state.auth.id,
+    cart: state.cart,
   };
 };
 

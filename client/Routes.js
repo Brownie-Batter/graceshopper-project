@@ -1,13 +1,12 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Signup } from './components/AuthForm';
 import { Login } from './components/AuthFormLogin';
-import Home from './components/Home';
 import AllProducts from './components/AllProducts';
-import SingleProduct from './components/SingleProduct';
 import { me } from './store';
 import Cart from './components/Cart';
+import VisitorCart from './components/VisitorCart';
 import LandingPage from './components/LandingPage';
 import Teaminfo from './components/Teaminfo'
 
@@ -28,7 +27,6 @@ class Routes extends Component {
           <Switch>
             <Route path="/" exact component={LandingPage} />
             <Route path="/products" exact component={AllProducts} />
-            <Route path="/products/:id" component={SingleProduct} />
             <Route path="/users/:id/cart" component={Cart} />
             <Route path="/aboutus" component={Teaminfo} />
             <Redirect to="/" />
@@ -41,7 +39,7 @@ class Routes extends Component {
             <Route path="/aboutus" component={Teaminfo} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/visitor/cart/" component={Cart} />
+            <Route path="/visitor/cart/" component={VisitorCart} />
           </Switch>
         )}
       </div>

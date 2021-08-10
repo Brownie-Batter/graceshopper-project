@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { Next } from 'react-bootstrap/esm/PageItem';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -9,6 +8,7 @@ const SET_CART = 'SET_CART';
 const ADD_TO_CART = 'ADD_TO_CART';
 const DELETE_PRODUCT_CART = 'DELETE_CART';
 const UPDATE_CART = 'UPDATE_CART';
+const EMPTY_CART = 'EMPTY_CART';
 
 //creator
 export const set_cart = (cart) => ({
@@ -27,34 +27,36 @@ export const updateCart = (product) => ({
   type: UPDATE_CART,
   product,
 });
+export const emptyCart = () => ({
+  type: EMPTY_CART,
+  cart: [],
+});
 
 //thunker set cart
-export const fetchCart = (id) => async (dispatch) => {
+export const fetchCart = (id, history) => async (dispatch) => {
   try {
-    if (!id) {
-      // localstorage cart
-      let cart = window.localStorage.getItem('cart');
-      if (!cart) {
-        window.localStorage.setItem('cart', '');
-        cart = window.localStorage.getItem('cart');
-        console.log(cart);
-      }
-      dispatch(set_cart(cart));
-    } else {
-      const token = window.localStorage.getItem(TOKEN);
-      const {
-        data: { orders },
-      } = await axios.get(`/api/users/${id}/cart`, {
-        headers: {
-          authorization: token,
-        },
-      });
-      let cleanCart = orders[0].products.map((product) => product);
+    const token = window.localStorage.getItem(TOKEN);
+    const {
+      data: { orders },
+    } = await axios.get(`/api/users/${id}/cart`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    let cleanCart = orders[0].products.map((product) => product);
 
-      dispatch(set_cart(cleanCart));
-    }
-  } catch (error) {
-    console.error(error);
+    dispatch(set_cart(cleanCart));
+  } catch (err) {
+    toast.error(err.response.data, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    history.push('/products');
   }
 };
 
@@ -68,20 +70,21 @@ export const addProductToCart = (id, productId, price) => async (dispatch) => {
       },
       price: price,
     });
-    let cleanProduct = data.products[data.products.length - 1];
-
-    dispatch(addToCart(cleanProduct));
-    toast.success(`${cleanProduct.name} added to cart`, {
+    let cleanProduct = data.products.filter((product) => {
+      return product.id === productId;
+    });
+    console.log(cleanProduct[0]);
+    dispatch(addToCart(cleanProduct[0]));
+  } catch (err) {
+    toast.error(err.response.data, {
       position: 'top-right',
-      autoClose: 3000,
+      autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
     });
-  } catch (error) {
-    console.error(error);
   }
 };
 //edit product quantity in cart
@@ -96,7 +99,7 @@ export const editQuantity = (id, productId, quantity) => async (dispatch) => {
       quantity: quantity,
     });
     dispatch(updateCart(data));
-  } catch (error) {
+  } catch (err) {
     console.error(error);
   }
 };
@@ -111,8 +114,16 @@ export const deleteProductFromCart = (id, productId) => async (dispatch) => {
       },
     });
     dispatch(deleteProductCart(data));
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    toast.error(err.response.data, {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
 };
 
@@ -125,8 +136,8 @@ export default function cartReducer(state = [], payload) {
     case SET_CART:
       return payload.cart;
     case ADD_TO_CART:
-      return state;
-    //return [...state, payload.product];
+      // return state;
+      return [...state, payload.product];
     case DELETE_PRODUCT_CART:
       console.log('payload', payload);
       return state.filter(
@@ -136,6 +147,8 @@ export default function cartReducer(state = [], payload) {
       return state;
     // return state.map((cart) =>
     // (cart.id === payload.cart.id ? payload.cart : cart));
+    case EMPTY_CART:
+      return payload.cart;
     default:
       return state;
   }

@@ -8,6 +8,15 @@ const OrderDetails = require('../server/db/models/OrderDetails');
 
 const users = [
   {
+    first_name: 'Jeff',
+    last_name: 'Raymond',
+    password: 123,
+    address: '201 Huntington Way, Boise, ID, 60597',
+    isAdmin: true,
+    email: 'jbro@gmail.com',
+    username: 'jbro',
+  },
+  {
     first_name: 'James',
     last_name: 'Bond',
     password: 123,
@@ -15,7 +24,6 @@ const users = [
     isAdmin: true,
     email: 'james@gmail.com',
     username: 'jbond',
-    isAdmin: true,
   },
   {
     first_name: 'Mike',
@@ -208,52 +216,268 @@ const thaiFood = [
  *      match the models, and populates the database.
  */
 
-let i = 200;
+const randomBbqName = (num) => {
+  let nameArr = [];
+  const names = [
+    [
+      'Kansas City',
+      'Memphis Style',
+      'Texas',
+      'Smoked',
+      'Glazed',
+      'BBQ',
+      'Honey BBQ',
+      'Fire-smoked',
+      'Classic',
+      'Spicy',
+      'Lean',
+      'Moist',
+    ],
+    [
+      'Brisket',
+      'Chicken',
+      'Burnt Ends',
+      'Pulled Pork',
+      'Rib Sandwich',
+      'Chicken Sandwich',
+      'Sausage',
+    ],
+  ];
+  let i = 0;
+  while (i <= num) {
+    let name = `${names[0][Math.floor(Math.random() * 12)]} ${
+      names[1][Math.floor(Math.random() * 7)]
+    }`;
+    if (!nameArr.includes(name)) {
+      nameArr.push(name);
+      i++;
+    }
+  }
+  return nameArr;
+};
 
-while (i >= 0) {
-  let randomFoodNum = Math.floor(Math.random() * 300);
-  let randomPrice = Math.floor(Math.random() * 30) + 10;
+const randomIndianName = (num) => {
+  let nameArr = [];
+  const names = [
+    ['Vegetarian', 'Curried', 'Tandoori', 'Vindaloo', 'Naan with', 'Saffron'],
+    ['Samosa', 'Chicken', 'Lamb', 'Shrimp', 'Curry', 'Chaat', 'Biryani'],
+  ];
+  let i = 0;
+  while (i <= num) {
+    let name = `${names[0][Math.floor(Math.random() * 6)]} ${
+      names[1][Math.floor(Math.random() * 7)]
+    }`;
+    if (!nameArr.includes(name)) {
+      nameArr.push(name);
+      i++;
+    } else {
+      nameArr.push(`${name} Special #${i}`);
+      i++;
+    }
+  }
+  return nameArr;
+};
 
-  if (i > 150) {
+const randomJapaneseName = (num) => {
+  let nameArr = [];
+  const names = [
+    [
+      'Teriyaki',
+      'Spicy Tuna',
+      'Shrimp',
+      'Spicy ',
+      'Hibachi',
+      'Eel',
+      'Salmon',
+      'Katsu',
+    ],
+    [
+      'Ramen',
+      'Sashimi',
+      'Sushi Roll',
+      'Udon',
+      'Chicken',
+      'Shrimp',
+      'Roll',
+      'Beef',
+      'Tempura',
+      'Soba',
+    ],
+  ];
+  let i = 0;
+  while (i <= num) {
+    let name = `${names[0][Math.floor(Math.random() * 8)]} ${
+      names[1][Math.floor(Math.random() * 10)]
+    }`;
+    if (!nameArr.includes(name)) {
+      nameArr.push(name);
+      i++;
+    }
+  }
+  return nameArr;
+};
+
+const randomThaiName = (num) => {
+  let nameArr = [];
+  const names = [
+    ['Thai', 'Basil', 'Panang', 'Green', 'Peanut', 'Panang', 'Spicy', 'Bamboo'],
+    [
+      'Fried Rice',
+      'Noodle Soup',
+      'Curry',
+      'Wok',
+      'Chicken',
+      'Red Snapper',
+      'Spicy',
+      'Salad',
+      'Dumplings',
+      'Hot Pot',
+    ],
+  ];
+  let i = 0;
+  while (i <= num) {
+    let name = `${names[0][Math.floor(Math.random() * 8)]} ${
+      names[1][Math.floor(Math.random() * 10)]
+    }`;
+    if (!nameArr.includes(name)) {
+      nameArr.push(name);
+      i++;
+    } else {
+      nameArr.push(`${name} Special #${i}`);
+      i++;
+    }
+  }
+  return nameArr;
+};
+
+const generateItems = () => {
+  let bbqNum = 55;
+  let indianNum = 35;
+  let japaneseNum = 45;
+  let thaiNum = 35;
+
+  const bbqImg = ['bbq1.jpeg', 'bbq2.jpg', 'bbq3.jpeg', 'bbq4.jpg', 'bbq5.jpg'];
+  const indianImg = [
+    'indian1.jpg',
+    'indian2.jpg',
+    'indian3.jpeg',
+    'indian4.jpg',
+    'indian5.jpg',
+  ];
+  const japaneseImg = [
+    'japan1.jpg',
+    'japan2.jpg',
+    'japan3.jpg',
+    'japan4.jpg',
+    'japan5.jpg',
+  ];
+  const thaiImg = [
+    'thai1.jpg',
+    'thai2.jpg',
+    'thai3.jpg',
+    'thai4.jpg',
+    'thai5.jpg',
+  ];
+  const bbqNamesArray = randomBbqName(bbqNum);
+  const indianNamesArray = randomIndianName(indianNum);
+  const japaneseNamesArray = randomJapaneseName(japaneseNum);
+  const thaiNamesArray = randomThaiName(thaiNum);
+
+  for (let i = 0; i <= bbqNum; i++) {
     let food = {
-      name: `Indian Food ${randomFoodNum}`,
+      name: `${bbqNamesArray[i]}`,
       description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum turpis eu ultricies vestibulum. Nullam nec mi ex. In hac habitasse platea dictumst. Aliquam augue lorem, euismod nec nisl a, consequat pulvinar urna. Proin eu urna mattis, rutrum nisi et, feugiat justo. Nullam lobortis, leo non aliquet tempus, justo libero blandit ipsum, in lacinia massa ligula in dolor. Nullam vitae auctor sem, at fringilla est. Mauris sed ipsum justo. In a turpis felis. Integer aliquam ante quis gravida ultrices. Aliquam erat volutpat.',
-      price: randomPrice,
+        'Donec vel molestie massa, quis convallis metus. Nam nec erat non diam semper lobortis. Proin gravida vulputate scelerisque. Duis sit amet lacus quis libero mattis euismod viverra non turpis. Praesent volutpat et mauris vel mattis. Quisque turpis arcu, pulvinar eu metus ut, venenatis dapibus risus.',
+      price: Math.floor(Math.random() * 30) + 10,
       quantity: Math.floor(Math.random() * 25),
-    };
-    indianFood.push(food);
-  } else if (i > 100) {
-    let food = {
-      name: `BBQ - ${randomFoodNum}`,
-      description:
-        'Donec vel molestie massa, quis convallis metus. Nam nec erat non diam semper lobortis. Proin gravida vulputate scelerisque. Duis sit amet lacus quis libero mattis euismod viverra non turpis. Praesent volutpat et mauris vel mattis. Quisque turpis arcu, pulvinar eu metus ut, venenatis dapibus risus. Nam sapien mi, euismod eget rhoncus eu, accumsan sed ex. Fusce et sem ac lacus faucibus congue eu eu justo. Pellentesque cursus, nisl nec gravida condimentum, lorem sem cursus leo, ut cursus magna risus in ante. In sagittis imperdiet malesuada. Maecenas orci est, euismod nec dignissim et, pulvinar nec nunc. Nullam feugiat, orci et bibendum consectetur, nisl nisl pharetra ligula, et faucibus massa justo eget nisl. Integer malesuada libero vel magna blandit pharetra vitae at lacus. Morbi diam nibh, tincidunt gravida diam id, mollis tincidunt libero. Pellentesque eu lobortis enim. Vivamus aliquam orci quis lorem efficitur, et blandit sem ultricies.',
-      price: randomPrice,
-      quantity: Math.floor(Math.random() * 25),
+      imgUrl: `images/${bbqImg[Math.floor(Math.random() * 5)]}`,
     };
     barbequeFood.push(food);
-  } else if (i > 50) {
+  }
+  for (let i = 0; i <= indianNum; i++) {
     let food = {
-      name: `Japanese Food - ${randomFoodNum}`,
+      name: `${indianNamesArray[i]}`,
       description:
-        'Donec vulputate eros eu diam pretium tincidunt. Nunc tempor iaculis mollis. Curabitur sollicitudin pellentesque est, id tincidunt mauris mollis lacinia. Vivamus eget orci cursus, lobortis nulla eu, posuere dui. Aliquam erat volutpat. Ut ac maximus neque. Sed malesuada mauris lectus. Morbi nec bibendum lorem. Phasellus at arcu nec est feugiat efficitur a rutrum massa. Curabitur quis scelerisque ligula, a congue nisi. Pellentesque feugiat leo sit amet auctor venenatis. Sed lobortis gravida tellus quis dictum. Etiam viverra, sem ut tincidunt posuere, massa eros mollis dolor, ut tristique massa purus ac est. Suspendisse porta aliquam orci, quis aliquet quam sodales id.',
-      price: randomPrice,
-      quantity: Math.floor(Math.random() * 100),
+        'Donec vel molestie massa, quis convallis metus. Nam nec erat non diam semper lobortis. Proin gravida vulputate scelerisque. Duis sit amet lacus quis libero mattis euismod viverra non turpis. Praesent volutpat et mauris vel mattis. Quisque turpis arcu, pulvinar eu metus ut, venenatis dapibus risus.',
+      price: Math.floor(Math.random() * 30) + 10,
+      quantity: Math.floor(Math.random() * 25),
+      imgUrl: `images/${indianImg[Math.floor(Math.random() * 5)]}`,
+    };
+    indianFood.push(food);
+  }
+
+  for (let i = 0; i <= japaneseNum; i++) {
+    let food = {
+      name: `${japaneseNamesArray[i]}`,
+      description:
+        'Donec vel molestie massa, quis convallis metus. Nam nec erat non diam semper lobortis. Proin gravida vulputate scelerisque. Duis sit amet lacus quis libero mattis euismod viverra non turpis. Praesent volutpat et mauris vel mattis. Quisque turpis arcu, pulvinar eu metus ut, venenatis dapibus risus.',
+      price: Math.floor(Math.random() * 30) + 10,
+      quantity: Math.floor(Math.random() * 25),
+      imgUrl: `images/${japaneseImg[Math.floor(Math.random() * 5)]}`,
     };
     japaneseFood.push(food);
-  } else {
+  }
+  for (let i = 0; i <= thaiNum; i++) {
     let food = {
-      name: `Thai Food - ${randomFoodNum}`,
+      name: `${thaiNamesArray[i]}`,
       description:
-        'Aenean sagittis scelerisque viverra. Morbi maximus libero eget iaculis ultricies. Aenean finibus justo lectus. Donec condimentum, ligula eget fermentum venenatis, quam libero iaculis mauris, quis dictum metus tortor et risus. Donec viverra massa sed mauris tempus, eget facilisis massa dignissim. Sed dapibus nisl eu nisl molestie, et fringilla metus iaculis. Suspendisse potenti. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam at consectetur felis, et vehicula lacus. Donec accumsan laoreet sapien eu auctor. Etiam ligula dolor, ullamcorper eget quam vel, pulvinar consectetur risus.',
-      price: randomPrice,
+        'Donec vel molestie massa, quis convallis metus. Nam nec erat non diam semper lobortis. Proin gravida vulputate scelerisque. Duis sit amet lacus quis libero mattis euismod viverra non turpis. Praesent volutpat et mauris vel mattis. Quisque turpis arcu, pulvinar eu metus ut, venenatis dapibus risus.',
+      price: Math.floor(Math.random() * 30) + 10,
       quantity: Math.floor(Math.random() * 25),
+      imgUrl: `images/${thaiImg[Math.floor(Math.random() * 5)]}`,
     };
     thaiFood.push(food);
   }
+};
 
-  i--;
-}
+// let i = 200;
+
+// while (i >= 0) {
+//   let randomFoodNum = Math.floor(Math.random() * 300);
+//   let randomPrice = Math.floor(Math.random() * 30) + 10;
+
+//   if (i > 150) {
+//     let food = {
+//       name: `Indian Food ${randomFoodNum}`,
+//       description:
+//         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus interdum turpis eu ultricies vestibulum. Nullam nec mi ex. In hac habitasse platea dictumst. Aliquam augue lorem, euismod nec nisl a, consequat pulvinar urna. Proin eu urna mattis, rutrum nisi et, feugiat justo. Nullam lobortis, leo non aliquet tempus, justo libero blandit ipsum, in lacinia massa ligula in dolor. Nullam vitae auctor sem, at fringilla est. Mauris sed ipsum justo. In a turpis felis. Integer aliquam ante quis gravida ultrices. Aliquam erat volutpat.',
+//       price: randomPrice,
+//       quantity: Math.floor(Math.random() * 25),
+//     };
+//     indianFood.push(food);
+//   } else if (i > 100) {
+//     let food = {
+//       name: `${randomBbqName()}`,
+//       description:
+//         'Donec vel molestie massa, quis convallis metus. Nam nec erat non diam semper lobortis. Proin gravida vulputate scelerisque. Duis sit amet lacus quis libero mattis euismod viverra non turpis. Praesent volutpat et mauris vel mattis. Quisque turpis arcu, pulvinar eu metus ut, venenatis dapibus risus. Nam sapien mi, euismod eget rhoncus eu, accumsan sed ex. Fusce et sem ac lacus faucibus congue eu eu justo. Pellentesque cursus, nisl nec gravida condimentum, lorem sem cursus leo, ut cursus magna risus in ante. ',
+//       price: randomPrice,
+//       quantity: Math.floor(Math.random() * 25),
+//     };
+//     barbequeFood.push(food);
+//   } else if (i > 50) {
+//     let food = {
+//       name: `Japanese Food - ${randomFoodNum}`,
+//       description:
+//         'Donec vulputate eros eu diam pretium tincidunt. Nunc tempor iaculis mollis. Curabitur sollicitudin pellentesque est, id tincidunt mauris mollis lacinia. Vivamus eget orci cursus, lobortis nulla eu, posuere dui. Aliquam erat volutpat. Ut ac maximus neque. Sed malesuada mauris lectus. Morbi nec bibendum lorem. Phasellus at arcu nec est feugiat efficitur a rutrum massa. Curabitur quis scelerisque ligula, a congue nisi. Pellentesque feugiat leo sit amet auctor venenatis. Sed lobortis gravida tellus quis dictum. Etiam viverra, sem ut tincidunt posuere, massa eros mollis dolor, ut tristique massa purus ac est. Suspendisse porta aliquam orci, quis aliquet quam sodales id.',
+//       price: randomPrice,
+//       quantity: Math.floor(Math.random() * 100),
+//     };
+//     japaneseFood.push(food);
+//   } else {
+//     let food = {
+//       name: `Thai Food - ${randomFoodNum}`,
+//       description:
+//         'Aenean sagittis scelerisque viverra. Morbi maximus libero eget iaculis ultricies. Aenean finibus justo lectus. Donec condimentum, ligula eget fermentum venenatis, quam libero iaculis mauris, quis dictum metus tortor et risus. Donec viverra massa sed mauris tempus, eget facilisis massa dignissim. Sed dapibus nisl eu nisl molestie, et fringilla metus iaculis. Suspendisse potenti. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam at consectetur felis, et vehicula lacus. Donec accumsan laoreet sapien eu auctor. Etiam ligula dolor, ullamcorper eget quam vel, pulvinar consectetur risus.',
+//       price: randomPrice,
+//       quantity: Math.floor(Math.random() * 25),
+//     };
+//     thaiFood.push(food);
+//   }
+
+//   i--;
+// }
+
+//random items for random cart generation
 const randomItems = () => {
   let productArray = [];
   let quantity = Math.floor(Math.random() * 5);
@@ -267,6 +491,7 @@ const randomItems = () => {
 };
 
 async function seed() {
+  generateItems();
   await db.sync({ force: true }); // clears db and matches models to tables
   console.log('db synced!');
   try {
