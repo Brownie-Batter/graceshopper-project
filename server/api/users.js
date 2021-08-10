@@ -52,6 +52,29 @@ router.get('/:id/cart', requireToken, async (req, res, next) => {
   }
 });
 
+//change order status from active to purchased and create a new order
+router.post('/:id/cart/order', requireToken, async (req, res, next) => {
+  try {
+    if (req.user.id != req.params.id) {
+      return res.status(500).send('You cannot access this cart!');
+    }
+
+    const userOrder = await Order.findOne({
+      where: { userId: req.params.id, order_status: 'active' },
+    });
+
+    await userOrder.update({
+      order_status: 'completed',
+    });
+    const user = await User.findByPk(req.params.id);
+    await user.createOrder();
+
+    res.json(userOrder);
+  } catch (error) {
+    next(error);
+  }
+});
+
 //add item to cart
 router.post('/:id/cart/:productId', requireToken, async (req, res, next) => {
   try {
@@ -100,29 +123,6 @@ router.post('/:id/cart/:productId', requireToken, async (req, res, next) => {
     res.json(updatedOrder);
   } catch (err) {
     next(err);
-  }
-});
-
-//change order status from active to purchased and create a new order
-router.put('/:id/cart/order', requireToken, async (req, res, next) => {
-  try {
-    if (req.user.id != req.params.id) {
-      return res.status(500).send('You cannot access this cart!');
-    }
-
-    const userOrder = await Order.findOne({
-      where: { userId: req.params.id, order_status: 'active' },
-    });
-
-    await userOrder.update({
-      order_status: 'completed',
-    });
-    const user = await User.findByPk(req.params.id);
-    await user.createOrder();
-
-    res.json(userOrder);
-  } catch (error) {
-    next(error);
   }
 });
 

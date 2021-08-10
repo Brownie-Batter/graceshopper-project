@@ -47,7 +47,6 @@ export const setVisCart = (length) => (dispatch) => {
   dispatch(setVisitorCart(length));
 };
 
-
 //thunker set cart
 export const fetchCart = (id, history) => async (dispatch) => {
   try {
@@ -130,11 +129,15 @@ export const editQuantity = (id, productId, quantity) => async (dispatch) => {
 export const deleteProductFromCart = (id, productId) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem(TOKEN);
-    const { data } = await axios.put(`/api/users/${id}/cart/${productId}`, {
-      headers: {
-        authorization: token,
-      },
-    });
+    const { data } = await axios.put(
+      `/api/users/${id}/cart/${productId}`,
+      null,
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
     dispatch(deleteProductCart(data));
   } catch (err) {
     toast.error(err.response.data, {
@@ -185,9 +188,12 @@ export default function cartReducer(
       return { ...state, userCart: [...state.userCart, payload.product] };
     case DELETE_PRODUCT_CART:
       console.log('payload', payload);
-      return state.cart.userCart.filter(
-        (cart) => cart.orderDetails.productId != payload.product
-      );
+      return {
+        ...state,
+        userCart: state.userCart.filter(
+          (cart) => cart.orderDetails.productId != payload.product
+        ),
+      };
     case UPDATE_CART:
       return state;
     // return state.map((cart) =>
