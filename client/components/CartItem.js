@@ -10,10 +10,17 @@ import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 200,
+    minWidth: 750,
+    maxWidth: 1000,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: '15px',
   },
   title: {
     fontSize: 14,
@@ -24,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
+    textAlign: 'center',
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -42,6 +50,7 @@ export default function CartItem(props) {
     isLoggedIn,
     handleVisitorDelete,
     inventory,
+    category,
   } = props;
   const [userQuantity, setUserQuantity] = useState(quantity);
 
@@ -66,6 +75,7 @@ export default function CartItem(props) {
         productId,
         quantity: e.target.value,
         price,
+        category,
       };
       localStorage.setItem(productId, JSON.stringify(product));
     }
@@ -78,14 +88,17 @@ export default function CartItem(props) {
         editQuantity(userId, productId, userQuantity + 1);
       }
     } else {
-      setUserQuantity(userQuantity + 1);
-      let product = {
-        name,
-        productId,
-        quantity: userQuantity + 1,
-        price,
-      };
-      localStorage.setItem(productId, JSON.stringify(product));
+      if (userQuantity < 25) {
+        setUserQuantity(userQuantity + 1);
+        let product = {
+          name,
+          productId,
+          quantity: userQuantity + 1,
+          price,
+          category,
+        };
+        localStorage.setItem(productId, JSON.stringify(product));
+      }
     }
   };
 
@@ -96,69 +109,90 @@ export default function CartItem(props) {
         editQuantity(userId, productId, userQuantity - 1);
       }
     } else {
-      setUserQuantity(userQuantity - 1);
-      let product = {
-        name,
-        productId,
-        quantity: userQuantity - 1,
-        price,
-      };
-      localStorage.setItem(productId, JSON.stringify(product));
+      if (userQuantity > 1) {
+        setUserQuantity(userQuantity - 1);
+        let product = {
+          name,
+          productId,
+          quantity: userQuantity - 1,
+          price,
+          category,
+        };
+        localStorage.setItem(productId, JSON.stringify(product));
+      }
     }
   };
 
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography
-          className={classes.title}
-          color="textSecondary"
-          gutterBottom>
-          {name}
-        </Typography>
-        <Typography variant="h5" component="h2">
-          {name}
-        </Typography>
-        <Typography variant="body2" component="p">
-          Price: ${price}
-        </Typography>
+        <div>
+          <Typography
+            className={classes.title}
+            color="textSecondary"
+            gutterBottom
+          >
+            {category.category_name}
+          </Typography>
+          <Typography variant="h5" component="h2">
+            {name}
+          </Typography>
+          <Typography variant="body2" component="p">
+            Price: ${price}
+          </Typography>
+        </div>
+      </CardContent>
+      <div style={{ display: 'flex' }}>
         <FormControl className={classes.formControl}>
-          <TextField
-            label="Quantity"
-            variant="outlined"
-            value={userQuantity}
-            onChange={handleChange}
-            style={{ width: '50px' }}
-          />
           <div style={{ display: 'flex' }}>
-            <Fab
-              color="primary"
-              aria-label="add"
-              size="small"
-              onClick={handleAddClick}>
-              <AddIcon />
-            </Fab>
-            <Fab
-              color="secondary"
-              aria-label="remove"
-              size="small"
-              onClick={handleRemoveClick}>
-              <RemoveIcon />
-            </Fab>
+            <TextField
+              label="Quantity"
+              variant="outlined"
+              value={userQuantity}
+              onChange={handleChange}
+              style={{
+                width: '50px',
+                marginRight: '30px',
+                marginTop: '5px',
+              }}
+            />
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <Button
+                variant="outlined"
+                color="primary"
+                aria-label="add"
+                size="small"
+                onClick={handleAddClick}
+              >
+                <AddIcon />
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                aria-label="remove"
+                size="small"
+                onClick={handleRemoveClick}
+              >
+                <RemoveIcon />
+              </Button>
+            </div>
           </div>
         </FormControl>
-      </CardContent>
-      <CardActions>
-        {isLoggedIn ? (
-          <Button size="small" onClick={() => deleteProduct(userId, productId)}>
-            Delete from Cart
-          </Button>
-        ) : (
-          <Button size="small" onClick={() => handleVisitorDelete(productId)}>
-            Delete from Cart
-          </Button>
-        )}
-      </CardActions>
+        <CardActions>
+          {isLoggedIn ? (
+            <IconButton onClick={() => deleteProduct(userId, productId)}>
+              <DeleteIcon fontSize="large" />
+            </IconButton>
+          ) : (
+            <IconButton
+              size="small"
+              onClick={() => handleVisitorDelete(productId)}
+            >
+              <DeleteIcon fontSize="large" />
+            </IconButton>
+          )}
+        </CardActions>
+      </div>
     </Card>
   );
 }

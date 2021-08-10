@@ -12,7 +12,7 @@ const requireToken = async (req, res, next) => {
   }
 };
 
-//require admin priviledges
+//require admin privileges
 const requireAdmin = async (req, res, next) => {
   try {
     if (!req.user.isAdmin) {
