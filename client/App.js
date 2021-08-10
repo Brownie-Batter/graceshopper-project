@@ -6,11 +6,17 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+      }}
+    >
       <Navbar />
       <Routes />
       <ToastContainer
-        position="top-right"
+        position="top-left"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}

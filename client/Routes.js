@@ -8,7 +8,7 @@ import { me } from './store';
 import Cart from './components/Cart';
 import VisitorCart from './components/VisitorCart';
 import LandingPage from './components/LandingPage';
-import Teaminfo from './components/Teaminfo'
+import Teaminfo from './components/Teaminfo';
 
 /**
  * COMPONENT

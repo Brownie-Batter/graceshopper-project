@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Product from './Product';
 import { getAllProducts } from '../store/allProducts';
-import { addProductToCart } from '../store/cart';
+import { addProductToCart, setVisCart } from '../store/cart';
 import { makeStyles } from '@material-ui/core/styles';
 import Pagination from '@material-ui/lab/Pagination';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -39,6 +39,7 @@ function AllProducts(props) {
     categories,
     isLoggedIn,
     cart,
+    visCart,
   } = props;
 
   useEffect(() => {
@@ -129,6 +130,7 @@ function AllProducts(props) {
                 visitor
                 isLoggedIn={isLoggedIn}
                 cart={cart}
+                visCart={visCart}
               />
             )
           )
@@ -158,6 +160,7 @@ const mapDispatch = (dispatch) => {
     getProducts: (params) => dispatch(getAllProducts(params)),
     addToCart: (userId, productId, price) =>
       dispatch(addProductToCart(userId, productId, price)),
+    visCart: (length) => dispatch(setVisCart(length)),
   };
 };
 

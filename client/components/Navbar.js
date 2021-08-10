@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../store';
-import { emptyCart } from '../store/cart';
+import { emptyCart, setVisCart } from '../store/cart';
+
+import Badge from '@material-ui/core/Badge';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,9 +25,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = ({ handleClick, isLoggedIn, user, userId }) => {
+const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
   const classes = useStyles();
+    const [visitorCart, setVisitorCart] = useState([]);
+  const grabCartItems = () => {
+    let cart = [];
+    for (const [key, product] of Object.entries(localStorage)) {
+      let newKey = parseInt(key);
+      if (!isNaN(newKey)) {
+        // console.log(newKey, JSON.parse(product));
+        cart.push(JSON.parse(product));
+      }
+    }
+    setVisitorCart(cart);
+    visCart(cart.length);
+  };
 
+  useEffect(() => {
+    if (!isLoggedIn) {
+      grabCartItems();
+      console.log(visitorCart);
+    }
+  }, []);
+
+  const StyledBadge = withStyles((theme) => ({
+    badge: {
+      right: -3,
+      top: 5,
+      border: `1px solid ${theme.palette.background.paper}`,
+      padding: '0 4px',
+    },
+  }))(Badge);
   return (
     console.log('imauser', user),
     (
@@ -61,7 +92,14 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId }) => {
                     </Button>
 
                     <Link id="loggedcart" to={`/users/${userId}/cart`}>
-                      <ShoppingCartIcon color="primary"></ShoppingCartIcon>
+                  <IconButton aria-label="cart">
+                    <StyledBadge
+                      badgeContent={cart.userCart.length}
+                      color="secondary"
+                    >
+                      <ShoppingCartIcon size="large" />
+                    </StyledBadge>
+                  </IconButton>
                     </Link>
                   </div>
                 </Toolbar>
@@ -102,7 +140,14 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId }) => {
                       </Typography>
                     </Link>
                     <Link to={`/visitor/cart`}>
-                      <ShoppingCartIcon color="primary"></ShoppingCartIcon>
+                            <IconButton aria-label="cart">
+                      <StyledBadge
+                        badgeContent={cart.visitorCart}
+                        color="secondary"
+                      >
+                        <ShoppingCartIcon size="large" />
+                      </StyledBadge>
+                    </IconButton>
                     </Link>
                   </div>
                 </Toolbar>
@@ -113,6 +158,7 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId }) => {
         <hr />
       </div>
     )
+
   );
 };
 
@@ -124,6 +170,8 @@ const mapState = (state) => {
     isLoggedIn: !!state.auth.id,
     userId: state.auth.id,
     user: state.auth.first_name,
+    cart: state.cart,
+
   };
 };
 
@@ -133,6 +181,7 @@ const mapDispatch = (dispatch) => {
       dispatch(emptyCart());
       dispatch(logout());
     },
+    visCart: (cart) => dispatch(setVisCart(cart)),
   };
 };
 

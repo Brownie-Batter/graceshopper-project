@@ -38,7 +38,7 @@ export const authenticate = (user, method) => async (dispatch) => {
     window.localStorage.setItem(TOKEN, res.data.token);
     dispatch(me());
     toast.success(`Welcome, ${user.username}`, {
-      position: 'top-right',
+      position: 'top-center',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -48,7 +48,7 @@ export const authenticate = (user, method) => async (dispatch) => {
     });
   } catch (authError) {
     toast.error(`${authError.response.data}`, {
-      position: 'top-right',
+      position: 'top-center',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,

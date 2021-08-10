@@ -9,6 +9,7 @@ const ADD_TO_CART = 'ADD_TO_CART';
 const DELETE_PRODUCT_CART = 'DELETE_CART';
 const UPDATE_CART = 'UPDATE_CART';
 const EMPTY_CART = 'EMPTY_CART';
+const SET_VISITOR = 'SET_VISITOR';
 
 //creator
 export const set_cart = (cart) => ({
@@ -31,6 +32,14 @@ export const emptyCart = () => ({
   type: EMPTY_CART,
   cart: [],
 });
+const setVisitorCart = (cartLength) => ({
+  type: SET_VISITOR,
+  cartLength,
+});
+
+export const setVisCart = (length) => (dispatch) => {
+  dispatch(setVisitorCart(length));
+};
 
 //thunker set cart
 export const fetchCart = (id, history) => async (dispatch) => {
@@ -64,12 +73,15 @@ export const fetchCart = (id, history) => async (dispatch) => {
 export const addProductToCart = (id, productId, price) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem(TOKEN);
-    const { data } = await axios.post(`/api/users/${id}/cart/${productId}`, {
-      headers: {
-        authorization: token,
-      },
-      price: price,
-    });
+    const { data } = await axios.post(
+      `/api/users/${id}/cart/${productId}`,
+      { price: price },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
     let cleanProduct = data.products.filter((product) => {
       return product.id === productId;
     });
@@ -92,12 +104,15 @@ export const addProductToCart = (id, productId, price) => async (dispatch) => {
 export const editQuantity = (id, productId, quantity) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem(TOKEN);
-    const { data } = await axios.post(`/api/users/${id}/cart/${productId}`, {
-      headers: {
-        authorization: token,
-      },
-      quantity: quantity,
-    });
+    const { data } = await axios.post(
+      `/api/users/${id}/cart/${productId}`,
+      { quantity: quantity },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
     dispatch(updateCart(data));
   } catch (err) {
     console.error(error);
@@ -129,16 +144,19 @@ export const deleteProductFromCart = (id, productId) => async (dispatch) => {
 
 //store
 
-export default function cartReducer(state = [], payload) {
+export default function cartReducer(
+  state = { userCart: [], visitorCart: 0 },
+  payload
+) {
   switch (payload.type) {
     case SET_CART:
-      return payload.cart;
+      return { ...state, userCart: payload.cart };
     case ADD_TO_CART:
       // return state;
-      return [...state, payload.product];
+      return { ...state, userCart: [...state.userCart, payload.product] };
     case DELETE_PRODUCT_CART:
       console.log('payload', payload);
-      return state.filter(
+      return state.cart.userCart.filter(
         (cart) => cart.orderDetails.productId != payload.product
       );
     case UPDATE_CART:
@@ -146,7 +164,9 @@ export default function cartReducer(state = [], payload) {
     // return state.map((cart) =>
     // (cart.id === payload.cart.id ? payload.cart : cart));
     case EMPTY_CART:
-      return payload.cart;
+      return { ...state, userCart: payload.cart };
+    case SET_VISITOR:
+      return { ...state, visitorCart: payload.cartLength };
     default:
       return state;
   }

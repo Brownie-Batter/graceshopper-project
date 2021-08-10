@@ -47,6 +47,7 @@ export default function Product(props) {
     description,
     isLoggedIn,
     cart,
+    visCart,
   } = props;
 
   function getModalStyle() {
@@ -78,8 +79,9 @@ export default function Product(props) {
         category: { category_name: category_name },
       };
       localStorage.setItem(id, JSON.stringify(product));
+      visCart(cart.visitorCart + 1);
       toast.success(`${name} added to cart`, {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -89,7 +91,7 @@ export default function Product(props) {
       });
     } else {
       toast.error(`${name} is already in your cart!`, {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -105,13 +107,14 @@ export default function Product(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleAdd = (userId, id, price, cart) => {
+    console.log(cart);
     const inCart = cart.filter((item) => {
       return item.id === id;
     });
     console.log(inCart);
     if (inCart.length > 0) {
       toast.error(`${name} is already in your cart!`, {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -121,7 +124,7 @@ export default function Product(props) {
       });
     } else {
       toast.success(`${name} added to cart`, {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -145,7 +148,7 @@ export default function Product(props) {
       {isLoggedIn ? (
         <Button
           onClick={() => {
-            handleAdd(userId, id, price, cart);
+            handleAdd(userId, id, price, cart.userCart);
             handleClose();
           }}
           startIcon={<AddShoppingCartIcon />}
@@ -186,7 +189,7 @@ export default function Product(props) {
       <CardActions>
         {isLoggedIn ? (
           <Button
-            onClick={() => handleAdd(userId, id, price, cart)}
+            onClick={() => handleAdd(userId, id, price, cart.userCart)}
             size="small"
             color="primary"
           >

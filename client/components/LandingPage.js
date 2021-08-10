@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
@@ -10,7 +10,10 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 import AboutCompany from './AboutCompany';
-import Ratings from './Ratings'
+import Ratings from './Ratings';
+
+import { connect } from 'react-redux';
+import { fetchCart } from '../store/cart';
 
 //Imports for AllProducts
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
@@ -70,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function LandingPage(props) {
+  const { getCart, userId, isLoggedIn } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
@@ -83,40 +87,44 @@ function LandingPage(props) {
   const handleStepChange = (step) => {
     setActiveStep(step);
   };
-
- 
+  useEffect(() => {
+    if (isLoggedIn) {
+      getCart(userId);
+    }
+  }, []);
   return (
     <div>
-      
-      <AboutCompany id='raysbanner' />
-      <Typography gutterBottom variant="h6" component="h6" id ='reviewbanner'>
-          Reviews from our customers
-          </Typography>
-        <Ratings />
-     
-      <section id='stepper'>
-      <div className={classes.root}>
+      <AboutCompany id="raysbanner" />
+      <Typography gutterBottom variant="h6" component="h6" id="reviewbanner">
+        Reviews from our customers
+      </Typography>
+      <Ratings />
+
+      <section id="stepper">
+        <div className={classes.root}>
           <Paper square elevation={0} className={classes.header}>
             <Typography>{carousel[activeStep].label}</Typography>
           </Paper>
-          <Link to="/products"><AutoPlaySwipeableViews
-            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-            index={activeStep}
-            onChangeIndex={handleStepChange}
-            enableMouseEvents
-          >
-            {carousel.map((step, index) => (
-              <div key={index}>
-                {Math.abs(activeStep - index) <= 2 ? (
-                  <img
-                    className={classes.img}
-                    src={step.imgPath}
-                    alt={step.label}
-                  />
-                ) : null}
-              </div>
-            ))}
-          </AutoPlaySwipeableViews> </Link>
+          <Link to="/products">
+            <AutoPlaySwipeableViews
+              axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+              index={activeStep}
+              onChangeIndex={handleStepChange}
+              enableMouseEvents
+            >
+              {carousel.map((step, index) => (
+                <div key={index}>
+                  {Math.abs(activeStep - index) <= 2 ? (
+                    <img
+                      className={classes.img}
+                      src={step.imgPath}
+                      alt={step.label}
+                    />
+                  ) : null}
+                </div>
+              ))}
+            </AutoPlaySwipeableViews>{' '}
+          </Link>
           <MobileStepper
             steps={maxSteps}
             position="static"
@@ -151,12 +159,23 @@ function LandingPage(props) {
               </Button>
             }
           />
-             </div>
-             </section>
-        <footer className="footer">
-        Ray's Inc. Copyright 2021
-  </footer>
-          </div>
+        </div>
+      </section>
+      <footer className="footer">Ray's Inc. Copyright 2021</footer>
+    </div>
   );
 }
-export default LandingPage;
+//export default LandingPage;
+const mapStateToProps = (state) => {
+  return {
+    userId: state.auth.id,
+    isLoggedIn: !!state.auth.id,
+  };
+};
+const mapDispatch = (dispatch) => {
+  return {
+    getCart: (id) => dispatch(fetchCart(id)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatch)(LandingPage);
