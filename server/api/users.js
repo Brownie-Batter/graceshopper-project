@@ -94,6 +94,7 @@ router.post('/:id/cart/:productId', requireToken, async (req, res, next) => {
     const updatedOrder = await Order.findByPk(userOrder.id, {
       include: {
         model: Product,
+        include: { model: Category, attributes: ['category_name'] },
       },
     });
     res.json(updatedOrder);

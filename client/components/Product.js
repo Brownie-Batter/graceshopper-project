@@ -79,7 +79,7 @@ export default function Product(props) {
       };
       localStorage.setItem(id, JSON.stringify(product));
       toast.success(`${name} added to cart`, {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -89,7 +89,7 @@ export default function Product(props) {
       });
     } else {
       toast.error(`${name} is already in your cart!`, {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -111,7 +111,7 @@ export default function Product(props) {
     console.log(inCart);
     if (inCart.length > 0) {
       toast.error(`${name} is already in your cart!`, {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -121,7 +121,7 @@ export default function Product(props) {
       });
     } else {
       toast.success(`${name} added to cart`, {
-        position: 'top-right',
+        position: 'top-center',
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,

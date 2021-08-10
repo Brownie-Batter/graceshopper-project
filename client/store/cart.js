@@ -9,6 +9,7 @@ const ADD_TO_CART = 'ADD_TO_CART';
 const DELETE_PRODUCT_CART = 'DELETE_CART';
 const UPDATE_CART = 'UPDATE_CART';
 const EMPTY_CART = 'EMPTY_CART';
+const SET_VISITOR = 'SET_VISITOR';
 
 //creator
 export const set_cart = (cart) => ({
@@ -31,6 +32,14 @@ export const emptyCart = () => ({
   type: EMPTY_CART,
   cart: [],
 });
+const setVisitorCart = (cart) => ({
+  type: SET_VISITOR,
+  cart,
+});
+
+export const setVisCart = (length) => (dispatch) => {
+  dispatch(setVisitorCart(length));
+};
 
 //thunker set cart
 export const fetchCart = (id, history) => async (dispatch) => {
@@ -155,6 +164,8 @@ export default function cartReducer(state = [], payload) {
     // (cart.id === payload.cart.id ? payload.cart : cart));
     case EMPTY_CART:
       return payload.cart;
+    case SET_VISITOR:
+      return [...state, { visitorCart: payload.length }];
     default:
       return state;
   }
