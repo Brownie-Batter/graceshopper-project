@@ -31,8 +31,12 @@ function Review(props) {
   const { cart } = props;
 
   const [visitorCart, setVisitorCart] = useState([]);
+  const [userCart, setUserCart] = useState([]);
 
   useEffect(() => {
+    if (cart.length > 0) {
+      setUserCart(cart);
+    }
     grabCartItems();
   }, []);
   let localCart = [];
@@ -49,12 +53,11 @@ function Review(props) {
 
   const totalPrice = () => {
     let total = 0;
-    if (cart.length > 0) {
-      cart.map(
+    if (userCart.length > 0) {
+      userCart.map(
         ({ orderDetails: { quantity, price } }) => (total += price * quantity)
       );
     } else {
-      console.log(visitorCart);
       visitorCart.map((item) => (total += item.price * item.quantity));
     }
     return total;
@@ -167,7 +170,7 @@ function Review(props) {
 }
 
 const mapState = (state) => ({
-  cart: state.cart,
+  cart: state.cart.userCart,
   isLoggedIn: !!state.auth.id,
   userId: state.auth.id,
 });
