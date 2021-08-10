@@ -127,8 +127,6 @@ export const deleteProductFromCart = (id, productId) => async (dispatch) => {
   }
 };
 
-//thunker update cart
-
 //store
 
 export default function cartReducer(state = [], payload) {
