@@ -98,7 +98,7 @@ function Cart(props) {
 }
 
 const mapState = (state) => ({
-  cart: state.cart,
+  cart: state.cart.userCart,
   isLoggedIn: !!state.auth.id,
   userId: state.auth.id,
 });
