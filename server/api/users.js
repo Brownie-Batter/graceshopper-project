@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {
-  models: { User, Order },
+  models: { User, Order, Category },
 } = require('../db');
 const OrderDetails = require('../db/models/OrderDetails');
 const Product = require('../db/models/Product');
@@ -38,6 +38,7 @@ router.get('/:id/cart', requireToken, async (req, res, next) => {
         include: {
           model: Product,
           attributes: ['id', 'name', 'quantity'],
+          include: { model: Category, attributes: ['category_name'] },
         },
       },
     });

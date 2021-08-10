@@ -1,12 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchCart } from '../store/cart';
 import CartItem from './CartItem';
 import { me } from '../store';
 import { deleteProductFromCart } from '../store/cart';
 import { editQuantity } from '../store/cart';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 function Cart(props) {
+  const [subtotal, setSubTotal] = useState(0);
   const {
     match: {
       params: { id },
@@ -18,13 +23,27 @@ function Cart(props) {
     isLoggedIn,
   } = props;
 
+  const calcSubtotal = (cart) => {
+    console.log(cart);
+    if (cart.length) {
+      const total = cart.reduce((total, item) => {
+        return total + item.orderDetails.quantity * item.orderDetails.price;
+      }, 0);
+      setSubTotal(total);
+    }
+  };
   useEffect(() => {
     props.fetchCart(id);
+    calcSubtotal(cart);
   }, []);
+  const updateClick = () => {
+    props.fetchCart(id);
+    calcSubtotal(cart);
+  };
   return (
-    <div className="food-container">
+    <div className="food-container" style={{ maxWidth: 1400 }}>
       {cart.length ? (
-        cart.map(({ name, id, orderDetails, quantity }) => (
+        cart.map(({ name, id, orderDetails, quantity, category }) => (
           <CartItem
             key={id}
             productId={id}
@@ -36,6 +55,7 @@ function Cart(props) {
             editQuantity={editQuantity}
             isLoggedIn={isLoggedIn}
             inventory={quantity}
+            category={category}
           />
         ))
       ) : (
@@ -43,6 +63,15 @@ function Cart(props) {
           <h3>Your cart is empty!</h3>
         </div>
       )}
+      <div style={{ maxWidth: 1400, minWidth: 750 }}>
+        <Card style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <CardContent>
+            <Typography component="p">Subtotal: ${subtotal}</Typography>
+          </CardContent>
+          <Button onClick={updateClick}>Update Cart</Button>
+        </Card>
+        <h3></h3>
+      </div>
     </div>
   );
 }
