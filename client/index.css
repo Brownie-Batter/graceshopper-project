@@ -103,6 +103,10 @@ form div {
 
 /*banner*/
 
+#companyBanner {
+  display:flex;
+  justify-content: center;
+}
 #carousel {
   height: 50vh;
   display: flex;
