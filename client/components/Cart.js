@@ -21,7 +21,6 @@ function Cart(props) {
     deleteProduct,
     editQuantity,
     isLoggedIn,
-    completeCart,
   } = props;
 
   const calcSubtotal = (cart) => {
@@ -46,8 +45,7 @@ function Cart(props) {
         flexDirection: 'column',
         alignItems: 'center',
         width: '100%',
-      }}
-    >
+      }}>
       <div>
         <h2>Shopping Cart</h2>
       </div>
@@ -79,28 +77,20 @@ function Cart(props) {
             minWidth: 750,
             marginTop: '15px',
             paddingRight: '10px',
-          }}
-        >
+          }}>
           <Card
             style={{
               display: 'flex',
               justifyContent: 'flex-end',
               alignItems: 'center',
-            }}
-          >
+            }}>
             <CardContent>
               <Typography component="p">
                 Subtotal: ${calcSubtotal(cart)}
               </Typography>
             </CardContent>
             <Link to={`/users/${userId}/checkout`}>
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={() => {
-                  completeCart(userId);
-                }}
-              >
+              <Button color="primary" variant="contained">
                 Checkout
               </Button>
             </Link>
@@ -128,7 +118,6 @@ const mapDispatch = (dispatch, { history }) => ({
   },
   editQuantity: (userId, prodId, quantity) =>
     dispatch(editQuantity(userId, prodId, quantity)),
-  completeCart: (userId) => dispatch(completeUserCart(userId)),
 });
 
 export default connect(mapState, mapDispatch)(Cart);

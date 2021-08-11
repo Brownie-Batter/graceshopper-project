@@ -54,8 +54,7 @@ function VisitorCart(props) {
         flexDirection: 'column',
         alignItems: 'center',
         width: '100%',
-      }}
-    >
+      }}>
       <div>
         <h2>Shopping Cart</h2>
       </div>
@@ -86,8 +85,7 @@ function VisitorCart(props) {
               display: 'flex',
               justifyContent: 'flex-end',
               alignItems: 'center',
-            }}
-          >
+            }}>
             <CardContent>
               <Typography component="p">Subtotal: ${subtotal}</Typography>
             </CardContent>
