@@ -15,7 +15,18 @@ import Ratings from './Ratings';
 import { connect } from 'react-redux';
 import { fetchCart } from '../store/cart';
 
-//Imports for AllProducts
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+              Ray's Kitchen
+      {' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 const carousel = [
   {
@@ -161,7 +172,7 @@ function LandingPage(props) {
           />
         </div>
       </section>
-      <footer className="footer">Ray's Inc. Copyright 2021</footer>
+      <Copyright />
     </div>
   );
 }
