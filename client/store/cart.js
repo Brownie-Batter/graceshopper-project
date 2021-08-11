@@ -191,7 +191,6 @@ export default function cartReducer(
       // return state;
       return { ...state, userCart: [...state.userCart, payload.product] };
     case DELETE_PRODUCT_CART:
-      console.log('payload', payload);
       return {
         ...state,
         userCart: state.userCart.filter(
@@ -206,6 +205,9 @@ export default function cartReducer(
     case EMPTY_CART:
       return { ...state, userCart: payload.cart };
     case SET_VISITOR:
+      if (payload.cartLength === 0) {
+        window.localStorage.clear();
+      }
       return { ...state, visitorCart: payload.cartLength };
     default:
       return state;
