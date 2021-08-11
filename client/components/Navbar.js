@@ -171,6 +171,7 @@ const mapDispatch = (dispatch) => {
     handleClick() {
       dispatch(emptyCart());
       dispatch(logout());
+      dispatch(setVisCart(0));
     },
     visCart: (cart) => dispatch(setVisCart(cart)),
   };

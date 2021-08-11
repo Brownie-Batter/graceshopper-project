@@ -53,7 +53,7 @@ router.get('/:id/cart', requireToken, async (req, res, next) => {
 });
 
 //change order status from active to purchased and create a new order
-router.post('/:id/cart/order', requireToken, async (req, res, next) => {
+router.put('/:id/cart/order', requireToken, async (req, res, next) => {
   try {
     if (req.user.id != req.params.id) {
       return res.status(500).send('You cannot access this cart!');

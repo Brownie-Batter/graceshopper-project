@@ -26,6 +26,7 @@ function VisitorCart(props) {
         cart.push(JSON.parse(product));
       }
     }
+    console.log('visitor', cart);
     setVisitorCart(cart);
     calcSubtotal(cart);
   };
@@ -45,9 +46,6 @@ function VisitorCart(props) {
     }
   };
 
-  const updateClick = () => {
-    grabCartItems();
-  };
   return (
     <div
       className="food-container"
@@ -83,12 +81,20 @@ function VisitorCart(props) {
       )}
       {visitorCart.length ? (
         <div style={{ maxWidth: 1400, minWidth: 750, marginTop: '15px' }}>
-          <Card style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Card
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+            }}
+          >
             <CardContent>
               <Typography component="p">Subtotal: ${subtotal}</Typography>
             </CardContent>
             <Link to={'/visitor/checkout'}>
-              <Button>Checkout</Button>
+              <Button color="primary" variant="contained">
+                Checkout
+              </Button>
             </Link>
           </Card>
         </div>
