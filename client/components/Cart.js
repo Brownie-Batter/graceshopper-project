@@ -12,7 +12,6 @@ import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 
 function Cart(props) {
-  const [subtotal, setSubTotal] = useState(0);
   const {
     match: {
       params: { id },
@@ -31,17 +30,14 @@ function Cart(props) {
       const total = cart.reduce((total, item) => {
         return total + item.orderDetails.quantity * item.orderDetails.price;
       }, 0);
-      setSubTotal(total);
+      return total;
     }
   };
   useEffect(() => {
     props.fetchCart(id);
     calcSubtotal(cart);
   }, []);
-  const updateClick = () => {
-    props.fetchCart(id);
-    calcSubtotal(cart);
-  };
+
   return (
     <div
       className="food-container"
@@ -77,13 +73,36 @@ function Cart(props) {
         </div>
       )}
       {cart.length ? (
-        <div style={{ maxWidth: 1400, minWidth: 750, marginTop: '15px' }}>
-          <Card style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <div
+          style={{
+            maxWidth: 1400,
+            minWidth: 750,
+            marginTop: '15px',
+            paddingRight: '10px',
+          }}
+        >
+          <Card
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+            }}
+          >
             <CardContent>
-              <Typography component="p">Subtotal: ${subtotal}</Typography>
+              <Typography component="p">
+                Subtotal: ${calcSubtotal(cart)}
+              </Typography>
             </CardContent>
             <Link to={`/users/${userId}/checkout`}>
-              <Button onClick={() =>{completeCart(userId)}}>Checkout</Button>
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={() => {
+                  completeCart(userId);
+                }}
+              >
+                Checkout
+              </Button>
             </Link>
           </Card>
         </div>
@@ -109,8 +128,7 @@ const mapDispatch = (dispatch, { history }) => ({
   },
   editQuantity: (userId, prodId, quantity) =>
     dispatch(editQuantity(userId, prodId, quantity)),
-    completeCart: (userId) => 
-    dispatch(completeUserCart(userId))
+  completeCart: (userId) => dispatch(completeUserCart(userId)),
 });
 
 export default connect(mapState, mapDispatch)(Cart);

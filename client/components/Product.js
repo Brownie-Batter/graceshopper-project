@@ -139,7 +139,10 @@ export default function Product(props) {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <img src={imgUrl} style={{ maxWidth: '750px', maxHeight: '400px' }} />
+      <img
+        src={imgUrl}
+        style={{ maxWidth: '750px', maxHeight: '400px', paddingTop: '25px' }}
+      />
       <h2>{name}</h2>
       <h3>{category_name}</h3>
       <p>{description}</p>
@@ -154,7 +157,8 @@ export default function Product(props) {
           startIcon={<AddShoppingCartIcon />}
           size="large"
           color="primary"
-          variant="contained">
+          variant="contained"
+        >
           Add to Cart
         </Button>
       ) : (
@@ -162,7 +166,12 @@ export default function Product(props) {
           onClick={() => {
             handleVisitorClick();
             handleClose();
-          }}>
+          }}
+          startIcon={<AddShoppingCartIcon />}
+          size="large"
+          color="primary"
+          variant="contained"
+        >
           Add to Cart
         </Button>
       )}
@@ -189,7 +198,8 @@ export default function Product(props) {
           <Button
             onClick={() => handleAdd(userId, id, price, cart.userCart)}
             size="small"
-            color="primary">
+            color="primary"
+          >
             Add to Cart
           </Button>
         ) : (
@@ -205,7 +215,8 @@ export default function Product(props) {
         open={open}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description">
+        aria-describedby="simple-modal-description"
+      >
         {body}
       </Modal>
     </Card>

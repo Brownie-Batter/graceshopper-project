@@ -159,7 +159,7 @@ export const deleteProductFromCart = (id, productId) => async (dispatch) => {
 export const completeUserCart = (id) => async (dispatch) => {
   try {
     const token = window.localStorage.getItem(TOKEN);
-    const { data } = await axios.put(`/api/users/${id}/cart/order`, {
+    const { data } = await axios.put(`/api/users/${id}/cart/order`, null, {
       headers: {
         authorization: token,
       },
