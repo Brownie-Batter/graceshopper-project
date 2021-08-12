@@ -161,10 +161,11 @@ export default function Teaminfo() {
               Meredith
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              Intern
+              Lead Engineer
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              Newest Intern on our very diverse team.
+              On a daily basis, I usually spend time on learning, reading books
+              and watching documentaries. I love watching movies.
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -181,11 +182,15 @@ export default function Teaminfo() {
               Tori
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              Consultant
+              Project Lead Consultant
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              Hide yo code, hide yo site. Jk, she will help you create an
-              awesome MVP!
+              I have collaborated on a bunch of projects. My first month at
+              Ray's Kitchen I got involved with the creation of a new checkout
+              page; it was an amazing way to get to know the codebase of the
+              company and work side by side with great people, although for a
+              new joiner it was a bit scary to handle one of the most important
+              apps in the company. But it was an amazing challenge!
             </Typography>
           </CardContent>
         </CardActionArea>
