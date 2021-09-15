@@ -19,9 +19,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-              Ray's Kitchen
-      {' '}
-      {new Date().getFullYear()}
+      Ray's Kitchen {new Date().getFullYear()}
       {'.'}
     </Typography>
   );
@@ -111,7 +109,7 @@ function LandingPage(props) {
       </Typography>
       <Ratings />
 
-      <section id="stepper">
+      {/* <section id="stepper">
         <div className={classes.root}>
           <Paper square elevation={0} className={classes.header}>
             <Typography>{carousel[activeStep].label}</Typography>
@@ -171,7 +169,7 @@ function LandingPage(props) {
             }
           />
         </div>
-      </section>
+      </section> */}
       <Copyright />
     </div>
   );

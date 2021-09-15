@@ -53,11 +53,11 @@ form div {
 /*navbar visitor*/
 /*navbar color shell*/
 #navbar {
-  background-color: #e5e6e4;
+  /* background-color: #e5e6e4; */
 }
 #mainNav {
-  background-color: #847577;
-  color: rgb(9, 60, 105);
+  /* background-color: #847577;
+  color: rgb(9, 60, 105); */
   display: flex;
   justify-content: space-between;
 }
@@ -104,7 +104,7 @@ form div {
 /*banner*/
 
 #companyBanner {
-  display:flex;
+  display: flex;
   justify-content: center;
 }
 #carousel {

@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  button: {
+    color: 'white',
+  },
 }));
 
 const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
@@ -54,6 +57,7 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
       padding: '0 4px',
     },
   }))(Badge);
+
   return (
     <div id="navbar">
       <nav>
@@ -61,36 +65,46 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
           <div className={classes.root}>
             <AppBar id="mainNav" position="static">
               <Toolbar
-                style={{ display: 'flex', justifyContent: 'space-between' }}
-              >
+                style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div id="leftNavBar">
                   <Link to="/">
                     <Typography variant="h6" className={classes.title}>
-                      <Button color="primary">Home</Button>
+                      <Button color="primary" className={classes.button}>
+                        Home
+                      </Button>
                     </Typography>
                   </Link>
                   <Link to="/products">
                     <Typography variant="h6" className={classes.title}>
-                      <Button color="primary">Food</Button>
+                      <Button color="primary" className={classes.button}>
+                        Food
+                      </Button>
                     </Typography>
                   </Link>
                   <Link to="/aboutus">
                     <Typography variant="h6" className={classes.title}>
-                      <Button color="primary">About Us</Button>
+                      <Button color="primary" className={classes.button}>
+                        About Us
+                      </Button>
                     </Typography>
                   </Link>
                 </div>
                 <div id="loggedrightNavBar">
-                  <Button color="primary">Welcome {user} </Button>
-                  <Button color="primary" href="#" onClick={handleClick}>
+                  <Button color="primary" className={classes.button}>
+                    Welcome {user}{' '}
+                  </Button>
+                  <Button
+                    color="primary"
+                    href="#"
+                    onClick={handleClick}
+                    className={classes.button}>
                     Logout
                   </Button>
                   <Link id="loggedcart" to={`/users/${userId}/cart`}>
                     <IconButton aria-label="cart">
                       <StyledBadge
                         badgeContent={cart.userCart.length}
-                        color="secondary"
-                      >
+                        color="secondary">
                         <ShoppingCartIcon size="large" />
                       </StyledBadge>
                     </IconButton>
@@ -103,42 +117,50 @@ const Navbar = ({ handleClick, isLoggedIn, user, userId, cart, visCart }) => {
           <div className={classes.root}>
             <AppBar id="mainNav" position="static">
               <Toolbar
-                style={{ display: 'flex', justifyContent: 'space-between' }}
-              >
+                style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div id="leftNavBar">
                   <Link to="/">
                     <Typography variant="h6" className={classes.title}>
-                      <Button color="primary">Home</Button>
+                      <Button color="primary" className={classes.button}>
+                        Home
+                      </Button>
                     </Typography>
                   </Link>
                   <Link to="/products">
                     <Typography variant="h6" className={classes.title}>
-                      <Button color="primary">Food</Button>
+                      <Button color="primary" className={classes.button}>
+                        Food
+                      </Button>
                     </Typography>
                   </Link>
                   <Link to="/aboutus">
                     <Typography variant="h6" className={classes.title}>
-                      <Button color="primary">About Us</Button>
+                      <Button color="primary" className={classes.button}>
+                        About Us
+                      </Button>
                     </Typography>
                   </Link>
                 </div>
                 <div id="rightNavBar">
                   <Link to="/login">
                     <Typography variant="h6" className={classes.title}>
-                      <Button color="primary">Login</Button>
+                      <Button color="primary" className={classes.button}>
+                        Login
+                      </Button>
                     </Typography>
                   </Link>
                   <Link to="/signup">
                     <Typography variant="h6" className={classes.title}>
-                      <Button color="primary">Sign Up</Button>
+                      <Button color="primary" className={classes.button}>
+                        Sign Up
+                      </Button>
                     </Typography>
                   </Link>
                   <Link to={`/visitor/cart`}>
                     <IconButton aria-label="cart">
                       <StyledBadge
                         badgeContent={cart.visitorCart}
-                        color="secondary"
-                      >
+                        color="secondary">
                         <ShoppingCartIcon size="large" />
                       </StyledBadge>
                     </IconButton>
