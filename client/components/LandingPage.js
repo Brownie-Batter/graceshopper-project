@@ -37,12 +37,12 @@ const carousel = [
   {
     label: '',
     imgPath:
-      'https://previews.123rf.com/images/dolgachov/dolgachov1902/dolgachov190201876/117027158-cooking-profession-and-people-concept-happy-male-indian-chef-in-toque-with-cookbook-over-kitchen-bac.jpg',
+      'https://limetray.com/blog/wp-content/uploads/2019/07/group-of-chefs-holding-plate-of-prepared-food-in-62MPWNQ-e1563435447331-1200x800.jpg',
   },
   {
     label: '',
     imgPath:
-      'https://www.recipetineats.com/wp-content/uploads/2014/08/15-Minute-Asian-Meals-Cover-Photo.jpg',
+      'https://cdn.hellofresh.com/us/user-guides/meal-prepping/HelloFresh-Instagram-feed.jpg',
   },
   {
     label: 'Easily order from your mobile device',
@@ -52,7 +52,7 @@ const carousel = [
   {
     label: '',
     imgPath:
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzY1BjGchboP-yt1J8i7RAMUzSAyJeWNzW9g&usqp=CAU',
+      'https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2021-04/Safe%20food.jpg',
   },
 ];
 const useStyles = makeStyles((theme) => ({

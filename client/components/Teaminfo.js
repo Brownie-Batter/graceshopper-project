@@ -25,12 +25,12 @@ export default function Teaminfo() {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="https://static01.nyt.com/images/2020/08/19/dining/17chinesechef1/merlin_173956071_39958a0f-3b8c-4528-af40-f7bffc56d694-mobileMasterAt3x.jpg"
+            image="https://media-exp1.licdn.com/dms/image/C4D03AQF0QznhX53B0Q/profile-displayphoto-shrink_800_800/0/1604176192847?e=1637193600&v=beta&t=xfK_1KRgH5mewyNOB7Aj_UFKoxT8seh_wGohJowKrXY"
             title="Sung"
           />
           <CardContent>
             <Typography gutterBottom variant="h6" component="h6">
-              Sung
+              Sung Paik
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               Co-founder & CEO
@@ -49,12 +49,12 @@ export default function Teaminfo() {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="https://thetoptenchefs.com/wp/wp-content/uploads/2017/04/chef-Yuj-Wakiya-top-10-chefs-in-asia.jpg"
-            title="Mike"
+            image="https://media-exp1.licdn.com/dms/image/C4E03AQG9QcVNCdSynQ/profile-displayphoto-shrink_400_400/0/1517417740603?e=1637193600&v=beta&t=bWFVzuYkVBeSJYNjbCb-VSFR8mIgNZ1PW9AMJAQ3p-A"
+            title="Mike Alessi"
           />
           <CardContent>
             <Typography gutterBottom variant="h6" component="h6">
-              Mike
+              Mike Alessi
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               Co-founder & CTO
@@ -84,12 +84,12 @@ export default function Teaminfo() {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDInNIuZy6dcq89T7d_hTzULeW3JlMMLW3eA&usqp=CAU"
-            title="Chris"
+            image="https://media-exp1.licdn.com/dms/image/C4E03AQHDnha5Mg-UsQ/profile-displayphoto-shrink_800_800/0/1516932107591?e=1637193600&v=beta&t=PjX5keS1eaa3VNvd5Gr9qKq0yd6Wpl0v0Is6QJfAdmE"
+            title="Chris Bolosan"
           />
           <CardContent>
             <Typography gutterBottom variant="h6" component="h6">
-              Chris
+              Chris Bolosan
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               Food Connoisseur
@@ -119,12 +119,12 @@ export default function Teaminfo() {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="https://previews.123rf.com/images/upslim/upslim1603/upslim160300020/53314094-asian-chef-sgowing-plate-with-sushi-and-ok-focus-on-sushi-.jpg"
-            title="Sung"
+            image="https://media-exp1.licdn.com/dms/image/C4D03AQGQXUaT96gfZQ/profile-displayphoto-shrink_200_200/0/1600208082769?e=1636588800&v=beta&t=yw16kBOF6D9ulOeKqfo0ixJ6HGmx0iObT_A6kFVEs1A"
+            title=""
           />
           <CardContent>
             <Typography gutterBottom variant="h6" component="h6">
-              Andy
+              Andy Moy
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
               Culinarian
@@ -164,8 +164,13 @@ export default function Teaminfo() {
               Lead Engineer
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              On a daily basis, I usually spend time on learning, reading books
-              and watching documentaries. I love watching movies.
+              When I started working at Ray's Kitchen, fresh out of college,
+              coding was my life. Writing code was the easiest way to build any
+              cool thing that my brain could imagine. When I thought about what
+              I’d want to do for the rest of my life I thought that I just
+              wanted to keep coding. On a daily basis, I usually spend time on
+              learning, reading books and watching documentaries. I love
+              watching movies.
             </Typography>
           </CardContent>
         </CardActionArea>
