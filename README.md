@@ -1,77 +1,72 @@
-# FS-App-Template
+# RAY'S KITCHEN
 
-## Setup
+<p align=‘center’/>
+<hr />
+Ray's Kitchen is an E-Commerce website where users can purchase a variety of delicious food and have their purchases delivered straight to their doorsteps.
 
-To use this as boilerplate, you'll need to take the following steps:
+</p>
+<p align='center'><a href="https://graceshopper-fullstack.herokuapp.com/"> <img style="max-width:300px" src="https://cdn.loom.com/sessions/thumbnails/096a40f4162744cd8da558718a4c5784-with-play.gif"> </br> <p align='center'> Official Site</p> </a> </p>
 
-* Don't fork or clone this repo! Instead, create a new, empty
-  directory on your machine and `git init` (or create an empty repo on
-  Github and clone it to your local machine)
+## Deployed Site Ray's Kitchen:
 
-* Now you will have to add the fs-app-template as a remote and merge it into your own repository.
+Check out <https://graceshopper-fullstack.herokuapp.com/> here! 
+
+## Technology Stack & Tools 
+
+Ray's Kitchen implements the PERN (PostgreSQL, Express, React/Redux, Node.js) stack.
+
+
+**Frontend**
+
+_React Redux_ was used to manage our applications state.
+
+**Backend**
+
+_PostgreSql_ was used as our DBMS. This allowed us to use a common set of data points thru a relational database. To interface with our database, we used _Express_ and _Node_ to establish our server and API routes.
+
+
+## Local Setup
+
+We used the [_FS-App-Template_](https://github.com/FullstackAcademy/fs-app-template.git) boilermaker as the base of our project and built off of it.
 
 ```
-git remote add boilermaker https://github.com/FullstackAcademy/fs-app-template.git
-git fetch boilermaker
-git merge boilermaker/main
-git branch -m master main
+  npm install
 ```
 
-## Customize
-
-Now that you've got the code, follow these steps to get acclimated:
-
-* Update project name and description in `package.json`
-* `npm install`
-* Create two postgres databases (`MY_APP_NAME` should match the `name`
-  parameter in `package.json`):
-* These commands will create both your **development** and **test** databases
-
 ```
-createdb <YOUR APP NAME HERE FROM package.json>
-createdb <YOUR APP NAME HERE FROM package.json>-test
+  npm run start
 ```
 
-* By default, running `npm test` will use your test database, while
-  regular development uses development database
+## Contributors/Collaborators:
 
-## Start
+Thanks to the following people who have contributed to this project:
 
-Sync and seed your database by running `npm run seed`. Running `npm run start:dev` will make great things happen!
+* [Andy Moy](https://github.com/AndyYMoy) 📖
+* [Chris Bolosan](https://github.com/chrisbolosan) 📖
+* [Mike Alessi](https://github.com/Malessi5) 📖
+* [Sung Paik](https://github.com/spaik11) 📖
 
-- start:dev will both start your server and build your client side files using webpack
-- start:dev:logger is the same as start:dev, but you will see your SQL queries (can be helpful for debugging)
-- start:dev:seed will start your server and also seed your database (this is useful when you are making schema changes and you don't want to run your seed script separately)
+## Contact:
+<!--- You can add in your linkedin, medium, stack overflow, dev.to account, etc. here --->
+If you want to contact me you can reach me at <cbolosan@gmail.com>.
 
-
-### Heroku
-
-1.  Set up the [Heroku command line tools][heroku-cli]
-2.  `heroku login`
-3.  Add a git remote for heroku:
-
-[heroku-cli]: https://devcenter.heroku.com/articles/heroku-cli
-
-* **If you are creating a new app...**
-
-  1.  `heroku create` or `heroku create your-app-name` if you have a
-      name in mind.
-  2.  `heroku config:set JWT=<your secret here!>` to set a secret for JWT signing
-
-Database Setup
-
-  3.  `heroku addons:create heroku-postgresql:hobby-dev` to add
-      ("provision") a postgres database to your heroku dyno (This creates your production database)
-
-  4.  `heroku config:set SEED=true` to get heroku to sync and seed your database
-
-  5.   note everytime your app restarts, the database tables will be dropped and re-created. To avoid this you can `config:unset SEED`
+Connect with me on <a href="www.linkedin.com/in/chrisbolosan">Linkedin</a>
 
 
-* **If you already have a Heroku app...**
 
-  1.  `heroku git:remote your-app-name` You'll need to be a
-      collaborator on the app.
+## Additional Resources:
+
+https://jwt.io/
+
+https://sequelize.org/master/index.html
+
+https://react-redux.js.org/using-react-redux/connect-mapstate
+
+https://material-ui.com/
 
 
-Now, you should be deployed!
+
+
+
+
+
