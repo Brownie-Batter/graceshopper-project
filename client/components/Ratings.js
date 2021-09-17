@@ -20,26 +20,34 @@ export default function Ratings() {
 
   return (
     <div id="ratingsContainer">
-          <div>
-      <Card className={classes.root}>
+      <div>
+        <Card className={classes.root}>
           <CardActionArea>
             <CardMedia
               className={classes.media}
-              image="https://ministrytoparents.com/wp-content/uploads/2018/07/Why-Family-Dinners-Still-Matter.jpg"
-              title="Mike"
+              image="https://s3.theasianparent.com/cdn-cgi/image/width=700,quality=10/tap-assets-prod/wp-content/uploads/sites/12/2018/08/attractive-asian-hungry-couple-eating-pizza-or-fast-food-with-smile-picture-id1089968148.jpg"
+              title="Couple"
               id="ratings"
             />
             <CardContent>
               <Typography gutterBottom variant="h6" component="h6">
-              Mike and Karen
+                Mike and Karen
               </Typography>
+
               <Typography variant="body2" color="textSecondary" component="p">
-              “Every night of the week we can have something different. It’s
+                “Every night of the week we can have something different. It’s
                 like Boop-Boop - You’re done!”
               </Typography>
             </CardContent>
           </CardActionArea>
+          <CardMedia
+            image="/images/stars.jpeg"
+            title="Couple"
+            className="stars"
+          />
         </Card>
+      </div>
+      <div>
         <Card className={classes.root}>
           <CardActionArea>
             <CardMedia
@@ -90,7 +98,7 @@ export default function Ratings() {
           />
           <CardContent>
             <Typography gutterBottom variant="h6" component="h6">
-             Jack and Iris
+              Jack and Iris
             </Typography>
 
             <Typography variant="body2" color="textSecondary" component="p">
